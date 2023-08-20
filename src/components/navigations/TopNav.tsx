@@ -4,6 +4,7 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useRouter } from 'next/navigation';
 import styles from './NavStyle.module.scss';
 import NeumorphicButton from '../buttons/NeumorphicButton';
+import Link from 'next/link';
 
 export default function TopNav() {
   const router = useRouter();
@@ -34,16 +35,15 @@ export default function TopNav() {
 
   return (
     <div className={styles.topNav}>
-      <div
-        style={{
-          width: '90%',
-        }}>
-        <span>StarNet</span>
-      </div>
-      <div
-        style={{
-          width: '10%',
-        }}>
+      <div>
+        <NeumorphicButton
+          styled={{
+            textAlign: 'center',
+            maxWidth: '90px',
+          }}
+          onClick={() => router.push('/')}>
+          StarNet
+        </NeumorphicButton>
         <NeumorphicButton
           styled={{
             textAlign: 'center',

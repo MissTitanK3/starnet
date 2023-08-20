@@ -1,9 +1,10 @@
+'use client';
 import '../globals.scss';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import BottomNav from '@/components/navigations/BottomNav';
 import TopNav from '@/components/navigations/TopNav';
-
+import { useProfileStore } from '@/store/profileData/profileDataStore';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
@@ -12,6 +13,9 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const { profile } = useProfileStore();
+  console.log(profile);
+
   return (
     <html lang="en">
       <body className={inter.className}>

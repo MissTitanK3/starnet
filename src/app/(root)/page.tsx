@@ -1,14 +1,19 @@
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
 import TopNav from '@/components/navigations/TopNav';
 
 import styles from './page.module.scss';
 import NeumorphicCard from '@/components/cards/NeumorphicCard';
+import type { ProfileData } from '@/store/profileData/profileDataTypes';
 
-export default async function Home() {
+export type Props = {
+  activeProfile: ProfileData;
+};
+
+export default async function Home({}: Props) {
   const cookiesStore = cookies();
   const supabase = createServerComponentClient({ cookies: () => cookiesStore });
+
   const {
     data: { session },
   } = await supabase.auth.getSession();
@@ -24,7 +29,7 @@ export default async function Home() {
       <h1 className={styles.title}>Welcome to StarNet, {session?.user?.email}!</h1>
       <div
         style={{
-          maxWidth: '90%',
+          maxWidth: '100%',
         }}
         className={styles.navCards}>
         <NeumorphicCard route="/org-center">
@@ -57,23 +62,23 @@ export default async function Home() {
           }}
         />
         <NeumorphicCard route="/">
-          <h2>Starnet Commonwealths</h2>
+          <h2>StarNet Commonwealths</h2>
           <p>Join new groups.</p>
         </NeumorphicCard>
         <NeumorphicCard route="/net-library">
-          <h2>Starnet Library</h2>
+          <h2>StarNet Library</h2>
           <p>Learn about the network.</p>
         </NeumorphicCard>
         <NeumorphicCard route="/">
-          <h2>Starnet Academy</h2>
+          <h2>StarNet Academy</h2>
           <p>Join new groups.</p>
         </NeumorphicCard>
         <NeumorphicCard route="/">
-          <h2>Starnet Casino</h2>
+          <h2>StarNet Casino</h2>
           <p>Join new groups.</p>
         </NeumorphicCard>
         <NeumorphicCard route="/">
-          <h2>Starnet Credit Union</h2>
+          <h2>StarNet Credit Union</h2>
           <p>Join new groups.</p>
         </NeumorphicCard>
       </div>

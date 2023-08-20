@@ -7,25 +7,31 @@ import {
   // Import predefined theme
   ThemeSupa,
 } from '@supabase/auth-ui-shared';
+import { useProfileStore } from '@/store/profileData/profileDataStore';
 
 export default function SignUp() {
   const supabase = createClientComponentClient();
+  const { setProfile } = useProfileStore();
 
   supabase.auth.onAuthStateChange(async (event, session) => {
     if (event !== 'SIGNED_OUT') {
       try {
-        if (window.localStorage.getItem('sb:token') === undefined) {
+        if (window?.localStorage?.getItem('sb:token') === undefined) {
           await supabase.auth.signInWithOAuth({
             provider: 'discord',
           });
         } else {
           const data = await supabase.auth.getSession();
-          await supabase
+          const profile = await supabase
             .from('profile_data')
             .update({
               profile_avatar: data?.data?.session?.user?.user_metadata?.avatar_url,
             })
-            .eq('id', data?.data?.session?.user?.id);
+            .eq('id', data?.data?.session?.user?.id)
+            .select('*');
+          if (profile?.data?.[0] !== undefined) {
+            setProfile(profile.data[0]);
+          }
         }
       } catch (error) {
         console.error(error);
