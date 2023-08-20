@@ -7,7 +7,8 @@ import styles from './page.module.scss';
 import NeumorphicCard from '@/components/cards/NeumorphicCard';
 
 export default async function Home() {
-  const supabase = createServerComponentClient({ cookies });
+  const cookiesStore = cookies();
+  const supabase = createServerComponentClient({ cookies: () => cookiesStore });
   const {
     data: { session },
   } = await supabase.auth.getSession();
