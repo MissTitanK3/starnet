@@ -4,13 +4,8 @@ import TopNav from '@/components/navigations/TopNav';
 
 import styles from './page.module.scss';
 import NeumorphicCard from '@/components/cards/NeumorphicCard';
-import type { ProfileData } from '@/store/profileData/profileDataTypes';
 
-export type Props = {
-  activeProfile: ProfileData;
-};
-
-export default async function Home({}: Props) {
+export default async function Home({}) {
   const cookiesStore = cookies();
   const supabase = createServerComponentClient({ cookies: () => cookiesStore });
 

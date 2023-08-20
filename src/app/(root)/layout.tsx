@@ -1,4 +1,3 @@
-'use client';
 import '../globals.scss';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
@@ -13,9 +12,6 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const { profile } = useProfileStore();
-  console.log(profile);
-
   return (
     <html lang="en">
       <body className={inter.className}>
