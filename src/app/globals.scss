@@ -1,0 +1,27 @@
+@use "../components/variables.scss" as variable;
+@use "../components/mixins.scss" as mixin;
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: variable.$max-width;
+  min-height: variable.$min-height;
+  overflow-x: auto;
+  margin: auto;
+}
+
+body {
+  color: variable.$text-color;
+  background: variable.$primary-color;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}

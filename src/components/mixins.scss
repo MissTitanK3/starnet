@@ -1,0 +1,14 @@
+@use "variables" as variable;
+
+@mixin anchorStyles(){
+  color: variable.$text-color;
+  &:visited {
+    color: variable.$secondary-color;
+  }
+  &:hover {
+    color: variable.$text-color-hover;
+  }
+  &:active {
+    color: variable.$neutral-color;
+  }
+}
