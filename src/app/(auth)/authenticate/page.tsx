@@ -1,31 +1,37 @@
 'use client';
-
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+
+import { Auth } from '@supabase/auth-ui-react';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import {
+  // Import predefined theme
+  ThemeSupa,
+} from '@supabase/auth-ui-shared';
 
 export default function SignUp() {
-  const router = useRouter();
   const supabase = createClientComponentClient();
-  const [toggle, setToggle] = useState(false);
 
-  const handleSignUp = async (email: string, password: string) => {
-    await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: `${location.origin}/auth-api/callback`,
-      },
-    });
-    router.push('/');
-  };
-  const handleSignIn = async (email: string, password: string) => {
-    await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-    router.push('/');
-  };
+  supabase.auth.onAuthStateChange(async (event, session) => {
+    if (event !== 'SIGNED_OUT') {
+      try {
+        if (window.localStorage.getItem('sb:token') === undefined) {
+          await supabase.auth.signInWithOAuth({
+            provider: 'discord',
+          });
+        } else {
+          const data = await supabase.auth.getSession();
+          await supabase
+            .from('profile_data')
+            .update({
+              profile_avatar: data?.data?.session?.user?.user_metadata?.avatar_url,
+            })
+            .eq('id', data?.data?.session?.user?.id);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  });
 
   return (
     <main
@@ -42,59 +48,27 @@ export default function SignUp() {
           justifyContent: 'center',
         }}>
         <h1>Authenticate</h1>
-        <button onClick={() => setToggle(!toggle)}>Sign {toggle ? 'In' : 'Up'}</button>
       </div>
-      {toggle ? (
-        <>
-          <h3>Sign Up</h3>
-          <form
-            onSubmit={(event) => {
-              event.preventDefault();
-              const email = event.currentTarget.email.value;
-              const password = event.currentTarget.password.value;
-              handleSignUp(email, password);
-            }}>
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-              <label htmlFor="email">Email</label>
-              <input id="email" type="email" />
-              <label htmlFor="password">Password</label>
-              <input id="password" type="password" />
-              <button type="submit">Authenticate</button>
-            </div>
-          </form>
-        </>
-      ) : (
-        <>
-          <h3>Sign In</h3>
-          <form
-            onSubmit={(event) => {
-              event.preventDefault();
-              const email = event.currentTarget.email.value;
-              const password = event.currentTarget.password.value;
-              handleSignIn(email, password);
-            }}>
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-              <label htmlFor="email">Email</label>
-              <input id="email" type="email" />
-              <label htmlFor="password">Password</label>
-              <input id="password" type="password" />
-              <button type="submit">Authenticate</button>
-            </div>
-          </form>
-        </>
-      )}
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-evenly',
+          alignItems: 'center',
+          width: '50%',
+          marginTop: '120px',
+        }}>
+        <Auth
+          dark
+          onlyThirdPartyProviders
+          supabaseClient={supabase}
+          redirectTo="/" // Redirect to the home page after the user is logged in
+          appearance={{
+            theme: ThemeSupa,
+          }}
+          theme="dark"
+          providers={['discord']}
+        />
+      </div>
     </main>
   );
 }

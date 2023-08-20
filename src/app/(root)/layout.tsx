@@ -16,10 +16,23 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className={inter.className}>
         <TopNav />
-        <main>
-          <div className="leftSideBar"></div>
-          {children}
-          <div className="rightSideBar"></div>
+        <main
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            width: '98dvw',
+            height: '99dvh',
+            scrollbarWidth: 'none',
+          }}>
+          <div
+            style={{
+              width: '100dvw',
+              height: '100dvh',
+            }}>
+            {children}
+          </div>
         </main>
         <BottomNav />
       </body>

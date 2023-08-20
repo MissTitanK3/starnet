@@ -12,15 +12,16 @@ export default async function Home() {
   const {
     data: { session },
   } = await supabase.auth.getSession();
+  console.log(session);
 
-  if (!session) {
-    redirect('/authenticate');
+  if (!session?.user) {
+    console.log('No Session Found');
   }
 
   return (
     <main className={styles.main}>
       <TopNav />
-      <h1 className={styles.title}>Welcome to StarNet, {session.user.email}!</h1>
+      <h1 className={styles.title}>Welcome to StarNet, {session?.user?.email}!</h1>
       <div
         style={{
           maxWidth: '90%',
@@ -38,16 +39,41 @@ export default async function Home() {
           <h2>Mission Center</h2>
           <p>Plan missions and invite your friends.</p>
         </NeumorphicCard>
-        <NeumorphicCard route="/net-library">
-          <h2>Network Library</h2>
-          <p>Learn about the network.</p>
-        </NeumorphicCard>
         <NeumorphicCard route="/social-center">
           <h2>Social Center</h2>
           <p>Socialize with new friends and groups.</p>
         </NeumorphicCard>
-        <NeumorphicCard route="/choose-community">
-          <h2>Choose Community</h2>
+        <NeumorphicCard route="/community-center">
+          <h2>Community Center</h2>
+          <p>Join new groups.</p>
+        </NeumorphicCard>
+        <hr
+          style={{
+            width: '100%',
+            height: '1px',
+            border: 'none',
+            backgroundColor: 'black',
+            margin: '1rem 0',
+          }}
+        />
+        <NeumorphicCard route="/">
+          <h2>Starnet Commonwealths</h2>
+          <p>Join new groups.</p>
+        </NeumorphicCard>
+        <NeumorphicCard route="/net-library">
+          <h2>Starnet Library</h2>
+          <p>Learn about the network.</p>
+        </NeumorphicCard>
+        <NeumorphicCard route="/">
+          <h2>Starnet Academy</h2>
+          <p>Join new groups.</p>
+        </NeumorphicCard>
+        <NeumorphicCard route="/">
+          <h2>Starnet Casino</h2>
+          <p>Join new groups.</p>
+        </NeumorphicCard>
+        <NeumorphicCard route="/">
+          <h2>Starnet Credit Union</h2>
           <p>Join new groups.</p>
         </NeumorphicCard>
       </div>
