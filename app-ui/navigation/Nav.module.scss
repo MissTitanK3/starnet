@@ -1,0 +1,52 @@
+@use "../variables.scss" as variable;
+@use "../mixins.scss" as mixin;
+
+.hoverOnly {
+  &:hover {
+    background-color: variable.$linear-text-color;
+    background: -webkit-linear-gradient(180deg,#1A5DF9 0%, #75DCFF 100%);
+    background-clip: text;
+    color: transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    cursor: pointer;
+  }
+}
+
+.linkWrapper {
+  margin-left: 1rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  a {
+    margin-left: 0.3rem;
+  }
+}
+
+.mainWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  position: absolute;
+  width: 100%;
+  padding: 0.6rem;
+  bottom: 0;
+  background-color: #242424;
+}
+
+.counter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+  span {
+    color: #3c3c3c;
+  }
+  hr {
+    margin: 0 0.5rem;
+    border-color: #3c3c3c;
+    height: 1.5rem;
+    width: auto;
+  }
+}
