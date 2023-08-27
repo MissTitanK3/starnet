@@ -1,9 +1,10 @@
-import Link from 'next/link';
-import styles from './page.module.css';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { Metadata } from 'next';
+
+// export const dynamicParams = true;
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: 'Starnet',
