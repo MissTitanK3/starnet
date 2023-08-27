@@ -3,6 +3,12 @@ import styles from './page.module.css';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Starnet',
+  description: 'Welcome to Starnet!',
+};
 
 export default async function Home() {
   const supabase = createServerComponentClient({ cookies });
