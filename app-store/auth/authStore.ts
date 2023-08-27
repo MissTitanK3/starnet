@@ -19,7 +19,6 @@ export const useAuthStore = create<ExtendedProfile>(
       const data: any | null = await getActiveProfileFromSupa({
         activeId: id,
       });
-      console.log('data', data);
       set((state: any) => ({
         isAuthenticated: true,
         profile: {

@@ -16,7 +16,6 @@ export const getProfilesFromSupa = async () => {
 };
 export const getActiveProfileFromSupa = async ({ activeId }: Props) => {
   let { data: profile, error } = await supabase.from('profile_data').select('*').match({ id: activeId });
-  console.log('profile', profile?.[0]);
   if (error) {
     console.error('error', error);
     return {

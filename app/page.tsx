@@ -14,8 +14,6 @@ export const metadata: Metadata = {
 export default async function Home() {
   const supabase = createServerComponentClient({ cookies });
   const { data } = await supabase.auth.getSession();
-  console.log(data);
-
   if (data.session?.provider_token) {
     return redirect('/home');
   }
