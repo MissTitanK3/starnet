@@ -2,7 +2,6 @@ import React from 'react';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import WelcomeHeader from '@/app-ui/composite/home/WelcomeHeader';
 import NeuCard from '@/app-ui/element/cards/NeuCard';
 
 // export const dynamicParams = true;
