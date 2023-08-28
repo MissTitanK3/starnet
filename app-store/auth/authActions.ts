@@ -1,5 +1,9 @@
-import { supabase } from '@/app-store/supabaseConfig';
+'use client';
+
 import type { AuthData } from '@/app-store/auth/authTypes';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+
+export const supabaseClient = createClientComponentClient();
 
 export type Props = {
   profile?: AuthData;
@@ -15,7 +19,7 @@ export const getProfilesFromSupa = async () => {
   // }
 };
 export const getActiveProfileFromSupa = async ({ activeId }: Props) => {
-  let { data: profile, error } = await supabase.from('profile_data').select('*').match({ id: activeId });
+  let { data: profile, error } = await supabaseClient.from('profile_data').select('*').match({ id: activeId });
   if (error) {
     console.error('error', error);
     return {

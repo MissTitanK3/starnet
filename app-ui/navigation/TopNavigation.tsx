@@ -2,7 +2,7 @@
 
 import { useAuthStore } from '@/app-store/auth/authStore';
 import Link from 'next/link';
-import React, { useEffect } from 'react';
+import React from 'react';
 import NeuButton from '../element/buttons/NeuButton';
 import { getURL } from '@/app-store/supabaseConfig';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';

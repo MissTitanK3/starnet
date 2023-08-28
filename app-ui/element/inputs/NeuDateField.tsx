@@ -3,7 +3,6 @@ import styles from './Input.module.scss';
 import NeuCard from '../cards/NeuCard';
 
 type Props = {
-  type: HTMLInputElement['type'];
   value: string;
   id: string;
   inputStyleOverride?: React.CSSProperties;
@@ -12,21 +11,20 @@ type Props = {
   placeholder?: string;
 };
 
-const NeuInput = ({ type, value, id, inputStyleOverride, changeInput, placeholder, cardStyleOverride }: Props) => {
+const NeuDateField = ({ value, id, inputStyleOverride, changeInput, placeholder, cardStyleOverride }: Props) => {
   return (
     <NeuCard cardStyleOverride={cardStyleOverride}>
       <input
+        type="datetime-local"
         placeholder={placeholder}
         className={styles.neuInput}
         style={inputStyleOverride}
         id={id}
-        type={type}
         value={value}
         onChange={changeInput}
-        multiple
       />
     </NeuCard>
   );
 };
 
-export default NeuInput;
+export default NeuDateField;

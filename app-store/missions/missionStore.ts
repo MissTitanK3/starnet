@@ -1,13 +1,13 @@
 import { create } from 'zustand';
 import { log } from '../zustandLog';
 import type { Mission } from './missionTypes';
-import { getMissionsFromSupa } from './missionActions';
+import { getMissionsFromSupa, postMissionToSupa } from './missionActions';
 
 export type ExtendedMission = Mission & {
   [key: string | number]: any;
   mission: Mission;
   missionsFilter: string;
-  allMissions: Mission[];
+  allMissions: Mission[] | null;
   setMissionFilter: (filter: string) => void;
   setMission: (id: string) => void;
   addMission: (mission: Mission) => void;
@@ -18,12 +18,15 @@ export const useMissionStore = create<ExtendedMission>(
   log((set: any, get: any) => ({
     mission: {} as ExtendedMission,
     missionsFilter: '',
-    allMissions: [] as Mission[],
+    allMissions: null,
     setMissionFilter: async (filter: string) => {
+      if (filter === '') {
+        get().getAllMissions();
+      }
       set((state: any) => ({
         missionsFilter: filter,
-        allMissions: state.allMissions.filter((mission: Mission) => {
-          return mission.title.toLowerCase().includes(filter.toLowerCase());
+        allMissions: state?.allMissions?.filter((mission: Mission) => {
+          return mission?.mission_name?.toLowerCase()?.includes(filter?.toLowerCase());
         }),
       }));
     },
@@ -36,15 +39,13 @@ export const useMissionStore = create<ExtendedMission>(
       }));
     },
     addMission: async (mission: Mission) => {
-      set((state: any) => ({
-        allMissions: [...state.allMissions, mission],
-      }));
+      await postMissionToSupa(mission);
+      await get().getAllMissions();
     },
     getAllMissions: async () => {
-      const missions = await getMissionsFromSupa();
-      console.log('missions', missions);
+      const data: any | null = await getMissionsFromSupa();
       set((state: any) => ({
-        allMissions: missions,
+        allMissions: data,
       }));
     },
   })),

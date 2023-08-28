@@ -3,30 +3,37 @@ import styles from './Input.module.scss';
 import NeuCard from '../cards/NeuCard';
 
 type Props = {
-  type: HTMLInputElement['type'];
   value: string;
   id: string;
   inputStyleOverride?: React.CSSProperties;
   cardStyleOverride?: React.CSSProperties;
-  changeInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  changeInput: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   placeholder?: string;
+  rowsCount: number;
 };
 
-const NeuInput = ({ type, value, id, inputStyleOverride, changeInput, placeholder, cardStyleOverride }: Props) => {
+const NeuTextArea = ({
+  value,
+  id,
+  inputStyleOverride,
+  changeInput,
+  placeholder,
+  cardStyleOverride,
+  rowsCount,
+}: Props) => {
   return (
     <NeuCard cardStyleOverride={cardStyleOverride}>
-      <input
+      <textarea
         placeholder={placeholder}
         className={styles.neuInput}
         style={inputStyleOverride}
         id={id}
-        type={type}
         value={value}
         onChange={changeInput}
-        multiple
+        rows={rowsCount}
       />
     </NeuCard>
   );
 };
 
-export default NeuInput;
+export default NeuTextArea;
