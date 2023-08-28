@@ -7,11 +7,7 @@ import NeuCard from '@/app-ui/element/cards/NeuCard';
 // export const dynamicParams = true;
 export const dynamic = 'force-dynamic';
 
-type Props = {
-  profile: any;
-};
-
-async function Page({}: Props) {
+async function Page() {
   const supabase = createServerComponentClient({ cookies });
   const {
     data: { session },
