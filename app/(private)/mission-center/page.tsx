@@ -14,7 +14,7 @@ const Page = (props: Props) => {
         justifyContent: 'space-evenly',
         alignItems: 'center',
         flexWrap: 'wrap',
-        maxWidth: '70dvw',
+        maxWidth: '100dvw',
         margin: '50px auto',
       }}>
       <SearchAndAdd />

@@ -25,7 +25,7 @@ const MissionList = (props: Props) => {
                 margin: '20px',
                 minHeight: '200px',
                 display: 'flex',
-                flexDirection: 'row',
+                flexDirection: 'column',
                 alignContent: 'center',
                 alignItems: 'center',
                 justifyContent: 'space-between',
@@ -34,8 +34,8 @@ const MissionList = (props: Props) => {
                 className="left"
                 style={{
                   display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-evenly',
+                  justifyContent: 'space-between',
+                  width: '100%',
                   height: '100%',
                 }}>
                 <div>
@@ -43,27 +43,36 @@ const MissionList = (props: Props) => {
                   <h2>{mission?.mission_name}</h2>
                 </div>
                 <div>
-                  <h5>SCOPE</h5>
-                  <h4>{mission?.mission_scope}</h4>
-                </div>
-                <div>
-                  <h6>OPTIMAL PARTICIPANTS</h6>
-                  <h2>{mission?.optimal_participation}</h2>
+                  <h5>START DATE</h5>
+                  <h6>{formattedDate}</h6>
                 </div>
               </div>
               <div
-                className="right"
                 style={{
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-between',
                   height: '100%',
-                  textAlign: 'right',
+                  textAlign: 'center',
+                  width: '100%',
+                  margin: '20px 0',
+                }}>
+                <h5>SCOPE</h5>
+                <h4>{mission?.mission_scope}</h4>
+              </div>
+              <div
+                className="right"
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  width: '100%',
+                  height: '100%',
                 }}>
                 <div>
-                  <h5>START DATE</h5>
-                  <h6>{formattedDate}</h6>
+                  <h6>OPTIMAL PARTICIPANTS</h6>
+                  <h2>{mission?.optimal_participation}</h2>
                 </div>
+
                 <div>
                   <h6>CURRENT PARTICIPANTS</h6>
                   <h2>{mission?.members?.length || 0}</h2>

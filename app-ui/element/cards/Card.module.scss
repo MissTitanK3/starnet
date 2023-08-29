@@ -24,9 +24,18 @@
       -webkit-text-fill-color: transparent;
     }
     cursor: pointer;
-    svg {
-      stroke: #1A5DF9;
-    }
   }
-
+}
+.neumorphicDarkCardNohover {
+  background: variable.$primary-color-alpha;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  height: 120px;
+  justify-content: space-between;
+  padding: 1rem;
+  width: 300px;
+  min-width: 300px;
+  margin: 15px;
+  box-shadow: 7px 7px 16px 0px #0000003D, -7px -7px 16px 0px #6161613d;
 }

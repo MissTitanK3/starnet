@@ -1,7 +1,8 @@
 import { log } from './../zustandLog';
 import { create } from 'zustand';
 import type { AuthData } from './authTypes';
-import { getActiveProfileFromSupa } from './authActions';
+import { getActiveProfileFromSupa, getProfileFromSupa } from './authActions';
+import { UUID } from 'crypto';
 
 export type ExtendedProfile = AuthData & {
   [key: string | number]: any;
@@ -9,6 +10,7 @@ export type ExtendedProfile = AuthData & {
   isAuthenticated: boolean;
   setProfile: (id: string) => void;
   logout: () => void;
+  getSingleProfile: (id: any) => AuthData;
 };
 
 export const useAuthStore = create<ExtendedProfile>(
@@ -31,6 +33,11 @@ export const useAuthStore = create<ExtendedProfile>(
         profile: {},
         isAuthenticated: false,
       }));
+    },
+    getProfile: async (id: string) => {
+      return getProfileFromSupa({
+        activeId: id,
+      });
     },
   })),
 );

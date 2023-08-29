@@ -10,6 +10,10 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import logo from '@/public/starnet_logo.png';
 import { getVariableRankImageDetails } from '@/app-store/utils/getRankImageDetails';
+import { AiFillHome } from 'react-icons/ai';
+import { MdGroup, MdGroups2 } from 'react-icons/md';
+import { GiOrganigram } from 'react-icons/gi';
+import { IoLibrarySharp } from 'react-icons/io5';
 
 type Props = {};
 
@@ -67,35 +71,30 @@ const TopNavigation = ({}: Props) => {
               justifyContent: 'flex-end',
               marginRight: '1.5rem',
             }}>
-            <NeuButton
-              styled={{
-                width: '75px',
-              }}>
-              <Link href="/home">Home</Link>
+            <NeuButton>
+              <Link style={{ margin: '10px' }} href="/home">
+                <AiFillHome />
+              </Link>
             </NeuButton>
-            <NeuButton
-              styled={{
-                width: '150px',
-              }}>
-              <Link href="/mission-center">Mission Center</Link>
+            <NeuButton>
+              <Link style={{ margin: '10px' }} href="/mission-center">
+                <MdGroup />
+              </Link>
             </NeuButton>
-            <NeuButton
-              styled={{
-                width: '150px',
-              }}>
-              <Link href="/event-center">Event Center</Link>
+            <NeuButton>
+              <Link style={{ margin: '10px' }} href="/event-center">
+                <MdGroups2 />
+              </Link>
             </NeuButton>
-            <NeuButton
-              styled={{
-                width: '150px',
-              }}>
-              <Link href="/org-center">Org Center</Link>
+            <NeuButton>
+              <Link style={{ margin: '10px' }} href="/org-center">
+                <GiOrganigram />
+              </Link>
             </NeuButton>
-            <NeuButton
-              styled={{
-                width: '100px',
-              }}>
-              <Link href="/library">Library</Link>
+            <NeuButton>
+              <Link style={{ margin: '10px' }} href="/library">
+                <IoLibrarySharp />
+              </Link>
             </NeuButton>
             <Link href={`/user/${profile?.id}`}>
               <div

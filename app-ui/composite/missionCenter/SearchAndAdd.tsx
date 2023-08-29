@@ -13,7 +13,6 @@ const SearchAndAdd = (props: Props) => {
   const { missionFilter, setMissionFilter } = useMissionStore();
   const { setNewMissionModal } = useModalStore();
   const handleAddMission = () => {
-    console.log('add mission');
     setNewMissionModal(true);
   };
   return (
