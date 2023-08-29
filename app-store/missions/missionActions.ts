@@ -1,4 +1,4 @@
-import type { Mission } from '@/app-store/missions/missionTypes';
+import type { ChatObject, Mission } from '@/app-store/missions/missionTypes';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 
 export const supabaseClient = createClientComponentClient();
@@ -33,6 +33,16 @@ export const getMissionFromSupa = async ({ id }: { id: number }) => {
 
 export const postMissionToSupa = async (mission: Mission) => {
   const { data, error } = await supabaseClient.from('missions').insert([mission]).select('*');
+  if (error) {
+    console.error('error', error);
+    return;
+  } else {
+    return data;
+  }
+};
+
+export const putMissionToSupa = async (mission: Mission) => {
+  const { data, error } = await supabaseClient.from('missions').update(mission).match({ id: mission.id }).select('*');
   if (error) {
     console.error('error', error);
     return;

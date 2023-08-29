@@ -1,3 +1,4 @@
+import MissionChat from '@/app-ui/composite/missionCenter/MissionChat';
 import MissionFinances from '@/app-ui/composite/missionCenter/MissionFinances';
 import MissionInfo from '@/app-ui/composite/missionCenter/MissionInfo';
 import MissionNavActions from '@/app-ui/composite/missionCenter/MissionNavActions';
@@ -32,7 +33,18 @@ const Page = ({ params: { missionId } }: Props) => {
         </div>
         <div className="groups">{/* Groups */}</div>
       </div>
-      <div style={{ height: '84dvh', width: '29dvw', position: 'fixed', top: 80, right: 0 }} className="chat">
+      <div
+        style={{
+          height: '84dvh',
+          width: '29dvw',
+          position: 'fixed',
+          top: 80,
+          right: 0,
+          backgroundColor: 'transparent',
+          overflowY: 'scroll',
+          display: 'flex',
+        }}
+        className="chat">
         <div
           style={{
             height: '75dvh',
@@ -41,7 +53,7 @@ const Page = ({ params: { missionId } }: Props) => {
             margin: '50px 0',
           }}
         />
-        {/* Chat */}
+        <MissionChat />
       </div>
     </div>
   );

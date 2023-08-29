@@ -69,6 +69,7 @@ const TopNavigation = ({}: Props) => {
             style={{
               display: 'flex',
               justifyContent: 'flex-end',
+              alignItems: 'center',
               marginRight: '1.5rem',
             }}>
             <NeuButton>

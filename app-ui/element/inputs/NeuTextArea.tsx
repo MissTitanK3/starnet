@@ -7,9 +7,10 @@ type Props = {
   id: string;
   inputStyleOverride?: React.CSSProperties;
   cardStyleOverride?: React.CSSProperties;
-  changeInput: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  changeInput?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   placeholder?: string;
   rowsCount: number;
+  keyDownAction?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
 };
 
 const NeuTextArea = ({
@@ -20,6 +21,7 @@ const NeuTextArea = ({
   placeholder,
   cardStyleOverride,
   rowsCount,
+  keyDownAction,
 }: Props) => {
   return (
     <NeuCard cardStyleOverride={cardStyleOverride}>
@@ -31,6 +33,7 @@ const NeuTextArea = ({
         value={value}
         onChange={changeInput}
         rows={rowsCount}
+        onKeyDown={keyDownAction}
       />
     </NeuCard>
   );

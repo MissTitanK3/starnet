@@ -1,11 +1,12 @@
 import { create } from 'zustand';
 import { log } from '../zustandLog';
-import type { Mission } from './missionTypes';
+import type { ChatObject, Mission } from './missionTypes';
 import {
   getMissionFromSupa,
   getMissionsFromSupa,
   postArchiveMissionToSupa,
   postMissionToSupa,
+  putMissionToSupa,
   putSecurityCodeToSupa,
 } from './missionActions';
 import { getMissionEventFromSupa, getProfileFromSupa } from '../auth/authActions';
@@ -23,10 +24,11 @@ export type ExtendedMission = Mission & {
   addMission: (mission: Mission) => void;
   getAllMissions: () => void;
   setActiveTab: (tab: string) => void;
-  getCreatorProfile: (id: any) => AuthData;
+  getMemberProfile: (id: any) => AuthData;
   getAttachedEvents: (id: any) => any;
   resetSecurityCode: (id: any) => any;
   archiveMission: (id: any) => any;
+  addChatMessage: (newChat: ChatObject, id: string) => any;
 };
 
 export const useMissionStore = create<ExtendedMission>(
@@ -67,7 +69,7 @@ export const useMissionStore = create<ExtendedMission>(
         activeTab: tab,
       }));
     },
-    getCreatorProfile: async (id: string) => {
+    getMemberProfile: async (id: string) => {
       return getProfileFromSupa({
         activeId: id,
       });
@@ -90,6 +92,20 @@ export const useMissionStore = create<ExtendedMission>(
         id,
         is_archived: get().mission?.is_archived ? false : true,
       });
+      get().setMission(id);
+    },
+    addChatMessage: async (newChat: ChatObject, id: string) => {
+      const mission = get().mission;
+      let chatUpdate: ChatObject[] = [];
+      if (mission?.chats) {
+        chatUpdate = [...mission.chats, newChat];
+      } else {
+        chatUpdate = [newChat];
+      }
+      mission.chats = chatUpdate.sort((a: ChatObject, b: ChatObject) => {
+        return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+      });
+      await putMissionToSupa(mission);
       get().setMission(id);
     },
   })),

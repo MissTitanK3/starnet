@@ -2,7 +2,7 @@ import { BilletObjType } from '@/app-ui/UiTypes';
 import { UUID } from 'crypto';
 
 export type AuthData = {
-  id: number;
+  id: UUID;
   created_at: string;
   recruited_by: UUID;
   date_promoted: string;

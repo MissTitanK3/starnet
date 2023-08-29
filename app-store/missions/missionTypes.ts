@@ -58,6 +58,7 @@ export type ChatObject = {
   created_at: string | number;
   hidden: boolean;
   origin?: string;
+  alertStatus?: 'General Alert' | 'Contact Aquired' | 'Contact Imminent' | 'Contact Engaging' | 'Avoid Contact';
 };
 
 export type RatingObject = {

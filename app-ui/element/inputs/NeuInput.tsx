@@ -8,11 +8,21 @@ type Props = {
   id: string;
   inputStyleOverride?: React.CSSProperties;
   cardStyleOverride?: React.CSSProperties;
-  changeInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  changeInput?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 };
 
-const NeuInput = ({ type, value, id, inputStyleOverride, changeInput, placeholder, cardStyleOverride }: Props) => {
+const NeuInput = ({
+  type,
+  value,
+  id,
+  inputStyleOverride,
+  changeInput,
+  placeholder,
+  cardStyleOverride,
+  onKeyDown,
+}: Props) => {
   return (
     <NeuCard cardStyleOverride={cardStyleOverride}>
       <input
@@ -24,6 +34,7 @@ const NeuInput = ({ type, value, id, inputStyleOverride, changeInput, placeholde
         value={value}
         onChange={changeInput}
         multiple
+        onKeyDown={onKeyDown}
       />
     </NeuCard>
   );
