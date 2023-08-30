@@ -18,7 +18,10 @@ export type AuthData = {
   network_department: {};
   last_signed_in: string;
   network_ambassador: RankObjType;
-  bravo_billet: {};
+  bravo_billet: {
+    label: string;
+    value: number;
+  };
   has_read_rules: boolean;
   profile_providerId: string;
   profile_avatar: string;

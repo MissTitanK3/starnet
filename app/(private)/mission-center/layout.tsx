@@ -1,7 +1,5 @@
 'use client';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import { getURL } from '@/app-store/supabaseConfig';
-import { useAuthStore } from '@/app-store/auth/authStore';
+
 import { useEffect } from 'react';
 import { useMissionStore } from '@/app-store/missions/missionStore';
 

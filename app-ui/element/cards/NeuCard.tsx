@@ -9,13 +9,18 @@ type Props = {
   route?: string;
   cardStyleOverride?: React.CSSProperties;
   activeHover?: boolean;
+  minHeightOverride?: string;
 };
 
-function NeuCard({ children, route, cardStyleOverride, activeHover = true }: Props) {
+function NeuCard({ children, route, cardStyleOverride, activeHover = true, minHeightOverride }: Props) {
   const router = useRouter();
   return (
     <div
-      style={cardStyleOverride}
+      style={{
+        ...cardStyleOverride,
+        height: '100%',
+        minHeight: minHeightOverride,
+      }}
       onClick={() => route && router.push(route)}
       className={activeHover ? styles.neumorphicDarkCard : styles.neumorphicDarkCardNohover}>
       {children}

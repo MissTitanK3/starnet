@@ -9,6 +9,7 @@ import { useClickOutside } from '@/app-ui/hooks/useClickOutside';
 import { useRouter } from 'next/navigation';
 import { useModalStore } from '@/app-store/modals/modalStore';
 import EditMissionModal from '@/app-ui/modals/EditMissionModal';
+import NeuCard from '@/app-ui/element/cards/NeuCard';
 
 type Props = {
   id: string;
@@ -82,7 +83,7 @@ const MissionNavActions = ({ id }: Props) => {
       <div
         style={{
           display: 'flex',
-          justifyContent: 'space-evenly',
+          justifyContent: 'space-between',
           width: '100%',
           margin: '30px 0',
         }}>

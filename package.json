@@ -28,9 +28,11 @@
     "react-icons": "^4.10.1",
     "supabase": "^1.88.0",
     "typescript": "5.2.2",
+    "uuid": "^9.0.0",
     "zustand": "^4.4.1"
   },
   "devDependencies": {
+    "@types/uuid": "^9.0.2",
     "encoding": "^0.1.13",
     "sass": "^1.66.1"
   }

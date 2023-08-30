@@ -51,6 +51,7 @@ export type ExpenseSet = {
 };
 
 export type ChatObject = {
+  id?: string;
   mission_id: string | number;
   event_link_id?: number;
   sender: UUID;

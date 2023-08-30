@@ -5,8 +5,6 @@ import React from 'react';
 
 type Props = {};
 
-const Page = (props: Props) => {
+export default function Loading() {
   return <LoadingSpinner />;
-};
-
-export default Page;
+}

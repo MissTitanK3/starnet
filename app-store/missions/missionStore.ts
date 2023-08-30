@@ -28,7 +28,8 @@ export type ExtendedMission = Mission & {
   getAttachedEvents: (id: any) => any;
   resetSecurityCode: (id: any) => any;
   archiveMission: (id: any) => any;
-  addChatMessage: (newChat: ChatObject, id: string) => any;
+  addChatMessage: (newChat: ChatObject) => any;
+  archiveChatMessage: (chatId: string) => any;
 };
 
 export const useMissionStore = create<ExtendedMission>(
@@ -94,7 +95,7 @@ export const useMissionStore = create<ExtendedMission>(
       });
       get().setMission(id);
     },
-    addChatMessage: async (newChat: ChatObject, id: string) => {
+    addChatMessage: async (newChat: ChatObject) => {
       const mission = get().mission;
       let chatUpdate: ChatObject[] = [];
       if (mission?.chats) {
@@ -106,7 +107,19 @@ export const useMissionStore = create<ExtendedMission>(
         return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
       });
       await putMissionToSupa(mission);
-      get().setMission(id);
+      get().setMission(mission.id);
+    },
+    archiveChatMessage: async (chatId: string) => {
+      const mission = get().mission;
+      const chatUpdate = mission?.chats?.map((chat: ChatObject) => {
+        if (chat.id === chatId) {
+          chat.hidden = chat.hidden ? false : true;
+        }
+        return chat;
+      });
+      mission.chats = chatUpdate;
+      await putMissionToSupa(mission);
+      get().setMission(mission.id);
     },
   })),
 );

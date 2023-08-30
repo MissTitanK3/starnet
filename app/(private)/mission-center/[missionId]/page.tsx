@@ -21,7 +21,7 @@ const Page = ({ params: { missionId } }: Props) => {
         maxWidth: '100dvw',
         margin: '0 auto',
       }}>
-      <div style={{ height: '84dvh', width: '68dvw', marginRight: '25dvw' }} className="contentBody">
+      <div style={{ height: '84dvh', width: '58dvw', marginRight: '25dvw' }} className="contentBody">
         <div className="header">
           <MissionNavActions id={missionId} />
         </div>
@@ -36,7 +36,7 @@ const Page = ({ params: { missionId } }: Props) => {
       <div
         style={{
           height: '84dvh',
-          width: '29dvw',
+          width: '30dvw',
           position: 'fixed',
           top: 80,
           right: 0,
@@ -45,14 +45,6 @@ const Page = ({ params: { missionId } }: Props) => {
           display: 'flex',
         }}
         className="chat">
-        <div
-          style={{
-            height: '75dvh',
-            width: '2px',
-            borderRight: '1px solid #575757',
-            margin: '50px 0',
-          }}
-        />
         <MissionChat />
       </div>
     </div>

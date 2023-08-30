@@ -5,9 +5,8 @@ import { useMissionStore } from '@/app-store/missions/missionStore';
 import { getVariableRankImageDetails } from '@/app-store/utils/getRankImageDetails';
 import { getLoggedAndExpire } from '@/app-store/utils/getTimeFormat';
 import NeuCard from '@/app-ui/element/cards/NeuCard';
-import LoadingSpinner from '@/app-ui/element/custom/LoadingSpinner';
 import Image from 'next/image';
-import React, { Suspense, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 type Props = {};
 
@@ -43,153 +42,151 @@ const MissionInfo = (props: Props) => {
       style={{
         overflowY: 'auto',
       }}>
-      <Suspense fallback={<LoadingSpinner />}>
-        <NeuCard
-          activeHover={false}
-          cardStyleOverride={{
-            width: '95%',
-            margin: '50px auto',
+      <NeuCard
+        activeHover={false}
+        cardStyleOverride={{
+          width: '95%',
+          margin: '50px auto',
+        }}>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            height: '100%',
           }}>
+          <div>
+            <h6>Optimal Member Participation</h6>
+            <h5>{mission?.optimal_participation}</h5>
+          </div>
           <div
             style={{
+              textAlign: 'center',
               display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
               justifyContent: 'space-between',
               height: '100%',
             }}>
             <div>
-              <h6>Optimal Member Participation</h6>
-              <h5>{mission?.optimal_participation}</h5>
+              <h6>Mission Name</h6>
+              <h5>{mission?.mission_name}</h5>
             </div>
+            <div>
+              <h6>Mission Type</h6>
+              <h5>{mission?.mission_type}</h5>
+            </div>
+          </div>
+          <div
+            style={{
+              textAlign: 'right',
+            }}>
+            <h6>Mission Security Code</h6>
+            <h5>{mission?.op_sec_code}</h5>
+          </div>
+        </div>
+      </NeuCard>
+      {mission?.event_id && (
+        <NeuCard
+          activeHover={false}
+          cardStyleOverride={{
+            width: '95%',
+            margin: '50px auto',
+          }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+            }}>
+            <div>
+              <h6>Event Name</h6>
+              <h5>{eventData?.name}</h5>
+            </div>
+            <div>
+              <h6>Event ID</h6>
+              <h5>{eventData?.id}</h5>
+            </div>
+          </div>
+        </NeuCard>
+      )}
+      <NeuCard
+        activeHover={false}
+        cardStyleOverride={{
+          width: '95%',
+          margin: '50px auto',
+        }}>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+          }}>
+          <div>
+            <h6>Mission Creator</h6>
             <div
               style={{
-                textAlign: 'center',
                 display: 'flex',
-                flexDirection: 'column',
                 alignItems: 'center',
-                justifyContent: 'space-between',
-                height: '100%',
               }}>
-              <div>
-                <h6>Mission Name</h6>
-                <h5>{mission?.mission_name}</h5>
-              </div>
-              <div>
-                <h6>Mission Type</h6>
-                <h5>{mission?.mission_type}</h5>
-              </div>
-            </div>
-            <div
-              style={{
-                textAlign: 'right',
-              }}>
-              <h6>Mission Security Code</h6>
-              <h5>{mission?.op_sec_code}</h5>
+              {rankImageDetails && (
+                <Image
+                  src={rankImageDetails?.xSmall?.src}
+                  alt={`Image of ${missionCreator?.network_rank?.abbreviation}`}
+                  width={0}
+                  height={0}
+                  style={{
+                    width: rankImageDetails?.xSmall?.width,
+                    height: rankImageDetails?.xSmall?.height,
+                    marginRight: '0.5rem',
+                  }}
+                />
+              )}
+              <h5>{missionCreator?.in_game_name}</h5>
             </div>
           </div>
-        </NeuCard>
-        {mission?.event_id && (
-          <NeuCard
-            activeHover={false}
-            cardStyleOverride={{
-              width: '95%',
-              margin: '50px auto',
-            }}>
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-              }}>
-              <div>
-                <h6>Event Name</h6>
-                <h5>{eventData?.name}</h5>
-              </div>
-              <div>
-                <h6>Event ID</h6>
-                <h5>{eventData?.id}</h5>
-              </div>
-            </div>
-          </NeuCard>
-        )}
-        <NeuCard
-          activeHover={false}
-          cardStyleOverride={{
-            width: '95%',
-            margin: '50px auto',
-          }}>
           <div
             style={{
-              display: 'flex',
-              justifyContent: 'space-between',
+              textAlign: 'center',
             }}>
-            <div>
-              <h6>Mission Creator</h6>
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                }}>
-                {rankImageDetails && (
-                  <Image
-                    src={rankImageDetails?.xSmall?.src}
-                    alt={`Image of ${missionCreator?.network_rank?.abbreviation}`}
-                    width={0}
-                    height={0}
-                    style={{
-                      width: rankImageDetails?.xSmall?.width,
-                      height: rankImageDetails?.xSmall?.height,
-                      marginRight: '0.5rem',
-                    }}
-                  />
-                )}
-                <h5>{missionCreator?.in_game_name}</h5>
-              </div>
-            </div>
-            <div
-              style={{
-                textAlign: 'center',
-              }}>
-              <h6>Start Details</h6>
-              <h5>{formattedDate}</h5>
-            </div>
-            <div
-              style={{
-                textAlign: 'right',
-              }}>
-              <h6>Is Archived</h6>
-              <h5>{mission?.is_archived ? 'Yes' : 'No'}</h5>
-            </div>
+            <h6>Start Details</h6>
+            <h5>{formattedDate}</h5>
           </div>
-        </NeuCard>
-        <NeuCard
-          activeHover={false}
-          cardStyleOverride={{
-            width: '95%',
-            margin: '50px auto',
-            height: '100%',
-          }}>
           <div
             style={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
+              textAlign: 'right',
             }}>
-            <div>
-              <h6>Mission Scope (TL;DR)</h6>
-              <span>{mission?.mission_scope}</span>
-            </div>
-            <br />
-            <div>
-              <h6>Mission Description (Long Form)</h6>
-              <span
-                style={{
-                  whiteSpace: 'pre-wrap',
-                }}>
-                {mission?.mission_desc}
-              </span>
-            </div>
+            <h6>Is Archived</h6>
+            <h5>{mission?.is_archived ? 'Yes' : 'No'}</h5>
           </div>
-        </NeuCard>
-      </Suspense>
+        </div>
+      </NeuCard>
+      <NeuCard
+        activeHover={false}
+        cardStyleOverride={{
+          width: '95%',
+          margin: '50px auto',
+          height: '100%',
+        }}>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+          }}>
+          <div>
+            <h6>Mission Scope (TL;DR)</h6>
+            <span>{mission?.mission_scope}</span>
+          </div>
+          <br />
+          <div>
+            <h6>Mission Description (Long Form)</h6>
+            <span
+              style={{
+                whiteSpace: 'pre-wrap',
+              }}>
+              {mission?.mission_desc}
+            </span>
+          </div>
+        </div>
+      </NeuCard>
     </main>
   );
 };

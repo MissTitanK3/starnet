@@ -24,7 +24,7 @@ const MissionActions = ({ cardOverride }: Props) => {
     setActionsOpen(false);
   };
   return (
-    <NeuCard activeHover={false} cardStyleOverride={cardOverride}>
+    <NeuCard minHeightOverride="200px" activeHover={false} cardStyleOverride={cardOverride}>
       <NeuButton onClick={() => handleEditMission()}>Edit Mission</NeuButton>
       <NeuButton onClick={() => handleArchiveMission()}>
         {mission?.is_archived ? 'Unarchive Mission' : 'Archive Mission'}

@@ -63,161 +63,172 @@ const AddMissionModal = (props: Props) => {
       </NeuButton>
       <div
         style={{
-          overflowY: 'auto',
+          height: '80%',
         }}>
         <NeuCard
           cardStyleOverride={{
             backgroundColor: '#242424',
-            height: '700px',
-            width: '600px',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'space-evenly',
+            width: '500px',
+            overflowY: 'auto',
           }}>
-          <NeuDropdown
-            inputStyleOverride={{
-              width: '100%',
-              height: '1rem',
-            }}
-            cardStyleOverride={{
-              width: '90%',
-              height: '3rem',
-            }}
-            id="mission_type"
-            placeholder="Mission Type"
-            changeInput={(e) => handleUpdate(e)}
-            selectOptions={['Profit', 'Race', 'RolePlay', 'Elimination', 'Loot Share', 'Training']}
-            value={newMission.mission_type || 'Profit'}
-          />
-          <NeuInput
-            inputStyleOverride={{
-              width: '100%',
-              height: '1rem',
-            }}
-            cardStyleOverride={{
-              width: '90%',
-              height: '3rem',
-            }}
-            id="mission_name"
-            placeholder="Mission Name"
-            type="text"
-            changeInput={(e) => handleUpdate(e)}
-            value={newMission.mission_name}
-          />
-          <NeuTextArea
-            inputStyleOverride={{
-              width: '100%',
-              height: '100%',
-            }}
-            cardStyleOverride={{
-              width: '90%',
-              minHeight: '3rem',
-            }}
-            id="mission_desc"
-            placeholder="Mission Description"
-            changeInput={(e) => handleUpdate(e)}
-            value={newMission.mission_desc || ''}
-            rowsCount={5}
-          />
-          <NeuTextArea
-            inputStyleOverride={{
-              width: '100%',
-              height: '100%',
-            }}
-            cardStyleOverride={{
-              width: '90%',
-              minHeight: '3rem',
-            }}
-            id="mission_scope"
-            placeholder="Mission Scope"
-            changeInput={(e) => handleUpdate(e)}
-            value={newMission.mission_scope || ''}
-            rowsCount={5}
-          />
-          <NeuDateField
-            inputStyleOverride={{
-              width: '100%',
-              height: '1rem',
-            }}
-            cardStyleOverride={{
-              width: '90%',
-              height: '3rem',
-            }}
-            id="start_date"
-            placeholder="Mission Date"
-            changeInput={(e) => handleUpdate(e)}
-            value={newMission?.start_date?.toString() || ''}
-          />
-          <NeuInput
-            inputStyleOverride={{
-              width: '100%',
-              height: '1rem',
-            }}
-            cardStyleOverride={{
-              width: '90%',
-              height: '3rem',
-            }}
-            id="optimal_participation"
-            placeholder="Optimal Participants"
-            type="number"
-            changeInput={(e) => handleUpdate(e)}
-            value={newMission.optimal_participation?.toString() || ''}
-          />
           <div
             style={{
               display: 'flex',
-              width: '90%',
+              flexDirection: 'column',
+              width: '100%',
               justifyContent: 'space-evenly',
               alignItems: 'center',
               margin: '20px 0',
             }}>
-            <NeuInput
+            <NeuDropdown
               inputStyleOverride={{
-                width: '70%',
+                width: '100%',
                 height: '1rem',
               }}
               cardStyleOverride={{
-                width: '200px',
+                width: '90%',
                 height: '3rem',
               }}
-              id="op_sec_code"
-              placeholder="Security Code"
+              id="mission_type"
+              placeholder="Mission Type"
+              changeInput={(e) => handleUpdate(e)}
+              selectOptions={['Profit', 'Race', 'RolePlay', 'Elimination', 'Loot Share', 'Training']}
+              value={newMission.mission_type || 'Profit'}
+            />
+            <NeuInput
+              inputStyleOverride={{
+                width: '100%',
+                height: '1rem',
+              }}
+              cardStyleOverride={{
+                width: '90%',
+                height: '3rem',
+              }}
+              id="mission_name"
+              placeholder="Mission Name"
               type="text"
               changeInput={(e) => handleUpdate(e)}
-              value={newMission.op_sec_code || ''}
+              value={newMission.mission_name}
             />
-            <NeuButton
-              onClick={() => handleNewCode()}
-              styled={{
-                width: '30%',
+            <NeuTextArea
+              inputStyleOverride={{
+                width: '100%',
+                height: '100%',
+              }}
+              cardStyleOverride={{
+                width: '90%',
+                minHeight: '3rem',
+              }}
+              id="mission_desc"
+              placeholder="Mission Description"
+              changeInput={(e) => handleUpdate(e)}
+              value={newMission.mission_desc || ''}
+              rowsCount={5}
+            />
+            <NeuTextArea
+              inputStyleOverride={{
+                width: '100%',
+                height: '100%',
+              }}
+              cardStyleOverride={{
+                width: '90%',
+                minHeight: '3rem',
+              }}
+              id="mission_scope"
+              placeholder="Mission Scope"
+              changeInput={(e) => handleUpdate(e)}
+              value={newMission.mission_scope || ''}
+              rowsCount={5}
+            />
+            <NeuDateField
+              inputStyleOverride={{
+                width: '100%',
+                height: '1rem',
+              }}
+              cardStyleOverride={{
+                width: '90%',
                 height: '3rem',
+              }}
+              id="start_date"
+              placeholder="Mission Date"
+              changeInput={(e) => handleUpdate(e)}
+              value={newMission?.start_date?.toString() || ''}
+            />
+            <NeuInput
+              inputStyleOverride={{
+                width: '100%',
+                height: '1rem',
+              }}
+              cardStyleOverride={{
+                width: '90%',
+                height: '3rem',
+              }}
+              id="optimal_participation"
+              placeholder="Optimal Participants"
+              type="number"
+              changeInput={(e) => handleUpdate(e)}
+              value={newMission.optimal_participation?.toString() || ''}
+            />
+            <div
+              style={{
+                display: 'flex',
+                width: '100%',
+                alignItems: 'center',
+                alignSelf: 'center',
+                margin: '20px 0',
               }}>
-              Generate Security Code
-            </NeuButton>
-          </div>
+              <NeuInput
+                inputStyleOverride={{
+                  fontSize: '2rem',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  width: '100%',
+                  height: '100%',
+                  marginBottom: '-60px',
+                }}
+                cardStyleOverride={{
+                  // width: '150px',
+                  height: '100px',
+                }}
+                id="op_sec_code"
+                placeholder="Security Code"
+                type="text"
+                changeInput={(e) => handleUpdate(e)}
+                value={newMission.op_sec_code || ''}
+              />
+              <NeuButton
+                onClick={() => handleNewCode()}
+                styled={{
+                  width: '200px',
+                  height: '4.5rem',
+                  padding: '0 20px',
+                }}>
+                Generate Security Code
+              </NeuButton>
+            </div>
 
-          <div
-            style={{
-              display: 'flex',
-              width: '100%',
-              justifyContent: 'space-evenly',
-              margin: '20px 0',
-            }}>
-            <NeuButton
-              onClick={() => handleClose()}
-              styled={{
-                width: '50%',
+            <div
+              style={{
+                display: 'flex',
+                width: '100%',
+                justifyContent: 'space-evenly',
+                margin: '20px 0',
               }}>
-              Cancel
-            </NeuButton>
-            <NeuButton
-              onClick={() => handleCreateMission()}
-              styled={{
-                width: '50%',
-              }}>
-              Create Mission
-            </NeuButton>
+              <NeuButton
+                onClick={() => handleClose()}
+                styled={{
+                  width: '50%',
+                }}>
+                Cancel
+              </NeuButton>
+              <NeuButton
+                onClick={() => handleCreateMission()}
+                styled={{
+                  width: '50%',
+                }}>
+                Create Mission
+              </NeuButton>
+            </div>
           </div>
         </NeuCard>
       </div>
