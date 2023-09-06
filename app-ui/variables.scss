@@ -7,7 +7,16 @@
 
 $primary-color:rgb(35, 35, 35);
 $primary-color-alpha:rgba(0, 0, 255, 0) 60.71%;
-$secondary-color:rgb(248, 248, 248);
+$secondary-color:rgb(200, 200, 200);
+$secondary-color-alpha:rgba(200, 200, 200, 0) 60.71%;
+$error-color: rgb(150, 2, 2);
+$error-color-alpha:rgba(150, 0, 0, 0.994) 60.71%;
+$success-color:rgb(0, 150, 0);
+$success-color-alpha:rgba(0, 150, 0, 0) 60.71%;
+$warning-color:rgb(150, 150, 0);
+$warning-color-alpha:rgba(150, 150, 0, 0) 60.71%;
+$info-color:rgb(0, 150, 150);
+$info-color-alpha:rgba(0, 150, 150, 0) 60.71%;
 $neutral-color:rgb(144, 144, 144);
 $linear-text-color:linear-gradient(266.91deg, #1A5DF9 0%, #75DCFF 100%);
 $linear-text-color-alpha:linear-gradient(266.91deg, #1A5DF9 0%, #75DCFF 20%);

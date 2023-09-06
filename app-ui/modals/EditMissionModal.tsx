@@ -9,57 +9,80 @@ import { useModalStore } from '@/app-store/modals/modalStore';
 import NeuDateField from '../element/inputs/NeuDateField';
 import { useMissionStore } from '@/app-store/missions/missionStore';
 import { generateCode } from '@/app-store/utils/generateCode';
+import PlainButton from '../element/buttons/PlainButton';
+import NeuDropdown from '../element/inputs/NeuDropdown';
 
 type Props = {};
 
 const EditMissionModal = (props: Props) => {
-  const [newMission, setNewMission] = useState({} as Mission);
+  const { mission } = useMissionStore();
+  const [editMission, setEditMission] = useState(mission as Mission);
   const { setEditMissionModal } = useModalStore();
-  const { addMission } = useMissionStore();
 
-  const handleUpdate = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setNewMission((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+  const handleUpdate = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setEditMission((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
   const handleCreateMission = () => {
-    addMission(newMission);
+    // addMission(newMission);
     handleClose();
   };
 
   const handleClose = () => {
-    setNewMission({} as Mission);
+    setEditMission(mission as Mission);
     setEditMissionModal(false);
   };
 
   const handleNewCode = () => {
     const code = generateCode(2, 8);
-    setNewMission((prev) => ({ ...prev, op_sec_code: code }));
+    setEditMission((prev) => ({ ...prev, op_sec_code: code }));
   };
 
   return (
     <div
       style={{
         position: 'absolute',
-        width: '100vw',
-        height: '100vh',
+        width: '100dvw',
+        height: '100dvh',
         top: 0,
         left: 0,
-        backgroundColor: '#242424ed',
+        backgroundColor: '#242424f4',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         overflowY: 'auto',
+        zIndex: 100,
       }}>
       <NeuCard
+        activeHover={false}
         cardStyleOverride={{
           backgroundColor: '#242424',
-          height: '700px',
+          maxHeight: '80dvh',
+          height: '400px',
           width: '600px',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
+          alignContent: 'center',
+          alignSelf: 'center',
           justifyContent: 'space-evenly',
+          overflowY: 'auto',
+          padding: '100px auto',
         }}>
+        <div
+          style={{
+            marginTop: '200px',
+          }}
+        />
+        <h5>Mission Type</h5>
+        <NeuDropdown
+          id=""
+          placeholder="Select Mission"
+          selectOptions={['Profit', 'Race', 'RolePlay', 'Elimination', 'Loot Share', 'Training']}
+          value={''}
+          changeInput={(e) => handleUpdate(e)}
+        />
+        <h5>Mission Name</h5>
         <NeuInput
           inputStyleOverride={{
             width: '100%',
@@ -73,8 +96,9 @@ const EditMissionModal = (props: Props) => {
           placeholder="Mission Name"
           type="text"
           changeInput={(e) => handleUpdate(e)}
-          value={newMission.mission_name}
+          value={editMission?.mission_name}
         />
+        <h5>Mission Description</h5>
         <NeuTextArea
           inputStyleOverride={{
             width: '100%',
@@ -87,9 +111,10 @@ const EditMissionModal = (props: Props) => {
           id="mission_desc"
           placeholder="Mission Description"
           changeInput={(e) => handleUpdate(e)}
-          value={newMission.mission_desc || ''}
+          value={editMission?.mission_desc || ''}
           rowsCount={5}
         />
+        <h5>Mission Scope</h5>
         <NeuTextArea
           inputStyleOverride={{
             width: '100%',
@@ -102,9 +127,10 @@ const EditMissionModal = (props: Props) => {
           id="mission_scope"
           placeholder="Mission Scope"
           changeInput={(e) => handleUpdate(e)}
-          value={newMission.mission_scope || ''}
+          value={editMission?.mission_scope || ''}
           rowsCount={5}
         />
+        <h5>Mission Date</h5>
         <NeuDateField
           inputStyleOverride={{
             width: '100%',
@@ -117,8 +143,9 @@ const EditMissionModal = (props: Props) => {
           id="start_date"
           placeholder="Mission Date"
           changeInput={(e) => handleUpdate(e)}
-          value={newMission?.start_date?.toString() || ''}
+          value={new Date(editMission?.start_date || '')?.toISOString()?.slice(0, 16)}
         />
+        <h5>Optimal Participants</h5>
         <NeuInput
           inputStyleOverride={{
             width: '100%',
@@ -132,7 +159,7 @@ const EditMissionModal = (props: Props) => {
           placeholder="Optimal Participants"
           type="number"
           changeInput={(e) => handleUpdate(e)}
-          value={newMission.optimal_participation?.toString() || ''}
+          value={editMission?.optimal_participation?.toString() || ''}
         />
         <div
           style={{
@@ -141,11 +168,15 @@ const EditMissionModal = (props: Props) => {
             justifyContent: 'space-evenly',
             alignItems: 'center',
             margin: '20px 0',
+            height: '4rem',
           }}>
           <NeuInput
             inputStyleOverride={{
-              width: '70%',
-              height: '1rem',
+              width: '100%',
+              fontSize: '2rem',
+              lineHeight: '2.5rem',
+              textAlign: 'center',
+              margin: 'auto',
             }}
             cardStyleOverride={{
               width: '200px',
@@ -155,7 +186,7 @@ const EditMissionModal = (props: Props) => {
             placeholder="Security Code"
             type="text"
             changeInput={(e) => handleUpdate(e)}
-            value={newMission.op_sec_code || ''}
+            value={editMission?.op_sec_code || ''}
           />
           <NeuButton
             onClick={() => handleNewCode()}
@@ -166,7 +197,6 @@ const EditMissionModal = (props: Props) => {
             Generate Security Code
           </NeuButton>
         </div>
-
         <div
           style={{
             display: 'flex',
@@ -174,14 +204,16 @@ const EditMissionModal = (props: Props) => {
             justifyContent: 'space-evenly',
             margin: '20px 0',
           }}>
-          <NeuButton
+          <PlainButton
+            variant="warning"
             onClick={() => handleClose()}
             styled={{
               width: '50%',
             }}>
             Cancel
-          </NeuButton>
+          </PlainButton>
           <NeuButton
+            variant="success"
             onClick={() => handleCreateMission()}
             styled={{
               width: '50%',

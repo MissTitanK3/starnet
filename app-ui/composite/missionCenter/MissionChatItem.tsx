@@ -30,7 +30,6 @@ const MissionChatItem = ({ chat, chatKey }: Props) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chat.sender]);
-  console.log('chat', chat);
 
   return (
     <div
@@ -44,6 +43,7 @@ const MissionChatItem = ({ chat, chatKey }: Props) => {
         cardStyleOverride={{
           border: chat.origin !== 'mission' ? '3px solid #594b16' : 'unset',
           minHeight: '100px',
+          width: '90%',
         }}
         activeHover={false}
         key={`chat-object-${chatKey}`}>

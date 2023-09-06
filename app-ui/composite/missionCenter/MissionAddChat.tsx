@@ -3,6 +3,8 @@
 import { useAuthStore } from '@/app-store/auth/authStore';
 import { useMissionStore } from '@/app-store/missions/missionStore';
 import { ChatObject } from '@/app-store/missions/missionTypes';
+import NeuPopover from '@/app-ui/element/custom/NeuPopover';
+import PlainPopover from '@/app-ui/element/custom/PlainPopover';
 import NeuDropdown from '@/app-ui/element/inputs/NeuDropdown';
 import NeuTextArea from '@/app-ui/element/inputs/NeuTextArea';
 import { randomUUID } from 'crypto';
@@ -90,20 +92,21 @@ const MissionAddChat = (props: Props) => {
           width: '100%',
           position: 'relative',
         }}>
-        <NeuDropdown
-          cardStyleOverride={{
-            width: '90%',
-            height: '3rem',
-            marginBottom: '-0.3rem',
+        <div
+          style={{
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+            position: 'absolute',
+            top: '-10px',
+            left: '-15px',
             zIndex: 100,
-          }}
-          id="alertStatus"
-          selectOptions={['General Alert', 'Contact Aquired', 'Contact Imminent', 'Contact Engaging', 'Avoid Contact']}
-          value={newChat.alertStatus || 'General Alert'}
-          changeInput={(e) => {
-            handleUpdate(e);
-          }}
-        />
+          }}>
+          <NeuPopover popoverWidth="100px" orientation="bottom" popoverHeight="50px">
+            Press Enter To Send
+          </NeuPopover>
+        </div>
         <NeuTextArea
           inputStyleOverride={{
             width: '100%',
@@ -112,25 +115,31 @@ const MissionAddChat = (props: Props) => {
           cardStyleOverride={{
             width: '90%',
             minHeight: '3rem',
-            zIndex: 9,
+            zIndex: 19,
           }}
           id="message"
-          placeholder="Mission Description"
+          placeholder="Send New Chat Message"
           changeInput={(e) => handleUpdate(e)}
           value={newChat.message || ''}
           rowsCount={5}
           keyDownAction={handleKeyDown}
         />
-        <span
-          style={{
-            fontSize: '0.8rem',
-            color: '#575757',
-            textAlign: 'right',
-            width: '80%',
-            marginTop: '-15px',
-          }}>
-          Press Enter To Send
-        </span>
+        <NeuDropdown
+          cardStyleOverride={{
+            boxShadow: 'none',
+            width: '90%',
+            height: '3rem',
+            marginBottom: '0.05rem',
+            marginTop: '-1.15rem',
+            zIndex: 0,
+          }}
+          id="alertStatus"
+          selectOptions={['General Alert', 'Contact Aquired', 'Contact Imminent', 'Contact Engaging', 'Avoid Contact']}
+          value={newChat.alertStatus || 'General Alert'}
+          changeInput={(e) => {
+            handleUpdate(e);
+          }}
+        />
       </div>
       <hr
         style={{

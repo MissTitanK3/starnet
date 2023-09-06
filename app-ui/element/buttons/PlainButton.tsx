@@ -10,15 +10,15 @@ type Props = {
   variant?: 'primary' | 'secondary' | 'error' | 'success' | 'warning' | 'info';
 };
 
-function NeuButton({ children, onClick, styled, activeHover = true, isActive = false, variant = 'primary' }: Props) {
-  let classes = '';
+function PlainButton({ children, onClick, styled, activeHover = true, isActive = false, variant }: Props) {
+  let classes = 'plainButton';
   if (activeHover) {
-    classes += ' ' + styles.neumorphicDarkButton;
+    // classes += ' ' + styles.neumorphicDarkButton;
   } else {
-    classes += ' ' + styles.neumorphicDarkButtonNoHover;
+    // classes += ' ' + styles.neumorphicDarkButtonNoHover;
   }
   if (isActive) {
-    classes += ' ' + styles.neumorphicDarkButtonActive;
+    // classes += ' ' + styles.neumorphicDarkButtonActive;
   }
 
   switch (variant) {
@@ -52,4 +52,4 @@ function NeuButton({ children, onClick, styled, activeHover = true, isActive = f
   );
 }
 
-export default NeuButton;
+export default PlainButton;

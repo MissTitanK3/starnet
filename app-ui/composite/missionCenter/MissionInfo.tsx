@@ -4,6 +4,8 @@ import { useAuthStore } from '@/app-store/auth/authStore';
 import { useMissionStore } from '@/app-store/missions/missionStore';
 import { getVariableRankImageDetails } from '@/app-store/utils/getRankImageDetails';
 import { getLoggedAndExpire } from '@/app-store/utils/getTimeFormat';
+import NeuButton from '@/app-ui/element/buttons/NeuButton';
+import PlainButton from '@/app-ui/element/buttons/PlainButton';
 import NeuCard from '@/app-ui/element/cards/NeuCard';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';

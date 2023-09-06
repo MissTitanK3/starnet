@@ -59,3 +59,179 @@
   -webkit-text-fill-color: transparent;
   cursor: pointer;
 }
+
+.plainButton {
+  color: variable.$primary-color-alpha;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  text-align: center;
+  margin-right: 25px;
+  height: 2rem;
+  width: 100%;
+  color: red;
+  &:hover {
+    background-color: variable.$linear-text-color;
+    background: -webkit-linear-gradient(180deg,#1A5DF9 0%, #75DCFF 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    cursor: pointer;
+  }
+}
+
+.primary {
+  color: variable.$primary-color-alpha;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  text-align: center;
+  margin-right: 25px;
+  height: 2rem;
+  width: 100%;
+  &:hover {
+    background-color: variable.$linear-text-color;
+    background: -webkit-linear-gradient(180deg,#1A5DF9 0%, #75DCFF 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    cursor: pointer;
+  }
+}
+
+.secondary {
+  // color: variable.$secondary-color-alpha;
+  background-color: variable.$linear-text-color;
+  background: -webkit-linear-gradient(180deg,variable.$secondary-color 0%, variable.$secondary-color 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  text-align: center;
+  margin-right: 25px;
+  height: 2rem;
+  width: 100%;
+  &:hover {
+    background-color: variable.$linear-text-color;
+    background: -webkit-linear-gradient(180deg,#1A5DF9 0%, #75DCFF 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    cursor: pointer;
+  }
+}
+
+.error {
+  background-color: variable.$linear-text-color;
+  background: -webkit-linear-gradient(180deg,variable.$error-color 0%, variable.$error-color 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  text-align: center;
+  margin-right: 25px;
+  height: 2rem;
+  width: 100%;
+  &:hover {
+    background-color: variable.$linear-text-color;
+    background: -webkit-linear-gradient(180deg,#1A5DF9 0%, #75DCFF 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    cursor: pointer;
+  }
+}
+
+.success {
+  background-color: variable.$linear-text-color;
+  background: -webkit-linear-gradient(180deg,variable.$success-color 0%, variable.$success-color 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  text-align: center;
+  margin-right: 25px;
+  height: 2rem;
+  width: 100%;
+  &:hover {
+    background-color: variable.$linear-text-color;
+    background: -webkit-linear-gradient(180deg,#1A5DF9 0%, #75DCFF 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    cursor: pointer;
+  }
+}
+
+.warning {
+  background-color: variable.$linear-text-color;
+  background: -webkit-linear-gradient(180deg,variable.$warning-color 0%, variable.$warning-color 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  text-align: center;
+  margin-right: 25px;
+  height: 2rem;
+  width: 100%;
+  &:hover {
+    background-color: variable.$linear-text-color;
+    background: -webkit-linear-gradient(180deg,#1A5DF9 0%, #75DCFF 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    cursor: pointer;
+  }
+}
+
+.info {
+  background-color: variable.$linear-text-color;
+  background: -webkit-linear-gradient(180deg,variable.$info-color 0%, variable.$info-color 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  text-align: center;
+  margin-right: 25px;
+  height: 2rem;
+  width: 100%;
+  &:hover {
+    background-color: variable.$linear-text-color;
+    background: -webkit-linear-gradient(180deg,#1A5DF9 0%, #75DCFF 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    cursor: pointer;
+  }
+}

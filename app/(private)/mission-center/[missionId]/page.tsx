@@ -1,5 +1,6 @@
 import MissionChat from '@/app-ui/composite/missionCenter/MissionChat';
 import MissionFinances from '@/app-ui/composite/missionCenter/MissionFinances';
+import MissionGroups from '@/app-ui/composite/missionCenter/MissionGroups';
 import MissionInfo from '@/app-ui/composite/missionCenter/MissionInfo';
 import MissionNavActions from '@/app-ui/composite/missionCenter/MissionNavActions';
 import React from 'react';
@@ -31,7 +32,9 @@ const Page = ({ params: { missionId } }: Props) => {
         <div className="finances">
           <MissionFinances />
         </div>
-        <div className="groups">{/* Groups */}</div>
+        <div className="groups">
+          <MissionGroups />
+        </div>
       </div>
       <div
         style={{
