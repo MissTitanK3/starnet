@@ -32,12 +32,12 @@ const NeuPopover = ({ children, orientation = 'right', popoverWidth = '400px', p
         };
       case 'top':
         return {
-          top: '-50px',
+          top: '-30px',
           left: '0',
         };
       case 'bottom':
         return {
-          bottom: '-55px',
+          bottom: '-35px',
           left: '25px',
         };
       default:
@@ -58,8 +58,8 @@ const NeuPopover = ({ children, orientation = 'right', popoverWidth = '400px', p
       <PlainButton
         onClick={() => setOpen(!open)}
         styled={{
-          width: '50px',
-          height: '50px',
+          width: '30px',
+          height: '30px',
           display: 'flex',
           alignItems: 'flex-end',
         }}>

@@ -99,8 +99,8 @@ const MissionAddChat = (props: Props) => {
             justifyContent: 'flex-start',
             alignItems: 'center',
             position: 'absolute',
-            top: '-10px',
-            left: '-15px',
+            top: '0',
+            left: '0',
             zIndex: 100,
           }}>
           <NeuPopover popoverWidth="100px" orientation="bottom" popoverHeight="50px">
