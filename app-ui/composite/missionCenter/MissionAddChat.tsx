@@ -134,7 +134,28 @@ const MissionAddChat = (props: Props) => {
             zIndex: 0,
           }}
           id="alertStatus"
-          selectOptions={['General Alert', 'Contact Aquired', 'Contact Imminent', 'Contact Engaging', 'Avoid Contact']}
+          selectOptions={[
+            {
+              label: 'General Alert',
+              value: 'General Alert',
+            },
+            {
+              label: 'Contact Aquired',
+              value: 'Contact Aquired',
+            },
+            {
+              label: 'Contact Imminent',
+              value: 'Contact Imminent',
+            },
+            {
+              label: 'Contact Engaging',
+              value: 'Contact Engaging',
+            },
+            {
+              label: 'Avoid Contact',
+              value: 'Avoid Contact',
+            },
+          ]}
           value={newChat.alertStatus || 'General Alert'}
           changeInput={(e) => {
             handleUpdate(e);
