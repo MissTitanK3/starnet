@@ -12,6 +12,18 @@ type Props = {};
 const MissionList = (props: Props) => {
   const { allMissions } = useMissionStore();
   const { newMissionModal } = useModalStore();
+  const getMissionMembers = (missionId: string) => {
+    let count: number | undefined = 0;
+    allMissions?.forEach((mission) => {
+      if (mission.id.toString() === missionId) {
+        if (mission.groups?.length === 0) return;
+        count = mission.groups?.reduce((acc, group) => {
+          return acc + group.support_members?.length || 0;
+        }, 0);
+      }
+    });
+    return count;
+  };
   return (
     <div>
       {allMissions?.map((mission) => {
@@ -75,7 +87,7 @@ const MissionList = (props: Props) => {
 
                 <div>
                   <h6>CURRENT PARTICIPANTS</h6>
-                  <h2>{mission?.members?.length || 0}</h2>
+                  <h2>{getMissionMembers(mission.id.toString()) || 0}</h2>
                 </div>
               </div>
             </NeuCard>
