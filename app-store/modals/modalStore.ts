@@ -9,6 +9,8 @@ export type ExtendedMission = {
   setActionsOpen: (isOpen: boolean) => void;
   editMissionModal: boolean;
   setEditMissionModal: (editMissionModal: boolean) => void;
+  createSupportModal: boolean;
+  setCreateSupportModal: (createSupportModal: boolean) => void;
 };
 
 export const useModalStore = create<ExtendedMission>(
@@ -29,6 +31,12 @@ export const useModalStore = create<ExtendedMission>(
     setEditMissionModal: async (editMissionModal: boolean) => {
       set((state: any) => ({
         editMissionModal,
+      }));
+    },
+    createSupportModal: false,
+    setCreateSupportModal: async (createSupportModal: boolean) => {
+      set((state: any) => ({
+        createSupportModal,
       }));
     },
   })),

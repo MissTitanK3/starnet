@@ -7,10 +7,19 @@ type Props = {
   styled?: React.CSSProperties;
   activeHover?: boolean;
   isActive?: boolean;
-  variant?: 'primary' | 'secondary' | 'error' | 'success' | 'warning' | 'info';
+  variant?: 'primary' | 'secondary' | 'error' | 'success' | 'warning' | 'info' | 'disabled';
+  isDisabled?: boolean;
 };
 
-function NeuButton({ children, onClick, styled, activeHover = true, isActive = false, variant = 'primary' }: Props) {
+function NeuButton({
+  children,
+  onClick,
+  styled,
+  activeHover = true,
+  isActive = false,
+  variant = 'primary',
+  isDisabled = false,
+}: Props) {
   let classes = '';
   if (activeHover) {
     classes += ' ' + styles.neumorphicDarkButton;
@@ -40,13 +49,19 @@ function NeuButton({ children, onClick, styled, activeHover = true, isActive = f
     case 'info':
       classes += ' ' + styles.info;
       break;
+    case 'disabled':
+      classes += ' ' + styles.disabled;
+      break;
     default:
       classes += ' ' + styles.primary;
       break;
   }
 
   return (
-    <div style={styled} onClick={onClick} className={classes}>
+    <div
+      style={styled}
+      onClick={!isDisabled ? onClick : () => console.log('Information Incomplete')}
+      className={classes}>
       {children}
     </div>
   );

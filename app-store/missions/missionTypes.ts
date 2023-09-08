@@ -25,12 +25,39 @@ export type Mission = {
   income_sets: IncomeSet[] | null;
   mission_ratings: {}[] | null;
   chats: ChatObject[] | null;
-  members: MissionCenterSupportShip[] | null;
+  groups: MissionCenterSupportShip[] | null;
   creator: UUID;
   mission_type: MissionType;
 };
 
-export type MissionType = 'Profit' | 'Race' | 'RolePlay' | 'Elimination' | 'Loot Share' | 'Training';
+// export type MissionType = 'Profit' | 'Race' | 'RolePlay' | 'Elimination' | 'Loot Share' | 'Training';
+export type MissionType = (typeof missionTypes)[number];
+export const missionTypes = [
+  {
+    value: 'Profit',
+    label: 'Profit',
+  },
+  {
+    value: 'Race',
+    label: 'Race',
+  },
+  {
+    value: 'RolePlay',
+    label: 'RolePlay',
+  },
+  {
+    value: 'Elimination',
+    label: 'Elimination',
+  },
+  {
+    value: 'Loot Share',
+    label: 'Loot Share',
+  },
+  {
+    value: 'Training',
+    label: 'Training',
+  },
+];
 
 export type IncomeSet = {
   id?: string;
@@ -69,22 +96,10 @@ export type RatingObject = {
 
 export type MissionCenterSupportShip = {
   support_type?: missionCenterSupportShipsType;
-  group_limit?: number;
-  support_id: number;
-  support_ship_costs?: {
-    gross_income?: number;
-    insurance_costs?: number;
-    medical_costs?: number;
-    hangar_costs?: number;
-    taxes_costs?: number;
-    refuel_costs?: number;
-    rearm_costs?: number;
-    maintenance_costs?: number;
-    profit?: number;
-  };
+  group_limit?: number | string;
+  support_id: string;
   support_members: {
-    isShipLeader?: boolean;
-    isShipPilot?: boolean;
+    memberRole?: string;
     member: UUID;
     selectedDate?: string;
     timeRangeStart?: string[];
@@ -124,33 +139,13 @@ export const missionCenterSupportShips = [
     customLabel: '',
   },
   {
-    value: 'Intelligence',
-    label: 'Intelligence',
+    value: 'General Fleet',
+    label: 'General Fleet',
     customLabel: '',
   },
   {
-    value: 'Operations',
-    label: 'Operations',
-    customLabel: '',
-  },
-  {
-    value: 'Medical',
-    label: 'Medical',
-    customLabel: '',
-  },
-  {
-    value: 'Logistics',
-    label: 'Logistics',
-    customLabel: '',
-  },
-  {
-    value: 'Communications',
-    label: 'Communications',
-    customLabel: '',
-  },
-  {
-    value: 'Training',
-    label: 'Training',
+    value: 'Security',
+    label: 'Security',
     customLabel: '',
   },
   {
@@ -169,11 +164,6 @@ export const missionCenterSupportShips = [
     customLabel: '',
   },
   {
-    value: 'Fleet',
-    label: 'Fleet',
-    customLabel: '',
-  },
-  {
     value: 'Rearm',
     label: 'Rearm',
     customLabel: '',
@@ -186,6 +176,11 @@ export const missionCenterSupportShips = [
   {
     value: 'Salvage',
     label: 'Salvage',
+    customLabel: '',
+  },
+  {
+    value: 'Other',
+    label: 'Other',
     customLabel: '',
   },
 ];

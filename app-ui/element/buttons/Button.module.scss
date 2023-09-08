@@ -235,3 +235,24 @@
     cursor: pointer;
   }
 }
+
+.disabled {
+  background-color: variable.$linear-text-color;
+  background: -webkit-linear-gradient(180deg,variable.$disabled-color 0%, variable.$disabled-color 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  text-align: center;
+  margin-right: 25px;
+  height: 2rem;
+  width: 100%;
+  &:hover {
+    cursor: not-allowed;
+  }
+}

@@ -58,7 +58,7 @@ const MissionInfo = (props: Props) => {
           }}>
           <div>
             <h6>Optimal Member Participation</h6>
-            <h5>{mission?.optimal_participation}</h5>
+            <h3>{mission?.optimal_participation}</h3>
           </div>
           <div
             style={{
@@ -71,11 +71,11 @@ const MissionInfo = (props: Props) => {
             }}>
             <div>
               <h6>Mission Name</h6>
-              <h5>{mission?.mission_name}</h5>
+              <h3>{mission?.mission_name}</h3>
             </div>
             <div>
               <h6>Mission Type</h6>
-              <h5>{mission?.mission_type}</h5>
+              <h3>{mission?.mission_type?.label}</h3>
             </div>
           </div>
           <div
@@ -83,7 +83,7 @@ const MissionInfo = (props: Props) => {
               textAlign: 'right',
             }}>
             <h6>Mission Security Code</h6>
-            <h5>{mission?.op_sec_code}</h5>
+            <h3>{mission?.op_sec_code}</h3>
           </div>
         </div>
       </NeuCard>
@@ -101,11 +101,11 @@ const MissionInfo = (props: Props) => {
             }}>
             <div>
               <h6>Event Name</h6>
-              <h5>{eventData?.name}</h5>
+              <h3>{eventData?.name}</h3>
             </div>
             <div>
               <h6>Event ID</h6>
-              <h5>{eventData?.id}</h5>
+              <h3>{eventData?.id}</h3>
             </div>
           </div>
         </NeuCard>
@@ -141,7 +141,7 @@ const MissionInfo = (props: Props) => {
                   }}
                 />
               )}
-              <h5>{missionCreator?.in_game_name}</h5>
+              <h3>{missionCreator?.in_game_name}</h3>
             </div>
           </div>
           <div
@@ -156,7 +156,7 @@ const MissionInfo = (props: Props) => {
               textAlign: 'right',
             }}>
             <h6>Is Archived</h6>
-            <h5>{mission?.is_archived ? 'Yes' : 'No'}</h5>
+            <h3>{mission?.is_archived ? 'Yes' : 'No'}</h3>
           </div>
         </div>
       </NeuCard>

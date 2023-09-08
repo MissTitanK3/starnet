@@ -59,6 +59,10 @@ export const useMissionStore = create<ExtendedMission>(
       await postMissionToSupa(mission);
       await get().getAllMissions();
     },
+    updateMission: async (mission: Mission) => {
+      await putMissionToSupa(mission);
+      await get().setMission(mission.id);
+    },
     getAllMissions: async () => {
       const data: any | null = await getMissionsFromSupa();
       set((state: any) => ({

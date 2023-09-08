@@ -8,7 +8,11 @@ type Props = {
   inputStyleOverride?: React.CSSProperties;
   cardStyleOverride?: React.CSSProperties;
   changeInput: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-  selectOptions: string[];
+  selectOptions: {
+    value: string;
+    label: string;
+    customLabel?: string;
+  }[];
   placeholder?: string;
 };
 
@@ -41,8 +45,8 @@ const NeuDropdown = ({
         onChange={changeInput}>
         {selectOptions.map((option, key) => {
           return (
-            <option key={`type-options-${key}`} value={option}>
-              {option}
+            <option key={`type-options-${key}`} value={option.value}>
+              {option.customLabel ? option.customLabel : option.label}
             </option>
           );
         })}

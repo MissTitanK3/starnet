@@ -4,7 +4,7 @@ import NeuCard from '../cards/NeuCard';
 
 type Props = {
   type: HTMLInputElement['type'];
-  value: string;
+  value: string | number;
   id: string;
   inputStyleOverride?: React.CSSProperties;
   cardStyleOverride?: React.CSSProperties;

@@ -3,7 +3,7 @@ import NeuCard from '../element/cards/NeuCard';
 import NeuButton from '../element/buttons/NeuButton';
 import { FaX } from 'react-icons/fa6';
 import NeuInput from '../element/inputs/NeuInput';
-import { Mission } from '@/app-store/missions/missionTypes';
+import { Mission, missionTypes } from '@/app-store/missions/missionTypes';
 import NeuTextArea from '../element/inputs/NeuTextArea';
 import { useModalStore } from '@/app-store/modals/modalStore';
 import NeuDateField from '../element/inputs/NeuDateField';
@@ -15,7 +15,7 @@ import NeuDropdown from '../element/inputs/NeuDropdown';
 type Props = {};
 
 const EditMissionModal = (props: Props) => {
-  const { mission } = useMissionStore();
+  const { mission, updateMission } = useMissionStore();
   const [editMission, setEditMission] = useState(mission as Mission);
   const { setEditMissionModal } = useModalStore();
 
@@ -24,7 +24,7 @@ const EditMissionModal = (props: Props) => {
   };
 
   const handleCreateMission = () => {
-    // addMission(newMission);
+    updateMission(editMission);
     handleClose();
   };
 
@@ -78,7 +78,7 @@ const EditMissionModal = (props: Props) => {
         <NeuDropdown
           id=""
           placeholder="Select Mission"
-          selectOptions={['Profit', 'Race', 'RolePlay', 'Elimination', 'Loot Share', 'Training']}
+          selectOptions={missionTypes}
           value={''}
           changeInput={(e) => handleUpdate(e)}
         />
@@ -218,7 +218,7 @@ const EditMissionModal = (props: Props) => {
             styled={{
               width: '50%',
             }}>
-            Create Mission
+            Update Mission
           </NeuButton>
         </div>
       </NeuCard>

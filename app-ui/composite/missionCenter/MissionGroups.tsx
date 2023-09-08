@@ -13,12 +13,13 @@ import React, { useRef } from 'react';
 import { BsInfoCircleFill } from 'react-icons/bs';
 import { FaEllipsisVertical, FaPlus } from 'react-icons/fa6';
 import MissionGroupCard from './MissionGroupCard';
+import CreateSupportModal from '@/app-ui/modals/CreateSupportModal';
 
 type Props = {};
 
 const MissionGroups = (props: Props) => {
   const { mission, getMemberProfile, getAttachedEvents, activeTab } = useMissionStore();
-
+  const { createSupportModal, setCreateSupportModal } = useModalStore();
   if (activeTab !== 'groups') return null;
   return (
     <div
@@ -122,7 +123,7 @@ const MissionGroups = (props: Props) => {
             </NeuPopover>
             <NeuButton
               onClick={() => {
-                console.log('clicked');
+                setCreateSupportModal(true);
               }}
               styled={{
                 maxWidth: '170px',
@@ -145,6 +146,7 @@ const MissionGroups = (props: Props) => {
       {/* To be mapped over */}
       <MissionGroupCard />
       <MissionGroupCard />
+      {createSupportModal && <CreateSupportModal />}
     </div>
   );
 };
