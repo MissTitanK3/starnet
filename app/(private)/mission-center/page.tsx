@@ -1,6 +1,6 @@
-import MissionFilters from '@/app-ui/composite/missionCenter/MissionFilters';
-import MissionList from '@/app-ui/composite/missionCenter/MissionList';
-import SearchAndAdd from '@/app-ui/composite/missionCenter/SearchAndAdd';
+import MissionFilters from '@/components/ux/composite/missionCenter/MissionFilters';
+import MissionList from '@/components/ux/composite/missionCenter/MissionList';
+import SearchAndAdd from '@/components/ux/composite/missionCenter/SearchAndAdd';
 import React from 'react';
 
 type Props = {};
@@ -14,8 +14,9 @@ const Page = (props: Props) => {
         justifyContent: 'space-evenly',
         alignItems: 'center',
         flexWrap: 'wrap',
-        maxWidth: '100dvw',
+        maxWidth: '98dvw',
         margin: '50px auto',
+        overflowX: 'hidden',
       }}>
       <SearchAndAdd />
       <MissionFilters />

@@ -60,3 +60,16 @@ export const getMissionEventFromSupa = async ({ activeId }: Props) => {
     };
   }
 };
+
+export const getAllProfilesFromSupaForDropdown = async () => {
+  let { data: profiles, error } = await supabaseClient.from('profile_data').select('in_game_name, id, network_rank');
+  if (error) {
+    console.error('error', error);
+    return {
+      error: error,
+      message: 'Profile Failed to Load',
+    };
+  } else {
+    return profiles;
+  }
+};

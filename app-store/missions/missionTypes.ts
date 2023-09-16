@@ -6,7 +6,7 @@ export type Mission = {
   mission_name: string;
   mission_desc: string | null;
   mission_scope: string | null;
-  start_date: Date | null;
+  start_date?: string | Date | Date[] | null;
   gross_income: number | null;
   profit: number | null;
   insurance: number | null;
@@ -98,23 +98,27 @@ export type MissionCenterSupportShip = {
   support_type?: missionCenterSupportShipsType;
   group_limit?: number | string;
   support_id: string;
-  support_members: {
-    memberRole?: string;
-    member: UUID;
-    selectedDate?: string;
-    timeRangeStart?: string[];
-    timeRangeEnd?: string;
-    hasBeenPaid?: boolean;
-    accumulatedMins?: number;
-    isClockedIn?: boolean;
-    totalMembersInTimeClock?: number;
-    timeclock?: {
-      id?: number;
-      clock_in?: Date;
-      clock_out?: Date;
-      total: number;
-    }[];
-  }[];
+  support_members: SupportMemberType[];
+};
+
+export type SupportMemberType = {
+  memberRole?: string;
+  member?: any;
+  selectedDate?: string;
+  timeRangeStart?: string | Date | Date[] | null;
+  timeRangeEnd?: string | Date | Date[] | null;
+  hasBeenPaid?: boolean;
+  accumulatedMins?: number;
+  isClockedIn?: boolean;
+  totalMembersInTimeClock?: number;
+  timeclock?: TimeClockType[];
+};
+
+export type TimeClockType = {
+  id?: number;
+  clock_in?: Date;
+  clock_out?: Date;
+  total: number;
 };
 
 export type SupaBaseTemplate = {

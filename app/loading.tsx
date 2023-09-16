@@ -1,6 +1,6 @@
 'use client';
 
-import LoadingSpinner from '@/app-ui/element/custom/LoadingSpinner';
+import LoadingSpinner from '@/components/ux/element/custom/LoadingSpinner';
 import React from 'react';
 
 type Props = {};

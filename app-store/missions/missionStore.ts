@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { log } from '../zustandLog';
-import type { ChatObject, Mission } from './missionTypes';
+import type { ChatObject, Mission, SupportMemberType } from './missionTypes';
 import {
   getMissionFromSupa,
   getMissionsFromSupa,
@@ -30,6 +30,8 @@ export type ExtendedMission = Mission & {
   archiveMission: (id: any) => any;
   addChatMessage: (newChat: ChatObject) => any;
   archiveChatMessage: (chatId: string) => any;
+  removeGroup: (groupId: string) => any;
+  addMemberToGroup: (groupId: string, memberId: SupportMemberType) => any;
 };
 
 export const useMissionStore = create<ExtendedMission>(
@@ -51,6 +53,11 @@ export const useMissionStore = create<ExtendedMission>(
     },
     setMission: async (id: number) => {
       const data: any | null = await getMissionFromSupa({ id });
+      data?.groups?.map((group: any) => {
+        group?.support_members?.map((id: any) => {
+          return get().getMemberProfile(id);
+        });
+      });
       set((state: any) => ({
         mission: data[0],
       }));
@@ -122,6 +129,25 @@ export const useMissionStore = create<ExtendedMission>(
         return chat;
       });
       mission.chats = chatUpdate;
+      await putMissionToSupa(mission);
+      get().setMission(mission.id);
+    },
+    removeGroup: async (groupId: string) => {
+      const mission = get().mission;
+      const groupUpdate = mission?.groups?.filter((group: any) => group.support_id !== groupId);
+      mission.groups = groupUpdate;
+      await putMissionToSupa(mission);
+      get().setMission(mission.id);
+    },
+    addMemberToGroup: async (groupId: string, member: SupportMemberType) => {
+      const mission = get().mission;
+      const groupUpdate = mission?.groups?.map((group: any) => {
+        if (group.support_id === groupId) {
+          group.support_members = [...group.support_members, member];
+        }
+        return group;
+      });
+      mission.groups = groupUpdate;
       await putMissionToSupa(mission);
       get().setMission(mission.id);
     },

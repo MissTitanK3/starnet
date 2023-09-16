@@ -19,9 +19,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <main
       style={{
-        height: '85dvh',
-        width: '100vw',
-        overflowY: 'scroll',
+        height: '99dvh',
+        width: '99dvw',
+        overflowY: 'auto',
+        // overflowX: 'hidden',
       }}>
       {children}
     </main>

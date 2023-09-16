@@ -1,5 +1,5 @@
 export type Props = {
-  date: string | Date;
+  date: string | Date | Date[];
   secondsAhead?: number;
   hoursAhead?: number;
   minutesAhead?: number;
@@ -33,7 +33,7 @@ export const getLoggedAndExpire = ({
   yearsAhead,
   weekAhead = 1,
 }: Props) => {
-  const setupDate = new Date(date);
+  const setupDate = new Date(date.toString());
   const formattedDate = setupDate.toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',

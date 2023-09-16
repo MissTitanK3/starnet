@@ -1,8 +1,8 @@
-import MissionChat from '@/app-ui/composite/missionCenter/MissionChat';
-import MissionFinances from '@/app-ui/composite/missionCenter/MissionFinances';
-import MissionGroups from '@/app-ui/composite/missionCenter/MissionGroups';
-import MissionInfo from '@/app-ui/composite/missionCenter/MissionInfo';
-import MissionNavActions from '@/app-ui/composite/missionCenter/MissionNavActions';
+import MissionChat from '@/components/ux/composite/missionCenter/MissionChat';
+import MissionFinances from '@/components/ux/composite/missionCenter/MissionFinances';
+import MissionGroups from '@/components/ux/composite/missionCenter/MissionGroups';
+import MissionInfo from '@/components/ux/composite/missionCenter/MissionInfo';
+import MissionNavActions from '@/components/ux/composite/missionCenter/MissionNavActions';
 import React from 'react';
 
 type Props = {
@@ -19,10 +19,12 @@ const Page = ({ params: { missionId } }: Props) => {
         justifyContent: 'space-evenly',
         alignItems: 'center',
         flexWrap: 'wrap',
-        maxWidth: '100dvw',
+        width: '99dvw',
         margin: '0 auto',
       }}>
-      <div style={{ height: '84dvh', width: '58dvw', marginRight: '25dvw' }} className="contentBody">
+      <div
+        style={{ height: '93dvh', width: '65%', margin: '0 25dvw 0 15px', overflowX: 'hidden', padding: '0 20px' }}
+        className="contentBody">
         <div className="header">
           <MissionNavActions id={missionId} />
         </div>
@@ -38,13 +40,14 @@ const Page = ({ params: { missionId } }: Props) => {
       </div>
       <div
         style={{
-          height: '84dvh',
-          width: '30dvw',
+          height: '90dvh',
+          width: '30%',
           position: 'fixed',
           top: 80,
-          right: 0,
+          right: -5,
           backgroundColor: 'transparent',
           overflowY: 'scroll',
+          overflowX: 'hidden',
           display: 'flex',
         }}
         className="chat">
