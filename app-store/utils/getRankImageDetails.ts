@@ -1,4 +1,3 @@
-import { RankImageDetailsSizeType, RankImageDetailsType } from '@/app-ui/UiTypes';
 // Independent Ranks
 import ic from '@/public/starnet_logo.png';
 
@@ -38,6 +37,7 @@ import a2 from '@/public/images/command-officer/a2.png';
 import a3 from '@/public/images/command-officer/a3.png';
 import a4 from '@/public/images/command-officer/a4.png';
 import a5 from '@/public/images/command-officer/a5.png';
+import { RankImageDetailsSizeType, RankImageDetailsType } from '@/components/ux/UiTypes';
 
 export const getVariableRankImageDetails = (creatorRankGrade: string): RankImageDetailsSizeType | undefined => {
   switch (creatorRankGrade) {

@@ -1,4 +1,4 @@
-import { BilletObjType } from '@/app-ui/UiTypes';
+import { BilletObjType } from '@/components/ux/UiTypes';
 import { UUID } from 'crypto';
 
 export type AuthData = {

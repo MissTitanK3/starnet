@@ -1,4 +1,4 @@
-import type { ChatObject, Mission } from '@/app-store/missions/missionTypes';
+import type { Mission } from '@/app-store/missions/missionTypes';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 
 export const supabaseClient = createClientComponentClient();
