@@ -15,7 +15,7 @@ const MissionGroupActions = ({ cardOverride, groupName, close, groupId }: Props)
   const { removeGroup } = useMissionStore();
   const { setAddMemberModal } = useModalStore();
   const handleAddMember = () => {
-    setAddMemberModal(true);
+    setAddMemberModal({ isVisibile: true, shipNumber: groupId });
     close();
   };
   const handleRemoveGroup = async () => {

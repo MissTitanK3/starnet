@@ -73,11 +73,13 @@ const MissionGroupCard = ({ group }: Props) => {
           flexWrap: 'wrap',
           margin: '0 25px',
         }}>
-        {group?.support_members?.map((member) => (
-          <MissionMemberCard key={member.member} />
+        {group?.support_members?.map((member, key) => (
+          <MissionMemberCard key={`${member.member}-${key}`} />
         ))}
       </div>
-      {addMemberModal && <AddMemberToMissionModal groupId={group?.support_id} />}
+      {addMemberModal.isVisibile && addMemberModal.shipNumber === group?.support_id && (
+        <AddMemberToMissionModal groupId={group?.support_id} groupName={group?.support_type?.label || ''} />
+      )}
     </NeuCard>
   );
 };

@@ -11,8 +11,11 @@ export type ExtendedMission = {
   setEditMissionModal: (editMissionModal: boolean) => void;
   createSupportModal: boolean;
   setCreateSupportModal: (createSupportModal: boolean) => void;
-  addMemberModal: boolean;
-  setAddMemberModal: (addMemberModal: boolean) => void;
+  addMemberModal: {
+    isVisibile: boolean;
+    shipNumber: string;
+  };
+  setAddMemberModal: (addMemberModal: { isVisibile: boolean; shipNumber: string }) => void;
 };
 
 export const useModalStore = create<ExtendedMission>(
@@ -41,7 +44,10 @@ export const useModalStore = create<ExtendedMission>(
         createSupportModal,
       }));
     },
-    addMemberModal: false,
+    addMemberModal: {
+      isVisibile: false,
+      shipNumber: '',
+    },
     setAddMemberModal: async (addMemberModal: boolean) => {
       set((state: any) => ({
         addMemberModal,

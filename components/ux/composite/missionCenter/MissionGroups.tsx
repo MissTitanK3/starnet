@@ -12,8 +12,8 @@ import CreateSupportModal from '../../modals/CreateSupportModal';
 type Props = {};
 
 const MissionGroups = (props: Props) => {
-  const { mission, getMemberProfile, getAttachedEvents, activeTab } = useMissionStore();
-  const { createSupportModal, setCreateSupportModal, addMemberModal } = useModalStore();
+  const { mission, activeTab } = useMissionStore();
+  const { createSupportModal, setCreateSupportModal } = useModalStore();
   if (activeTab !== 'groups') return null;
   return (
     <div

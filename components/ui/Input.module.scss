@@ -1,0 +1,43 @@
+@use "../ux/variables.scss" as variable;
+@use "../ux/mixins.scss" as mixin;
+
+.Input {
+  background: variable.$primary-color-alpha;
+  border-radius: 0.2rem;
+  border: none;
+  line-height: 1.5rem;
+  font-size: 1.5rem;
+  color: variable.$linear-text-color;
+  box-shadow: transparent;
+  &:focus, &:focus{
+    outline: none;
+  }
+  &:hover {
+    cursor: text;
+  }
+}
+
+.NewInput {
+  background: variable.$primary-color-alpha;
+  border-radius: 0.5rem;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  text-align: center;
+  margin-right: 25px;
+  height: 2rem;
+  width: 100%;
+  box-shadow: 7px 7px 16px 0px #0000003D, -7px -7px 16px 0px #6161613d;
+  &:hover {
+    box-shadow: 7px 7px 16px 0px #0000003D inset, -7px -7px 16px 0px #6161613d inset;
+    background-color: variable.$linear-text-color;
+    background: -webkit-linear-gradient(180deg,#1A5DF9 0%, #75DCFF 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    cursor: pointer;
+  }
+}

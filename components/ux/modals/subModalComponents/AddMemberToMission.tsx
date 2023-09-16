@@ -13,9 +13,10 @@ import { PostgrestError } from '@supabase/supabase-js';
 
 type Props = {
   groupId: string;
+  groupName: string;
 };
 
-const AddMemberToMissionModal = ({ groupId }: Props) => {
+const AddMemberToMissionModal = ({ groupId, groupName }: Props) => {
   const [newMember, setNewMember] = useState<SupportMemberType>({
     member: undefined,
     timeRangeStart: '',
@@ -40,6 +41,8 @@ const AddMemberToMissionModal = ({ groupId }: Props) => {
   const handleUpdate = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setNewMember((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
+  console.log('newMember', newMember);
+  console.log('groupId', groupId);
 
   const handleAddMember = () => {
     addMemberToGroup(groupId, newMember);
@@ -59,7 +62,7 @@ const AddMemberToMissionModal = ({ groupId }: Props) => {
       totalMembersInTimeClock: 0,
       timeclock: [],
     });
-    setAddMemberModal(false);
+    setAddMemberModal({ isVisibile: false, shipNumber: '' });
   };
 
   useEffect(() => {
@@ -125,7 +128,7 @@ const AddMemberToMissionModal = ({ groupId }: Props) => {
             marginTop: '20px',
           }}
         />
-        <h5>Select Member</h5>
+        <h5>Assign Member to {groupName}</h5>
         <NeuDropdown
           cardStyleOverride={{
             marginBottom: '0.05rem',

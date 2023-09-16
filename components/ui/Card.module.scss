@@ -1,0 +1,31 @@
+@use "../ux/variables.scss" as variable;
+@use "../ux/mixins.scss" as mixin;
+
+.neumorphicDarkCard {
+  background: variable.$primary-color-alpha;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  justify-content: space-between;
+  padding: 1rem;
+  min-width: fit-content;
+  margin: 15px;
+  box-shadow: 7px 7px 16px 0px #0000003D, -7px -7px 16px 0px #6161613d;
+  &:hover {
+    box-shadow: 7px 7px 16px 0px #0000003D inset, -7px -7px 16px 0px #6161613d inset;
+    // cursor: text;
+  }
+}
+.neumorphicDarkCardNohover {
+  background: variable.$primary-color-alpha;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  justify-content: space-between;
+  padding: 1rem;
+  min-width: fit-content;
+  margin: 15px;
+  box-shadow: 7px 7px 16px 0px #0000003D, -7px -7px 16px 0px #6161613d;
+}

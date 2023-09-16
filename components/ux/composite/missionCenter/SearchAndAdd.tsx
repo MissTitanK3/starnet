@@ -4,8 +4,9 @@ import { useMissionStore } from '@/app-store/missions/missionStore';
 import { useModalStore } from '@/app-store/modals/modalStore';
 import React from 'react';
 import { FaPlus, FaSearch } from 'react-icons/fa';
-import NeuInput from '../../element/inputs/NeuInput';
-import NeuButton from '../../element/buttons/NeuButton';
+import ShadButton from '../../element/buttons/ShadButton';
+import ShadInput from '../../element/inputs/ShadInput';
+import ShadCard from '../../element/cards/ShadCard';
 
 type Props = {};
 
@@ -23,40 +24,36 @@ const SearchAndAdd = (props: Props) => {
         justifyContent: 'space-between',
         width: 700,
       }}>
-      <NeuInput
-        cardStyleOverride={{
-          width: '100%',
-          height: '70%',
-        }}
-        inputStyleOverride={{
-          width: '100%',
-          height: '100%',
-          fontSize: '1.5rem',
-        }}
-        placeholder="Search In List..."
-        type="text"
-        id="searchInput"
-        value={missionFilter}
-        changeInput={(e) => setMissionFilter(e.target.value)}
-        adornment="left"
-        adornmentIcon={<FaSearch />}
-      />
-      <NeuButton
+      <ShadCard>
+        <ShadInput
+          type="text"
+          value={missionFilter}
+          placeHolder="Search In List..."
+          changeInput={(e) => setMissionFilter(e.target.value)}
+          adornment="left"
+          adornmentIcon={<FaSearch />}
+          inputStyleOverride={{
+            width: '350px',
+          }}
+        />
+      </ShadCard>
+      <ShadButton
         onClick={() => handleAddMission()}
         styled={{
-          width: 250,
+          width: 160,
           height: '3rem',
+          margin: 'auto',
         }}>
         <span
           style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            fontSize: '1.2rem',
           }}>
-          <FaPlus />
-          &nbsp;New Mission
+          <FaPlus /> &nbsp;&nbsp;New Mission
         </span>
-      </NeuButton>
+      </ShadButton>
     </div>
   );
 };
