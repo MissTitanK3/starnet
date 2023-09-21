@@ -7,6 +7,7 @@ import NeuCard from '../../element/cards/NeuCard';
 import MissionActions from '../../modals/MissionActions';
 import NeuButton from '../../element/buttons/NeuButton';
 import { useClickOutside } from '../../hooks/useClickOutside';
+import ShadCard from '../../element/cards/ShadCard';
 
 type Props = {};
 
@@ -16,13 +17,14 @@ const MissionMemberCard = (props: Props) => {
   const dropdown = useRef<HTMLDivElement>(null);
   useClickOutside(dropdown, () => setActionsOpen(false));
   return (
-    <NeuCard
-      activeHover={false}
-      cardStyleOverride={{
+    <ShadCard
+      variant="noHover"
+      styleOverride={{
         width: '350px',
-        margin: '10px auto',
+        // margin: '10px auto',
         display: 'flex',
-        flexDirection: 'column',
+        flexWrap: 'wrap',
+        // flexDirection: 'column',
         alignItems: 'center',
       }}>
       <div
@@ -267,7 +269,7 @@ const MissionMemberCard = (props: Props) => {
           )}
         </div>
       </div>
-    </NeuCard>
+    </ShadCard>
   );
 };
 

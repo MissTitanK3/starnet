@@ -9,6 +9,8 @@ import React, { useEffect, useState } from 'react';
 import { FaTrashAlt } from 'react-icons/fa';
 import NeuCard from '../../element/cards/NeuCard';
 import NeuButton from '../../element/buttons/NeuButton';
+import ShadCard from '../../element/cards/ShadCard';
+import ShadButton from '../../element/buttons/ShadButton';
 
 type Props = {
   chat: ChatObject;
@@ -18,6 +20,7 @@ type Props = {
 const MissionChatItem = ({ chat, chatKey }: Props) => {
   const { getMemberProfile, archiveChatMessage } = useMissionStore();
   const [senderData, setSenderData] = useState<AuthData | null>(null);
+  const [awaitingDelete, setAwaitingDelete] = useState<boolean>(false);
   const { timeFormattedDate } = getLoggedAndExpire({ date: chat?.created_at.toString() || '' });
 
   useEffect(() => {
@@ -38,20 +41,20 @@ const MissionChatItem = ({ chat, chatKey }: Props) => {
         flexDirection: 'column',
         alignItems: 'center',
       }}>
-      <NeuCard
-        minHeightOverride="200px"
-        cardStyleOverride={{
+      <ShadCard
+        variant="noHover"
+        styleOverride={{
           border: chat.origin !== 'mission' ? '3px solid #594b16' : 'unset',
           minHeight: '100px',
           width: '90%',
         }}
-        activeHover={false}
         key={`chat-object-${chatKey}`}>
         <div
           style={{
             display: 'flex',
             justifyContent: 'space-between',
             width: '100%',
+            marginBottom: '15px',
           }}>
           <div
             style={{
@@ -77,17 +80,20 @@ const MissionChatItem = ({ chat, chatKey }: Props) => {
               flexDirection: 'column',
               alignItems: 'flex-end',
             }}>
-            <NeuButton
+            <ShadButton
               onClick={async () => {
+                setAwaitingDelete(true);
                 await archiveChatMessage(chat.id!);
+                setAwaitingDelete(false);
               }}
+              variant="destructive"
               styled={{
                 width: '25px',
-                marginRight: '5px',
-              }}
-              key="remove-chat">
-              <FaTrashAlt size={10} />
-            </NeuButton>
+                height: '25px',
+                padding: '5px 0',
+              }}>
+              {awaitingDelete ? '...' : <FaTrashAlt color="#7c0101" size={10} />}
+            </ShadButton>
           </div>
         </div>
         <div
@@ -119,7 +125,7 @@ const MissionChatItem = ({ chat, chatKey }: Props) => {
         />
         <span>{chat.origin === 'mission' ? 'Origin: Mission' : `Origin: Event #${chat.event_link_id}`}</span>
         <span>{senderData?.bravo_billet?.label}</span>
-      </NeuCard>
+      </ShadCard>
     </div>
   );
 };

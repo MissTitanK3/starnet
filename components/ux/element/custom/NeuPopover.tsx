@@ -5,6 +5,7 @@ import PlainButton from '../buttons/PlainButton';
 import { BsInfoCircleFill } from 'react-icons/bs';
 import NeuCard from '../cards/NeuCard';
 import { useClickOutside } from '../../hooks/useClickOutside';
+import ShadCard from '../cards/ShadCard';
 
 type Props = {
   children: React.ReactNode;
@@ -54,6 +55,7 @@ const NeuPopover = ({ children, orientation = 'right', popoverWidth = '400px', p
       style={{
         position: 'relative',
         display: 'inline-block',
+        zIndex: 1000,
       }}>
       <PlainButton
         onClick={() => setOpen(!open)}
@@ -66,18 +68,18 @@ const NeuPopover = ({ children, orientation = 'right', popoverWidth = '400px', p
         <BsInfoCircleFill color="rgb(0, 150, 150)" />
       </PlainButton>
       {open && (
-        <NeuCard
-          minHeightOverride={popoverHeight}
-          activeHover={false}
-          cardStyleOverride={{
+        <ShadCard
+          variant="noHover"
+          styleOverride={{
             position: 'absolute',
             zIndex: 1000,
             backgroundColor: 'rgb(35, 35, 35)',
             width: popoverWidth,
+            height: popoverHeight,
             ...orentationStyle(),
           }}>
           <p>{children}</p>
-        </NeuCard>
+        </ShadCard>
       )}
     </div>
   );

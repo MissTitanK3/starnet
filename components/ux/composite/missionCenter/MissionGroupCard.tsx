@@ -8,6 +8,7 @@ import { useClickOutside } from '../../hooks/useClickOutside';
 import NeuButton from '../../element/buttons/NeuButton';
 import AddMemberToMissionModal from '../../modals/subModalComponents/AddMemberToMission';
 import NeuCard from '../../element/cards/NeuCard';
+import ShadCard from '../../element/cards/ShadCard';
 
 type Props = {
   group: MissionCenterSupportShip;
@@ -20,9 +21,9 @@ const MissionGroupCard = ({ group }: Props) => {
   useClickOutside(dropdown, () => setActionsOpen(false));
 
   return (
-    <NeuCard
-      activeHover={false}
-      cardStyleOverride={{
+    <ShadCard
+      variant="noHover"
+      styleOverride={{
         width: '95%',
         margin: '25px auto',
       }}>
@@ -80,7 +81,7 @@ const MissionGroupCard = ({ group }: Props) => {
       {addMemberModal.isVisibile && addMemberModal.shipNumber === group?.support_id && (
         <AddMemberToMissionModal groupId={group?.support_id} groupName={group?.support_type?.label || ''} />
       )}
-    </NeuCard>
+    </ShadCard>
   );
 };
 

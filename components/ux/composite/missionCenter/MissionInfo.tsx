@@ -6,6 +6,7 @@ import { getLoggedAndExpire } from '@/app-store/utils/getTimeFormat';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import NeuCard from '../../element/cards/NeuCard';
+import ShadCard from '../../element/cards/ShadCard';
 
 type Props = {};
 
@@ -41,12 +42,7 @@ const MissionInfo = (props: Props) => {
       style={{
         overflowY: 'auto',
       }}>
-      <NeuCard
-        activeHover={false}
-        cardStyleOverride={{
-          width: '95%',
-          margin: '50px auto',
-        }}>
+      <ShadCard variant="noHover">
         <div
           style={{
             display: 'flex',
@@ -83,14 +79,9 @@ const MissionInfo = (props: Props) => {
             <h3>{mission?.op_sec_code}</h3>
           </div>
         </div>
-      </NeuCard>
+      </ShadCard>
       {mission?.event_id && (
-        <NeuCard
-          activeHover={false}
-          cardStyleOverride={{
-            width: '95%',
-            margin: '50px auto',
-          }}>
+        <ShadCard variant="noHover">
           <div
             style={{
               display: 'flex',
@@ -105,14 +96,9 @@ const MissionInfo = (props: Props) => {
               <h3>{eventData?.id}</h3>
             </div>
           </div>
-        </NeuCard>
+        </ShadCard>
       )}
-      <NeuCard
-        activeHover={false}
-        cardStyleOverride={{
-          width: '95%',
-          margin: '50px auto',
-        }}>
+      <ShadCard variant="noHover">
         <div
           style={{
             display: 'flex',
@@ -156,14 +142,8 @@ const MissionInfo = (props: Props) => {
             <h3>{mission?.is_archived ? 'Yes' : 'No'}</h3>
           </div>
         </div>
-      </NeuCard>
-      <NeuCard
-        activeHover={false}
-        cardStyleOverride={{
-          width: '95%',
-          margin: '50px auto',
-          height: '100%',
-        }}>
+      </ShadCard>
+      <ShadCard variant="noHover">
         <div
           style={{
             display: 'flex',
@@ -185,7 +165,7 @@ const MissionInfo = (props: Props) => {
             </span>
           </div>
         </div>
-      </NeuCard>
+      </ShadCard>
     </main>
   );
 };

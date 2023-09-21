@@ -14,6 +14,7 @@ import { AiFillHome } from 'react-icons/ai';
 import { MdGroup, MdGroups2 } from 'react-icons/md';
 import { GiOrganigram } from 'react-icons/gi';
 import { IoLibrarySharp } from 'react-icons/io5';
+import { GiMeshNetwork } from 'react-icons/gi';
 
 type Props = {};
 
@@ -93,8 +94,13 @@ const TopNavigation = ({}: Props) => {
               </Link>
             </NeuButton>
             <NeuButton>
-              <Link style={{ margin: '10px' }} href="/library">
+              <Link style={{ margin: '10px' }} href="/academy">
                 <IoLibrarySharp />
+              </Link>
+            </NeuButton>
+            <NeuButton>
+              <Link style={{ margin: '10px' }} href="/community-center">
+                <GiMeshNetwork />
               </Link>
             </NeuButton>
             <Link href={`/user/${profile?.id}`}>

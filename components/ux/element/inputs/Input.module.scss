@@ -8,10 +8,6 @@
   line-height: 1rem;
   color: variable.$linear-text-color;
   box-shadow: transparent;
-  // &::selection {
-  //   background: variable.$linear-text-color;
-  //   color: variable.$primary-color-alpha;
-  // }
   &:focus, &:focus{
     outline: none;
   }

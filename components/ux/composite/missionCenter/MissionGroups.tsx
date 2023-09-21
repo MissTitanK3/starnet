@@ -8,6 +8,7 @@ import NeuCard from '../../element/cards/NeuCard';
 import NeuPopover from '../../element/custom/NeuPopover';
 import NeuButton from '../../element/buttons/NeuButton';
 import CreateSupportModal from '../../modals/CreateSupportModal';
+import ShadCard from '../../element/cards/ShadCard';
 
 type Props = {};
 
@@ -20,9 +21,9 @@ const MissionGroups = (props: Props) => {
       style={{
         marginBottom: '150px',
       }}>
-      <NeuCard
-        activeHover={false}
-        cardStyleOverride={{
+      <ShadCard
+        variant="noHover"
+        styleOverride={{
           width: '95%',
           margin: '25px auto',
         }}>
@@ -92,10 +93,10 @@ const MissionGroups = (props: Props) => {
             </div>
           </div>
         </div>
-      </NeuCard>
-      <NeuCard
-        activeHover={false}
-        cardStyleOverride={{
+      </ShadCard>
+      <ShadCard
+        variant="noHover"
+        styleOverride={{
           width: '95%',
           margin: '25px auto',
         }}>
@@ -136,7 +137,7 @@ const MissionGroups = (props: Props) => {
             </NeuButton>
           </div>
         </div>
-      </NeuCard>
+      </ShadCard>
       {mission?.groups?.map((group) => {
         return <MissionGroupCard key={group?.support_id} group={group} />;
       })}

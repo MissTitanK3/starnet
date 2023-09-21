@@ -19,7 +19,6 @@ const Page = (props: Props) => {
         overflowX: 'hidden',
       }}>
       <SearchAndAdd />
-      <MissionFilters />
       <MissionList />
     </main>
   );

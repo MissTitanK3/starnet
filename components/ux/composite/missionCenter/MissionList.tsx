@@ -6,10 +6,13 @@ import { getLoggedAndExpire } from '@/app-store/utils/getTimeFormat';
 import React from 'react';
 import NeuCard from '../../element/cards/NeuCard';
 import AddMissionModal from '../../modals/AddMissionModal';
+import ShadCard from '../../element/cards/ShadCard';
+import { useRouter } from 'next/navigation';
 
 type Props = {};
 
 const MissionList = (props: Props) => {
+  const router = useRouter();
   const { allMissions } = useMissionStore();
   const { newMissionModal } = useModalStore();
   const getMissionMembers = (missionId: string) => {
@@ -30,17 +33,12 @@ const MissionList = (props: Props) => {
         const { formattedDate } = getLoggedAndExpire({ date: mission?.start_date || '' });
         return (
           <div key={mission.id}>
-            <NeuCard
-              route={`/mission-center/${mission.id}`}
-              cardStyleOverride={{
+            <ShadCard
+              OnClicked={() => router.push(`/mission-center/${mission.id}`)}
+              variant="underColorWithPointer"
+              styleOverride={{
                 width: '800px',
                 margin: '20px',
-                minHeight: '200px',
-                display: 'flex',
-                flexDirection: 'column',
-                alignContent: 'center',
-                alignItems: 'center',
-                justifyContent: 'space-between',
               }}>
               <div
                 className="left"
@@ -51,11 +49,11 @@ const MissionList = (props: Props) => {
                   height: '100%',
                 }}>
                 <div>
-                  <h5>MISSION NAME</h5>
+                  <h6>MISSION NAME</h6>
                   <h2>{mission?.mission_name}</h2>
                 </div>
-                <div>
-                  <h5>START DATE</h5>
+                <div style={{ textAlign: 'right' }}>
+                  <h6>START DATE</h6>
                   <h6>{formattedDate}</h6>
                 </div>
               </div>
@@ -69,7 +67,7 @@ const MissionList = (props: Props) => {
                   width: '100%',
                   margin: '20px 0',
                 }}>
-                <h5>SCOPE</h5>
+                <h6>SCOPE</h6>
                 <h4>{mission?.mission_scope}</h4>
               </div>
               <div
@@ -80,17 +78,30 @@ const MissionList = (props: Props) => {
                   width: '100%',
                   height: '100%',
                 }}>
-                <div>
-                  <h6>OPTIMAL PARTICIPANTS</h6>
-                  <h2>{mission?.optimal_participation}</h2>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    height: '100%',
+                    padding: '0 20px',
+                  }}>
+                  <h6>OPTIMAL PARTICIPANTS: </h6>
+                  <h5 style={{ marginLeft: 10 }}>{mission?.optimal_participation}</h5>
                 </div>
-
-                <div>
-                  <h6>CURRENT PARTICIPANTS</h6>
-                  <h2>{getMissionMembers(mission.id.toString()) || 0}</h2>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    height: '100%',
+                    padding: '0 20px',
+                  }}>
+                  <h6>CURRENT PARTICIPANTS: </h6>
+                  <h5 style={{ marginLeft: 10 }}>{getMissionMembers(mission.id.toString()) || 0}</h5>
                 </div>
               </div>
-            </NeuCard>
+            </ShadCard>
           </div>
         );
       })}

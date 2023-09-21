@@ -10,7 +10,12 @@ const cardVariants = cva(
     variants: {
       variant: {
         default: `${styles.neumorphicDarkCard}`,
+        solid: `${styles.neumorphicDarkCard} ${styles.solid}`,
+        underColor: `${styles.neumorphicDarkCard} ${styles.textUnderColor}`,
+        withPointer: `${styles.neumorphicDarkCard} ${styles.withPointer}`,
+        underColorWithPointer: `${styles.neumorphicDarkCard} ${styles.textUnderColor} ${styles.withPointer}`,
         noHover: `${styles.neumorphicDarkCardNohover}`,
+        solidNoHover: `${styles.neumorphicDarkCardNohover} ${styles.solid}`,
         ghost: '',
       },
       size: {

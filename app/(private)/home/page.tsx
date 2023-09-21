@@ -2,7 +2,7 @@ import React from 'react';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import NeuCard from '@/components/ux/element/cards/NeuCard';
+import ShadCard from '@/components/ux/element/cards/ShadCard';
 
 // export const dynamicParams = true;
 export const dynamic = 'force-dynamic';
@@ -16,6 +16,7 @@ async function Page() {
   if (!session?.access_token) {
     return redirect('/');
   }
+
   return (
     <main
       style={{
@@ -27,26 +28,71 @@ async function Page() {
         maxWidth: '70dvw',
         margin: '50px auto',
       }}>
-      <NeuCard route="/org-center">
-        <h2>Organization Center</h2>
-        <p>Manage your organizations and their members.</p>
-      </NeuCard>
-      <NeuCard route="/event-center">
-        <h2>Event Center</h2>
-        <p>Plan events and invite your friends.</p>
-      </NeuCard>
-      <NeuCard route="/mission-center">
-        <h2>Mission Center</h2>
-        <p>Plan missions and invite your friends.</p>
-      </NeuCard>
-      <NeuCard route="/social-center">
-        <h2>Social Center</h2>
-        <p>Socialize with new friends and groups.</p>
-      </NeuCard>
-      <NeuCard route="/community-center">
-        <h2>Community Center</h2>
-        <p>Join new groups.</p>
-      </NeuCard>
+      <ShadCard
+        cardTitle="Event Center"
+        cardDescription="Plan public events and invite your friends."
+        styleOverride={{
+          width: '300px',
+          minHeight: '110px',
+        }}
+        variant="withPointer"
+        OnRoute="/event-center">
+        <br />
+        <hr />
+        <p
+          style={{
+            fontSize: '0.6rem',
+          }}>
+          *Some missions still may require a secruity code to participate.
+        </p>
+      </ShadCard>
+      <ShadCard
+        cardTitle="Mission Center"
+        cardDescription="Plan public missions and invite your friends."
+        styleOverride={{
+          width: '300px',
+          minHeight: '110px',
+        }}
+        variant="withPointer"
+        OnRoute="/mission-center">
+        <br />
+        <hr />
+        <p
+          style={{
+            fontSize: '0.6rem',
+          }}>
+          *Some missions still may require a secruity code to participate.
+        </p>
+      </ShadCard>
+      <ShadCard
+        cardTitle="Organization Center"
+        cardDescription="Manage your organizations and its members."
+        styleOverride={{
+          width: '300px',
+          minHeight: '110px',
+        }}
+        variant="withPointer"
+        OnRoute="/org-center"
+      />
+      <ShadCard
+        cardTitle="Community Center"
+        cardDescription="Organize with Organizations."
+        styleOverride={{
+          width: '300px',
+          minHeight: '110px',
+        }}
+        variant="withPointer"
+        OnRoute="/commmunity-center"
+      />
+      <ShadCard
+        cardTitle="Social Center"
+        cardDescription="Socialize with new friends."
+        styleOverride={{
+          width: '300px',
+        }}
+        variant="withPointer"
+        OnRoute="/social-center"
+      />
       <hr
         style={{
           width: '100%',
@@ -56,26 +102,46 @@ async function Page() {
           margin: '1rem 0',
         }}
       />
-      <NeuCard route="/">
-        <h2>StarNet Settlements</h2>
-        <p>Find friendly areas to get some R&R</p>
-      </NeuCard>
-      <NeuCard route="/net-library">
-        <h2>StarNet Library</h2>
-        <p>Learn about the network.</p>
-      </NeuCard>
-      <NeuCard route="/">
-        <h2>StarNet Academy</h2>
-        <p>A place for instruction. Past, Present & Future.</p>
-      </NeuCard>
-      <NeuCard route="/">
-        <h2>StarNet Casino</h2>
-        <p>Are you feeling lucky..</p>
-      </NeuCard>
-      <NeuCard route="/">
-        <h2>StarNet Credit Union</h2>
-        <p>If you need some financial assistance, then lets see how the network can help.</p>
-      </NeuCard>
+      <ShadCard
+        cardTitle="StarNet Settlements"
+        cardDescription="Find friendly areas to get some R&R"
+        styleOverride={{
+          width: '300px',
+          minHeight: '110px',
+        }}
+        variant="withPointer"
+        OnRoute="/settlements"
+      />
+      <ShadCard
+        cardTitle="StarNet Academy"
+        cardDescription="A place for instruction. Past, Present & Future."
+        styleOverride={{
+          width: '300px',
+          minHeight: '110px',
+        }}
+        variant="withPointer"
+        OnRoute="/academy"
+      />
+      <ShadCard
+        cardTitle="StarNet Casino"
+        cardDescription="Are you feeling lucky.."
+        styleOverride={{
+          width: '300px',
+          minHeight: '110px',
+        }}
+        variant="withPointer"
+        OnRoute="/casino"
+      />
+      <ShadCard
+        cardTitle="StarNet Credit Union"
+        cardDescription="If you need some financial assistance, then lets see how the network can help."
+        styleOverride={{
+          width: '300px',
+          minHeight: '110px',
+        }}
+        variant="withPointer"
+        OnRoute="/credit-union"
+      />
     </main>
   );
 }
