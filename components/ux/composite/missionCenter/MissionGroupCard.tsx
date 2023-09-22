@@ -7,7 +7,6 @@ import MissionGroupActions from '../../modals/MissionGroupActions';
 import { useClickOutside } from '../../hooks/useClickOutside';
 import NeuButton from '../../element/buttons/NeuButton';
 import AddMemberToMissionModal from '../../modals/subModalComponents/AddMemberToMission';
-import NeuCard from '../../element/cards/NeuCard';
 import ShadCard from '../../element/cards/ShadCard';
 
 type Props = {

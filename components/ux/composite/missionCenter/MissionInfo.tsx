@@ -5,7 +5,6 @@ import { getVariableRankImageDetails } from '@/app-store/utils/getRankImageDetai
 import { getLoggedAndExpire } from '@/app-store/utils/getTimeFormat';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
-import NeuCard from '../../element/cards/NeuCard';
 import ShadCard from '../../element/cards/ShadCard';
 
 type Props = {};

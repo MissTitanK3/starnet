@@ -4,7 +4,6 @@ import { useMissionStore } from '@/app-store/missions/missionStore';
 import { useModalStore } from '@/app-store/modals/modalStore';
 import { getLoggedAndExpire } from '@/app-store/utils/getTimeFormat';
 import React from 'react';
-import NeuCard from '../../element/cards/NeuCard';
 import AddMissionModal from '../../modals/AddMissionModal';
 import ShadCard from '../../element/cards/ShadCard';
 import { useRouter } from 'next/navigation';

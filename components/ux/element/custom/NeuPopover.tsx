@@ -3,7 +3,6 @@
 import React, { useRef } from 'react';
 import PlainButton from '../buttons/PlainButton';
 import { BsInfoCircleFill } from 'react-icons/bs';
-import NeuCard from '../cards/NeuCard';
 import { useClickOutside } from '../../hooks/useClickOutside';
 import ShadCard from '../cards/ShadCard';
 

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import NeuCard from '../../element/cards/NeuCard';
 import NeuButton from '../../element/buttons/NeuButton';
 import { FaX } from 'react-icons/fa6';
 import { SupportMemberType } from '@/app-store/missions/missionTypes';
@@ -10,6 +9,7 @@ import NeuDropdown from '../../element/inputs/NeuDropdown';
 import PlainButton from '../../element/buttons/PlainButton';
 import { getAllProfilesFromSupaForDropdown } from '@/app-store/auth/authActions';
 import { PostgrestError } from '@supabase/supabase-js';
+import ShadCard from '../../element/cards/ShadCard';
 
 type Props = {
   groupId: string;
@@ -107,11 +107,11 @@ const AddMemberToMissionModal = ({ groupId, groupName }: Props) => {
         overflowY: 'auto',
         zIndex: 100,
       }}>
-      <NeuCard
-        activeHover={false}
-        minHeightOverride="420px"
-        cardStyleOverride={{
+      <ShadCard
+        variant="noHover"
+        styleOverride={{
           backgroundColor: '#242424',
+          minHeight: '420px',
           maxHeight: '40dvh',
           width: '600px',
           display: 'flex',
@@ -178,7 +178,7 @@ const AddMemberToMissionModal = ({ groupId, groupName }: Props) => {
             Add Member
           </NeuButton>
         </div>
-      </NeuCard>
+      </ShadCard>
       <NeuButton
         onClick={() => handleClose()}
         styled={{

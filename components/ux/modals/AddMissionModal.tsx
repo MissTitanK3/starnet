@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
-import NeuCard from '../element/cards/NeuCard';
 import NeuButton from '../element/buttons/NeuButton';
 import { FaX } from 'react-icons/fa6';
 import NeuInput from '../element/inputs/NeuInput';
-import { Mission, missionTypes } from '@/app-store/missions/missionTypes';
+import { Mission } from '@/app-store/missions/missionTypes';
 import NeuTextArea from '../element/inputs/NeuTextArea';
 import { useModalStore } from '@/app-store/modals/modalStore';
 import NeuDateField from '../element/inputs/NeuDateField';
 import { useMissionStore } from '@/app-store/missions/missionStore';
 import { generateCode } from '@/app-store/utils/generateCode';
-import NeuDropdown from '../element/inputs/NeuDropdown';
-import PlainButton from '../element/buttons/PlainButton';
 import ShadCard from '../element/cards/ShadCard';
 import ShadButton from '../element/buttons/ShadButton';
 import Overlay from '../element/overlays/Overlay';

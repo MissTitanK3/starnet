@@ -3,7 +3,6 @@ import React, { useRef } from 'react';
 import { FaPlus } from 'react-icons/fa';
 import { FaEllipsisVertical } from 'react-icons/fa6';
 import { PiClockCountdownBold } from 'react-icons/pi';
-import NeuCard from '../../element/cards/NeuCard';
 import MissionActions from '../../modals/MissionActions';
 import NeuButton from '../../element/buttons/NeuButton';
 import { useClickOutside } from '../../hooks/useClickOutside';

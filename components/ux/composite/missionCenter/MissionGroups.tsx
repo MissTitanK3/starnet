@@ -4,7 +4,6 @@ import { useMissionStore } from '@/app-store/missions/missionStore';
 import { useModalStore } from '@/app-store/modals/modalStore';
 import React from 'react';
 import MissionGroupCard from './MissionGroupCard';
-import NeuCard from '../../element/cards/NeuCard';
 import NeuPopover from '../../element/custom/NeuPopover';
 import NeuButton from '../../element/buttons/NeuButton';
 import CreateSupportModal from '../../modals/CreateSupportModal';

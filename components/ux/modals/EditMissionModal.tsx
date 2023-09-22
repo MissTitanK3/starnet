@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import NeuCard from '../element/cards/NeuCard';
 import NeuButton from '../element/buttons/NeuButton';
 import { FaX } from 'react-icons/fa6';
 import NeuInput from '../element/inputs/NeuInput';
@@ -11,6 +10,7 @@ import { useMissionStore } from '@/app-store/missions/missionStore';
 import { generateCode } from '@/app-store/utils/generateCode';
 import PlainButton from '../element/buttons/PlainButton';
 import NeuDropdown from '../element/inputs/NeuDropdown';
+import ShadCard from '../element/cards/ShadCard';
 
 type Props = {};
 
@@ -53,9 +53,9 @@ const EditMissionModal = (props: Props) => {
         overflowY: 'auto',
         zIndex: 100,
       }}>
-      <NeuCard
-        activeHover={false}
-        cardStyleOverride={{
+      <ShadCard
+        variant="noHover"
+        styleOverride={{
           backgroundColor: '#242424',
           maxHeight: '80dvh',
           height: '400px',
@@ -216,7 +216,7 @@ const EditMissionModal = (props: Props) => {
             Update Mission
           </NeuButton>
         </div>
-      </NeuCard>
+      </ShadCard>
       <NeuButton
         onClick={() => handleClose()}
         styled={{

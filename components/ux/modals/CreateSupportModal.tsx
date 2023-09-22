@@ -1,13 +1,13 @@
 'use client';
 
 import React, { useState } from 'react';
-import NeuCard from '../element/cards/NeuCard';
 import { useModalStore } from '@/app-store/modals/modalStore';
 import PlainButton from '../element/buttons/PlainButton';
 import NeuButton from '../element/buttons/NeuButton';
 import OneTimeShip from './subModalComponents/OneTimeShip';
 import TemplateShip from './subModalComponents/TemplateShip';
 import NewTempalate from './subModalComponents/NewTempalate';
+import ShadCard from '../element/cards/ShadCard';
 
 type Props = {};
 
@@ -46,9 +46,9 @@ const CreateSupportModal = (props: Props) => {
         overflowY: 'auto',
         zIndex: 100,
       }}>
-      <NeuCard
-        activeHover={false}
-        cardStyleOverride={{
+      <ShadCard
+        variant="noHover"
+        styleOverride={{
           backgroundColor: '#242424',
           maxHeight: '80dvh',
           width: '600px',
@@ -122,7 +122,7 @@ const CreateSupportModal = (props: Props) => {
             Cancel
           </PlainButton>
         )}
-      </NeuCard>
+      </ShadCard>
     </div>
   );
 };

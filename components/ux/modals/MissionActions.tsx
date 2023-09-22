@@ -1,8 +1,8 @@
 import React from 'react';
-import NeuCard from '../element/cards/NeuCard';
 import NeuButton from '../element/buttons/NeuButton';
 import { useMissionStore } from '@/app-store/missions/missionStore';
 import { useModalStore } from '@/app-store/modals/modalStore';
+import ShadCard from '../element/cards/ShadCard';
 
 type Props = {
   cardOverride?: React.CSSProperties;
@@ -24,13 +24,18 @@ const MissionActions = ({ cardOverride }: Props) => {
     setActionsOpen(false);
   };
   return (
-    <NeuCard minHeightOverride="200px" activeHover={false} cardStyleOverride={cardOverride}>
+    <ShadCard
+      variant="noHover"
+      styleOverride={{
+        ...cardOverride,
+        minHeight: '200px',
+      }}>
       <NeuButton onClick={() => handleEditMission()}>Edit Mission</NeuButton>
       <NeuButton onClick={() => handleArchiveMission()}>
         {mission?.is_archived ? 'Unarchive Mission' : 'Archive Mission'}
       </NeuButton>
       <NeuButton onClick={() => handleResetCode()}>Reset Code</NeuButton>
-    </NeuCard>
+    </ShadCard>
   );
 };
 

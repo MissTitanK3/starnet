@@ -7,8 +7,6 @@ import { getChatColor } from '@/app-store/utils/getChatColor';
 import { getLoggedAndExpire } from '@/app-store/utils/getTimeFormat';
 import React, { useEffect, useState } from 'react';
 import { FaTrashAlt } from 'react-icons/fa';
-import NeuCard from '../../element/cards/NeuCard';
-import NeuButton from '../../element/buttons/NeuButton';
 import ShadCard from '../../element/cards/ShadCard';
 import ShadButton from '../../element/buttons/ShadButton';
 
