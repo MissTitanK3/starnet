@@ -7,12 +7,23 @@ type Props = {
     value: string;
     label: string;
   }[];
+  onChange: (e: any) => void;
 };
 
-const ShadSelect = ({ SelectItems = [] }: Props) => {
+const ShadSelect = ({ SelectItems = [], onChange }: Props) => {
   return (
-    <Select>
-      <SelectTrigger className="w-[180px]">
+    <Select onValueChange={onChange}>
+      <SelectTrigger
+        style={{
+          width: '180px',
+          height: '40px',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          fontWeight: 500,
+          cursor: 'pointer',
+        }}
+        className="w-[180px]">
         <SelectValue
           style={{
             margin: '25px',
@@ -31,7 +42,18 @@ const ShadSelect = ({ SelectItems = [] }: Props) => {
         <SelectGroup>
           <SelectLabel>Types</SelectLabel>
           {SelectItems.map((item, key) => (
-            <SelectItem key={key} value={item.value}>
+            <SelectItem
+              style={{
+                height: '40px',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                fontWeight: 500,
+                borderRadius: '10px',
+                cursor: 'pointer',
+              }}
+              key={key}
+              value={item.value}>
               {item.label}
             </SelectItem>
           ))}

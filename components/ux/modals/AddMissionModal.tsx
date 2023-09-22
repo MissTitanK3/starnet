@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import NeuButton from '../element/buttons/NeuButton';
 import { FaX } from 'react-icons/fa6';
 import NeuInput from '../element/inputs/NeuInput';
-import { Mission } from '@/app-store/missions/missionTypes';
+import { Mission, missionTypes } from '@/app-store/missions/missionTypes';
 import NeuTextArea from '../element/inputs/NeuTextArea';
 import { useModalStore } from '@/app-store/modals/modalStore';
 import NeuDateField from '../element/inputs/NeuDateField';
@@ -12,6 +12,8 @@ import ShadCard from '../element/cards/ShadCard';
 import ShadButton from '../element/buttons/ShadButton';
 import Overlay from '../element/overlays/Overlay';
 import ShadSelect from '../element/inputs/ShadSelect';
+import ShadCalendar from '../element/inputs/ShadCalendar';
+import { SelectSingleEventHandler } from 'react-day-picker';
 
 type Props = {};
 
@@ -20,7 +22,9 @@ const AddMissionModal = (props: Props) => {
   const { setNewMissionModal } = useModalStore();
   const { addMission } = useMissionStore();
 
-  const handleUpdate = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleUpdate = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | undefined>,
+  ) => {
     setNewMission((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
@@ -50,6 +54,7 @@ const AddMissionModal = (props: Props) => {
     const code = generateCode(2, 8);
     setNewMission((prev) => ({ ...prev, op_sec_code: code }));
   };
+  console.log(newMission);
 
   return (
     <Overlay>
@@ -71,46 +76,37 @@ const AddMissionModal = (props: Props) => {
           }}>
           <div>
             <h5>Mission Type</h5>
-            {/* <NeuDropdown
-              id="mission_type"
-              placeholder="Select Mission"
-              selectOptions={missionTypes}
-              value={''}
-              changeInput={(e) => handleUpdate(e)}
-            /> */}
             <ShadSelect
-              SelectItems={[
-                {
-                  value: 'test',
-                  label: 'test',
-                },
-                {
-                  value: 'test2',
-                  label: 'test2',
-                },
-                {
-                  value: 'test3',
-                  label: 'test3',
-                },
-                {
-                  value: 'test4',
-                  label: 'test4',
-                },
-                {
-                  value: 'test5',
-                  label: 'test5',
-                },
-              ]}
+              SelectItems={missionTypes}
+              onChange={(e) => {
+                const updated = {
+                  target: {
+                    id: 'mission_type',
+                    value: e,
+                  },
+                } as React.ChangeEvent<HTMLSelectElement>;
+                handleUpdate(updated);
+              }}
             />
           </div>
           <div>
             <h5>Mission Date</h5>
-            <NeuDateField
-              id="start_date"
-              placeholder="Mission Date"
-              changeInput={(e) => handleUpdate(e)}
-              value={new Date()?.toISOString()?.slice(0, 16)}
+            <ShadCalendar
+              OnSelectSingle={(e) => {
+                const updated = {
+                  target: {
+                    id: 'start_date',
+                    value: e?.toString(),
+                  },
+                } as any;
+                console.log(updated);
+
+                // handleUpdate(updated);
+              }}
+              singleValue={new Date()}
             />
+
+            {/* <CalendarForm /> */}
           </div>
         </div>
         <div>
