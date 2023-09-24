@@ -16,6 +16,7 @@ function ShadButton({ children, onClick, styled, variant = 'default', size = 'de
     <Button
       disabled={isDisabled}
       size={size}
+      type="button"
       variant={isDisabled ? 'ghost' : variant}
       onClick={onClick}
       style={{

@@ -3,7 +3,6 @@
 import { useAuthStore } from '@/app-store/auth/authStore';
 import Link from 'next/link';
 import React from 'react';
-import NeuButton from '../element/buttons/NeuButton';
 import { getURL } from '@/app-store/supabaseConfig';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import Image from 'next/image';
@@ -109,7 +108,7 @@ const TopNavigation = ({}: Props) => {
             }}>
             {Routes.map((route) => {
               return (
-                <Link key={`${route}-nav-item`} href={route.href}>
+                <Link key={`${route.href.replace('/', '')}-nav-item`} href={route.href}>
                   <ShadButton>{route.icon}</ShadButton>
                 </Link>
               );

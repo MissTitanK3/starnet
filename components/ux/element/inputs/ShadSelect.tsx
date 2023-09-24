@@ -1,6 +1,6 @@
 import React from 'react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { SelectGroup, SelectLabel } from '@radix-ui/react-select';
+import { SelectGroup } from '@radix-ui/react-select';
 
 type Props = {
   SelectItems: {
@@ -9,9 +9,11 @@ type Props = {
   }[];
   onChange: (e: any) => void;
   inputId: string;
+  selectDropdownTitle?: string;
+  dropdownLabel?: string;
 };
 
-const ShadSelect = ({ SelectItems = [], onChange, inputId }: Props) => {
+const ShadSelect = ({ SelectItems = [], onChange, inputId, selectDropdownTitle, dropdownLabel }: Props) => {
   const handleUpdate = (value: string) => {
     const updated = {
       target: {
@@ -26,7 +28,7 @@ const ShadSelect = ({ SelectItems = [], onChange, inputId }: Props) => {
     <Select onValueChange={handleUpdate}>
       <SelectTrigger
         style={{
-          width: '180px',
+          width: '100%',
           height: '40px',
           display: 'flex',
           justifyContent: 'space-between',
@@ -39,7 +41,7 @@ const ShadSelect = ({ SelectItems = [], onChange, inputId }: Props) => {
           style={{
             margin: '25px',
           }}
-          placeholder="Select Mission Type"
+          placeholder={selectDropdownTitle ? selectDropdownTitle : 'Select One'}
         />
       </SelectTrigger>
       <SelectContent
@@ -50,8 +52,15 @@ const ShadSelect = ({ SelectItems = [], onChange, inputId }: Props) => {
           width: '180px',
           height: SelectItems.length > 5 ? '200px' : 'auto',
         }}>
-        <SelectGroup>
-          <SelectLabel>Types</SelectLabel>
+        <SelectGroup
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-evenly',
+            alignItems: 'center',
+            marginTop: '10px',
+          }}>
+          {/* <SelectLabel>Select One</SelectLabel> */}
           {SelectItems.map((item, key) => (
             <SelectItem
               style={{

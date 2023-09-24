@@ -59,6 +59,29 @@ export const missionTypes = [
   },
 ];
 
+export const alertTypes = [
+  {
+    label: 'General Alert',
+    value: 'General Alert',
+  },
+  {
+    label: 'Contact Aquired',
+    value: 'Contact Aquired',
+  },
+  {
+    label: 'Contact Imminent',
+    value: 'Contact Imminent',
+  },
+  {
+    label: 'Contact Engaging',
+    value: 'Contact Engaging',
+  },
+  {
+    label: 'Avoid Contact',
+    value: 'Avoid Contact',
+  },
+];
+
 export type IncomeSet = {
   id?: string;
   created_at?: Date;

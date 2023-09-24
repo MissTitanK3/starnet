@@ -13,6 +13,7 @@ type Props = {
   id: string;
   cols?: number;
   rows?: number;
+  keydownInput?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
 };
 
 const ShadTextArea = ({
@@ -27,6 +28,7 @@ const ShadTextArea = ({
   id,
   cols = 30,
   rows = 5,
+  keydownInput,
 }: Props) => {
   return (
     <div
@@ -48,7 +50,6 @@ const ShadTextArea = ({
         }}>
         <Textarea
           style={inputStyleOverride}
-          onChange={changeInput}
           id={inputId}
           disabled={isDisabled}
           value={value}
@@ -56,6 +57,8 @@ const ShadTextArea = ({
           onKeyDown={onKeyDown}
           colsCount={cols}
           rowsCount={rows}
+          onChange={changeInput}
+          onKeyDownCapture={keydownInput ? keydownInput : undefined} // Use when you want to intercept the keydown event before it bubbles up to the document
         />
       </div>
     </div>

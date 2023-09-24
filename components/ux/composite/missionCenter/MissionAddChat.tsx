@@ -2,18 +2,17 @@
 
 import { useAuthStore } from '@/app-store/auth/authStore';
 import { useMissionStore } from '@/app-store/missions/missionStore';
-import { ChatObject } from '@/app-store/missions/missionTypes';
-import { randomUUID } from 'crypto';
+import { ChatObject, alertTypes } from '@/app-store/missions/missionTypes';
 import React, { useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import NeuPopover from '../../element/custom/NeuPopover';
-import NeuTextArea from '../../element/inputs/NeuTextArea';
-import NeuDropdown from '../../element/inputs/NeuDropdown';
+import ShadSelect from '../../element/inputs/ShadSelect';
+import ShadTextArea from '../../element/inputs/ShadTextArea';
+import ShadCard from '../../element/cards/ShadCard';
 
 type Props = {};
 
 const MissionAddChat = (props: Props) => {
-  const { mission, addChatMessage, getMemberProfile, setMission } = useMissionStore();
+  const { mission, addChatMessage } = useMissionStore();
   const { profile } = useAuthStore();
 
   const [newChat, setNewChat] = React.useState<ChatObject>({
@@ -32,9 +31,9 @@ const MissionAddChat = (props: Props) => {
     setNewChat((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
-  const handleKeyDown = async (event: any) => {
-    const isShiftOrCtrlPressed = event.shiftKey || event.ctrlKey;
-    if (isShiftOrCtrlPressed && event.keyCode === 13) {
+  const handleKeyDown = async (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    const isShiftOrCtrlPressed = event.shiftKey || event.ctrlKey || event.altKey;
+    if (isShiftOrCtrlPressed && event.code === 'Enter') {
       // ctrl + enter key
       event.preventDefault();
       setNewChat((prevState) => ({
@@ -42,7 +41,7 @@ const MissionAddChat = (props: Props) => {
         message: prevState.message + '\n',
       }));
       return;
-    } else if (event.keyCode === 13) {
+    } else if (event.code === 'Enter') {
       // enter key
       event.preventDefault();
       newChat.id = uuidv4();
@@ -75,89 +74,35 @@ const MissionAddChat = (props: Props) => {
   }, []);
 
   return (
-    <main
-      style={{
-        width: '100%',
-        margin: '0 auto',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-      }}>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          width: '100%',
-          position: 'relative',
-        }}>
-        <div
-          style={{
-            width: '100%',
-            display: 'flex',
-            justifyContent: 'flex-start',
-            alignItems: 'center',
-            position: 'absolute',
-            top: '0',
-            left: '0',
-            zIndex: 100,
-          }}>
-          <NeuPopover popoverWidth="100px" orientation="bottom" popoverHeight="50px">
-            Press Enter To Send
-          </NeuPopover>
-        </div>
-        <NeuTextArea
+    <main>
+      <ShadCard>
+        <ShadTextArea
           inputStyleOverride={{
             width: '100%',
             height: '100%',
           }}
-          cardStyleOverride={{
-            width: '90%',
-            minHeight: '3rem',
-            zIndex: 19,
-          }}
           id="message"
-          placeholder="Send New Chat Message"
+          inputId="message"
+          placeHolder="Press Enter to Send..."
           changeInput={(e) => handleUpdate(e)}
+          keydownInput={(e) => handleKeyDown(e)}
           value={newChat.message || ''}
-          rowsCount={5}
-          colsCount={5}
-          keyDownAction={handleKeyDown}
+          rows={5}
+          cols={5}
         />
-        <NeuDropdown
-          cardStyleOverride={{
-            boxShadow: 'none',
-            width: '90%',
-            height: '3rem',
-            marginBottom: '0.05rem',
-            marginTop: '-1.15rem',
-            zIndex: 0,
-          }}
-          id="alertStatus"
-          selectOptions={[
-            {
-              label: 'General Alert',
-              value: 'General Alert',
-            },
-            {
-              label: 'Contact Aquired',
-              value: 'Contact Aquired',
-            },
-            {
-              label: 'Contact Imminent',
-              value: 'Contact Imminent',
-            },
-            {
-              label: 'Contact Engaging',
-              value: 'Contact Engaging',
-            },
-            {
-              label: 'Avoid Contact',
-              value: 'Avoid Contact',
-            },
-          ]}
-          value={newChat.alertStatus || 'General Alert'}
-          changeInput={(e) => {
+      </ShadCard>
+      <div
+        style={{
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'center',
+          marginTop: '-0.7rem',
+        }}>
+        <ShadSelect
+          selectDropdownTitle="Set Alert Status"
+          inputId="alertStatus"
+          SelectItems={alertTypes}
+          onChange={(e) => {
             handleUpdate(e);
           }}
         />

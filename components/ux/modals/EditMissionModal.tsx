@@ -1,15 +1,9 @@
 import React, { useState } from 'react';
-import NeuButton from '../element/buttons/NeuButton';
 import { FaX } from 'react-icons/fa6';
-import NeuInput from '../element/inputs/NeuInput';
 import { Mission, missionTypes } from '@/app-store/missions/missionTypes';
-import NeuTextArea from '../element/inputs/NeuTextArea';
 import { useModalStore } from '@/app-store/modals/modalStore';
-import NeuDateField from '../element/inputs/NeuDateField';
 import { useMissionStore } from '@/app-store/missions/missionStore';
 import { generateCode } from '@/app-store/utils/generateCode';
-import PlainButton from '../element/buttons/PlainButton';
-import NeuDropdown from '../element/inputs/NeuDropdown';
 import ShadCard from '../element/cards/ShadCard';
 import ShadSelect from '../element/inputs/ShadSelect';
 import ShadButton from '../element/buttons/ShadButton';
@@ -221,7 +215,12 @@ const EditMissionModal = (props: Props) => {
               }}>
               Mission Type
             </h5>
-            <ShadSelect inputId="mission_type" SelectItems={missionTypes} onChange={(e) => handleUpdate(e)} />
+            <ShadSelect
+              selectDropdownTitle="Set Mission Type"
+              inputId="mission_type"
+              SelectItems={missionTypes}
+              onChange={(e) => handleUpdate(e)}
+            />
           </div>
         </div>
         <div

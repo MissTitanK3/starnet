@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
-import NeuButton from '../element/buttons/NeuButton';
 import { FaX } from 'react-icons/fa6';
-import NeuInput from '../element/inputs/NeuInput';
 import { Mission, missionTypes } from '@/app-store/missions/missionTypes';
-import NeuTextArea from '../element/inputs/NeuTextArea';
 import { useModalStore } from '@/app-store/modals/modalStore';
-import NeuDateField from '../element/inputs/NeuDateField';
 import { useMissionStore } from '@/app-store/missions/missionStore';
 import { generateCode } from '@/app-store/utils/generateCode';
 import ShadCard from '../element/cards/ShadCard';
@@ -13,7 +9,6 @@ import ShadButton from '../element/buttons/ShadButton';
 import Overlay from '../element/overlays/Overlay';
 import ShadSelect from '../element/inputs/ShadSelect';
 import ShadCalendar from '../element/inputs/ShadCalendar';
-import { SelectSingleEventHandler } from 'react-day-picker';
 import ShadInput from '../element/inputs/ShadInput';
 import ShadTimeInput from '../element/inputs/ShadTimeInput';
 import ShadTextArea from '../element/inputs/ShadTextArea';
@@ -235,7 +230,12 @@ const AddMissionModal = (props: Props) => {
               }}>
               Mission Type
             </h5>
-            <ShadSelect inputId="mission_type" SelectItems={missionTypes} onChange={(e) => handleUpdate(e)} />
+            <ShadSelect
+              selectDropdownTitle="Set Mission Type"
+              inputId="mission_type"
+              SelectItems={missionTypes}
+              onChange={(e) => handleUpdate(e)}
+            />
           </div>
         </div>
         <div
