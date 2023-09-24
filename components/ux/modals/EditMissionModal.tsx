@@ -11,6 +11,13 @@ import { generateCode } from '@/app-store/utils/generateCode';
 import PlainButton from '../element/buttons/PlainButton';
 import NeuDropdown from '../element/inputs/NeuDropdown';
 import ShadCard from '../element/cards/ShadCard';
+import ShadSelect from '../element/inputs/ShadSelect';
+import ShadButton from '../element/buttons/ShadButton';
+import ShadTimeInput from '../element/inputs/ShadTimeInput';
+import ShadCalendar from '../element/inputs/ShadCalendar';
+import ShadInput from '../element/inputs/ShadInput';
+import ShadTextArea from '../element/inputs/ShadTextArea';
+import Overlay from '../element/overlays/Overlay';
 
 type Props = {};
 
@@ -39,185 +46,211 @@ const EditMissionModal = (props: Props) => {
   };
 
   return (
-    <div
-      style={{
-        position: 'absolute',
-        width: '100dvw',
-        height: '100dvh',
-        top: 0,
-        left: 0,
-        backgroundColor: '#242424f4',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        overflowY: 'auto',
-        zIndex: 100,
-      }}>
+    <Overlay>
       <ShadCard
-        variant="noHover"
+        variant="solidNoHover"
         styleOverride={{
-          backgroundColor: '#242424',
-          maxHeight: '80dvh',
-          height: '400px',
-          width: '600px',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          alignContent: 'center',
-          alignSelf: 'center',
-          justifyContent: 'space-evenly',
+          height: '80dvh',
+          width: '60dvw',
           overflowY: 'auto',
-          padding: '100px auto',
         }}>
-        <div
-          style={{
-            marginTop: '200px',
-          }}
-        />
-        <h5>Mission Type</h5>
-        <NeuDropdown
-          id=""
-          placeholder="Select Mission"
-          selectOptions={missionTypes}
-          value={''}
-          changeInput={(e) => handleUpdate(e)}
-        />
-        <h5>Mission Name</h5>
-        <NeuInput
-          inputStyleOverride={{
-            width: '100%',
-            height: '1rem',
-          }}
-          cardStyleOverride={{
-            width: '90%',
-            height: '3rem',
-          }}
-          id="mission_name"
-          placeholder="Mission Name"
-          type="text"
-          changeInput={(e) => handleUpdate(e)}
-          value={editMission?.mission_name}
-        />
-        <h5>Mission Description</h5>
-        <NeuTextArea
-          inputStyleOverride={{
-            width: '100%',
-            height: '100%',
-          }}
-          cardStyleOverride={{
-            width: '90%',
-            minHeight: '3rem',
-          }}
-          id="mission_desc"
-          placeholder="Mission Description"
-          changeInput={(e) => handleUpdate(e)}
-          value={editMission?.mission_desc || ''}
-          rowsCount={5}
-          colsCount={5}
-        />
-        <h5>Mission Scope</h5>
-        <NeuTextArea
-          inputStyleOverride={{
-            width: '100%',
-            height: '100%',
-          }}
-          cardStyleOverride={{
-            width: '90%',
-            minHeight: '3rem',
-          }}
-          id="mission_scope"
-          placeholder="Mission Scope"
-          changeInput={(e) => handleUpdate(e)}
-          value={editMission?.mission_scope || ''}
-          rowsCount={5}
-          colsCount={5}
-        />
-        <h5>Mission Date</h5>
-        <NeuDateField
-          id="start_date"
-          placeholder="Mission Date"
-          changeInput={(e) => handleUpdate(e)}
-          // value={new Date(editMission?.start_date?.toString() || '')?.toISOString()?.slice(0, 16)}
-          value={
-            editMission?.start_date
-              ? new Date(editMission?.start_date?.toString() || '')?.toISOString()?.slice(0, 16)
-              : new Date()?.toISOString()?.slice(0, 16)
-          }
-        />
-        <h5>Optimal Participants</h5>
-        <NeuInput
-          inputStyleOverride={{
-            width: '100%',
-            height: '1rem',
-          }}
-          id="optimal_participation"
-          placeholder="Optimal Participants"
-          type="number"
-          changeInput={(e) => handleUpdate(e)}
-          value={editMission?.optimal_participation?.toString() || ''}
-        />
+        <ShadCard
+          variant="solidNoHover"
+          styleOverride={{
+            width: '80%',
+            margin: '20px auto',
+          }}>
+          <ShadInput
+            label="Mission Name"
+            inputStyleOverride={{
+              width: '100%',
+            }}
+            id="mission_name"
+            inputId="mission_name"
+            placeHolder="Mission Name"
+            type="text"
+            changeInput={(e) => handleUpdate(e)}
+            value={editMission?.mission_name}
+          />
+        </ShadCard>
+        <ShadCard
+          variant="solidNoHover"
+          styleOverride={{
+            width: '80%',
+            margin: '20px auto',
+          }}>
+          <ShadInput
+            type="text"
+            label="Mission Scope"
+            inputStyleOverride={{
+              width: '100%',
+            }}
+            inputId="mission_scope"
+            id="mission_scope"
+            placeHolder="Mission Scope"
+            changeInput={(e) => handleUpdate(e)}
+            value={editMission?.mission_scope || ''}
+          />
+        </ShadCard>
+        <ShadCard
+          variant="solidNoHover"
+          styleOverride={{
+            width: '80%',
+            margin: '20px auto',
+          }}>
+          <ShadTextArea
+            label="Mission Description"
+            inputStyleOverride={{
+              width: '100%',
+              height: '100%',
+            }}
+            id="mission_desc"
+            inputId="mission_desc"
+            placeHolder="Mission Description"
+            changeInput={(e) => handleUpdate(e)}
+            value={editMission?.mission_desc || ''}
+            rows={5}
+            cols={5}
+          />
+        </ShadCard>
+        <ShadCard
+          variant="solidNoHover"
+          styleOverride={{
+            width: '80%',
+            margin: '20px auto',
+          }}>
+          <ShadInput
+            label="Optimal Participants"
+            inputStyleOverride={{
+              width: '100%',
+            }}
+            id="optimal_participation"
+            inputId="optimal_participation"
+            placeHolder="Optimal Participants"
+            type="number"
+            changeInput={(e) => handleUpdate(e)}
+            value={editMission?.optimal_participation?.toString() || ''}
+          />
+        </ShadCard>
         <div
           style={{
             display: 'flex',
-            width: '90%',
+            width: '80%',
             justifyContent: 'space-evenly',
             alignItems: 'center',
-            margin: '20px 0',
+            margin: '20px auto',
             height: '4rem',
           }}>
-          <NeuInput
-            inputStyleOverride={{
+          <ShadCard
+            styleOverride={{
               width: '100%',
-              fontSize: '2rem',
-              lineHeight: '2.5rem',
-              textAlign: 'center',
-              margin: 'auto',
-            }}
-            cardStyleOverride={{
-              width: '200px',
-              height: '3rem',
-            }}
-            id="op_sec_code"
-            placeholder="Security Code"
-            type="text"
-            changeInput={(e) => handleUpdate(e)}
-            value={editMission?.op_sec_code || ''}
-          />
-          <NeuButton
+              margin: '0 20px',
+            }}>
+            <ShadInput
+              inputStyleOverride={{
+                width: '100%',
+                fontSize: '1.2rem',
+                lineHeight: '1.2rem',
+                textAlign: 'center',
+                margin: 'auto',
+              }}
+              id="op_sec_code"
+              inputId="op_sec_code"
+              placeHolder="Security Code"
+              type="text"
+              changeInput={(e) => handleUpdate(e)}
+              value={editMission?.op_sec_code || ''}
+            />
+          </ShadCard>
+          <ShadButton
+            variant="outline"
             onClick={() => handleNewCode()}
             styled={{
-              width: '30%',
+              width: '100%',
               height: '3rem',
+              fontSize: '1.2rem',
             }}>
             Generate Security Code
-          </NeuButton>
+          </ShadButton>
         </div>
         <div
           style={{
             display: 'flex',
+            flexWrap: 'wrap',
             width: '100%',
+            height: '100px',
             justifyContent: 'space-evenly',
+            alignItems: 'center',
             margin: '20px 0',
           }}>
-          <PlainButton
-            variant="warning"
+          <div>
+            <h5
+              style={{
+                paddingBottom: '5px',
+              }}>
+              Mission Date
+            </h5>
+            <ShadCalendar
+              inputId="start_date"
+              selectedUpdate={(e) => handleUpdate(e)}
+              value={editMission.start_date ? new Date(editMission.start_date as string) : new Date()}
+            />
+          </div>
+          <div>
+            <h5
+              style={{
+                paddingBottom: '5px',
+              }}>
+              Mission Time
+            </h5>
+            <ShadTimeInput
+              type="time"
+              inputId="start_date"
+              inputStyleOverride={{
+                fontSize: '1rem',
+              }}
+              startDate={editMission.start_date as Date}
+              changeInput={(e) => handleUpdate(e)}
+              value={editMission.start_date}
+            />
+          </div>
+          <div>
+            <h5
+              style={{
+                padding: '0 0 0 20px',
+              }}>
+              Mission Type
+            </h5>
+            <ShadSelect inputId="mission_type" SelectItems={missionTypes} onChange={(e) => handleUpdate(e)} />
+          </div>
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            width: '50%',
+            justifyContent: 'space-evenly',
+            margin: '20px auto',
+          }}>
+          <ShadButton
+            variant="destructive"
             onClick={() => handleClose()}
             styled={{
               width: '50%',
             }}>
             Cancel
-          </PlainButton>
-          <NeuButton
-            variant="success"
+          </ShadButton>
+          <ShadButton
+            variant="default"
             onClick={() => handleCreateMission()}
             styled={{
               width: '50%',
             }}>
-            Update Mission
-          </NeuButton>
+            Create Mission
+          </ShadButton>
         </div>
       </ShadCard>
-      <NeuButton
+      <ShadButton
+        variant="destructive"
         onClick={() => handleClose()}
         styled={{
           width: '35px',
@@ -225,10 +258,11 @@ const EditMissionModal = (props: Props) => {
           top: '-350px',
           right: '10px',
           borderRadius: '50%',
+          color: 'rgb(150, 2, 2)',
         }}>
         <FaX />
-      </NeuButton>
-    </div>
+      </ShadButton>
+    </Overlay>
   );
 };
 

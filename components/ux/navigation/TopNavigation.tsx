@@ -15,6 +15,7 @@ import { MdGroup, MdGroups2 } from 'react-icons/md';
 import { GiOrganigram } from 'react-icons/gi';
 import { IoLibrarySharp } from 'react-icons/io5';
 import { GiMeshNetwork } from 'react-icons/gi';
+import ShadButton from '../element/buttons/ShadButton';
 
 type Props = {};
 
@@ -33,6 +34,39 @@ const TopNavigation = ({}: Props) => {
   };
 
   const rankImageDetails = getVariableRankImageDetails(profile?.network_rank?.grade);
+
+  const Routes = [
+    {
+      name: 'Home',
+      icon: <AiFillHome />,
+      href: '/home',
+    },
+    {
+      name: 'Mission Center',
+      icon: <MdGroup />,
+      href: '/mission-center',
+    },
+    {
+      name: 'Event Center',
+      icon: <MdGroups2 />,
+      href: '/event-center',
+    },
+    {
+      name: 'Org Center',
+      icon: <GiOrganigram />,
+      href: '/org-center',
+    },
+    {
+      name: 'Academy',
+      icon: <IoLibrarySharp />,
+      href: '/academy',
+    },
+    {
+      name: 'Community Center',
+      icon: <GiMeshNetwork />,
+      href: '/community-center',
+    },
+  ];
 
   return (
     <nav
@@ -73,36 +107,13 @@ const TopNavigation = ({}: Props) => {
               alignItems: 'center',
               marginRight: '1.5rem',
             }}>
-            <NeuButton>
-              <Link style={{ margin: '10px' }} href="/home">
-                <AiFillHome />
-              </Link>
-            </NeuButton>
-            <NeuButton>
-              <Link style={{ margin: '10px' }} href="/mission-center">
-                <MdGroup />
-              </Link>
-            </NeuButton>
-            <NeuButton>
-              <Link style={{ margin: '10px' }} href="/event-center">
-                <MdGroups2 />
-              </Link>
-            </NeuButton>
-            <NeuButton>
-              <Link style={{ margin: '10px' }} href="/org-center">
-                <GiOrganigram />
-              </Link>
-            </NeuButton>
-            <NeuButton>
-              <Link style={{ margin: '10px' }} href="/academy">
-                <IoLibrarySharp />
-              </Link>
-            </NeuButton>
-            <NeuButton>
-              <Link style={{ margin: '10px' }} href="/community-center">
-                <GiMeshNetwork />
-              </Link>
-            </NeuButton>
+            {Routes.map((route) => {
+              return (
+                <Link key={`${route}-nav-item`} href={route.href}>
+                  <ShadButton>{route.icon}</ShadButton>
+                </Link>
+              );
+            })}
             <Link href={`/user/${profile?.id}`}>
               <div
                 style={{
@@ -163,25 +174,29 @@ const TopNavigation = ({}: Props) => {
         </div>
       ) : (
         <>
-          <NeuButton
-            styled={{
-              maxWidth: '10rem',
-            }}>
-            <Link href="/">Home</Link>
-          </NeuButton>
-          <NeuButton
-            styled={{
-              maxWidth: '10rem',
-            }}>
-            <Link href="/about">About</Link>
-          </NeuButton>
-          <NeuButton
+          <Link href="/">
+            <ShadButton
+              styled={{
+                maxWidth: '10rem',
+              }}>
+              Home
+            </ShadButton>
+          </Link>
+          <Link href="/about">
+            <ShadButton
+              styled={{
+                maxWidth: '10rem',
+              }}>
+              About
+            </ShadButton>
+          </Link>
+          <ShadButton
             onClick={() => handleSignIn()}
             styled={{
               maxWidth: '10rem',
             }}>
             Enter Network
-          </NeuButton>
+          </ShadButton>
         </>
       )}
     </nav>
