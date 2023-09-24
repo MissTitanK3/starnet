@@ -1,24 +1,21 @@
-import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 import React from 'react';
 
 type Props = {
-  type: React.HTMLInputTypeAttribute | undefined;
   value: string | number | readonly string[] | undefined;
   placeHolder?: string;
   label?: string;
   isDisabled?: boolean;
   inputId: string;
-  adornment?: 'left' | 'right';
-  adornmentIcon?: React.ReactNode;
   inputStyleOverride?: React.CSSProperties;
-  changeInput?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
-  setStep?: number;
+  changeInput?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
   id: string;
+  cols?: number;
+  rows?: number;
 };
 
-const ShadInput = ({
-  type,
+const ShadTextArea = ({
   value,
   placeHolder,
   label,
@@ -26,11 +23,10 @@ const ShadInput = ({
   inputId,
   changeInput,
   onKeyDown,
-  adornment,
-  adornmentIcon,
   inputStyleOverride,
-  setStep,
   id,
+  cols = 30,
+  rows = 5,
 }: Props) => {
   return (
     <div
@@ -50,37 +46,20 @@ const ShadInput = ({
           justifyContent: 'space-between',
           width: '100%',
         }}>
-        {adornment === 'left' && (
-          <i
-            style={{
-              marginRight: '0.5rem',
-            }}>
-            {adornmentIcon}
-          </i>
-        )}
-        <Input
+        <Textarea
           style={inputStyleOverride}
           onChange={changeInput}
           id={inputId}
           disabled={isDisabled}
           value={value}
-          type={type}
           placeholder={placeHolder}
           onKeyDown={onKeyDown}
-          onTimeUpdateCapture={type === 'time' ? changeInput : undefined}
-          step={type === 'time' && setStep ? setStep : undefined}
+          colsCount={cols}
+          rowsCount={rows}
         />
-        {adornment === 'right' && (
-          <i
-            style={{
-              marginLeft: '0.5rem',
-            }}>
-            {adornmentIcon}
-          </i>
-        )}
       </div>
     </div>
   );
 };
 
-export default ShadInput;
+export default ShadTextArea;

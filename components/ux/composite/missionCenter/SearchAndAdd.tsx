@@ -26,6 +26,7 @@ const SearchAndAdd = (props: Props) => {
       }}>
       <ShadCard>
         <ShadInput
+          id="missionFilter"
           type="text"
           value={missionFilter}
           placeHolder="Search In List..."

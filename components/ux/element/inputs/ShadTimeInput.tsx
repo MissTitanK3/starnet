@@ -3,21 +3,22 @@ import React from 'react';
 
 type Props = {
   type: React.HTMLInputTypeAttribute | undefined;
-  value: string | number | readonly string[] | undefined;
+  // value: string | number | readonly string[] | undefined;
+  value: string | Date | Date[] | null | undefined;
   placeHolder?: string;
   label?: string;
   isDisabled?: boolean;
-  inputId: string;
+  inputId?: string;
   adornment?: 'left' | 'right';
   adornmentIcon?: React.ReactNode;
   inputStyleOverride?: React.CSSProperties;
-  changeInput?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  changeInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   setStep?: number;
-  id: string;
+  startDate?: Date;
 };
 
-const ShadInput = ({
+const ShadTimeInput = ({
   type,
   value,
   placeHolder,
@@ -30,11 +31,28 @@ const ShadInput = ({
   adornmentIcon,
   inputStyleOverride,
   setStep,
-  id,
+  startDate,
 }: Props) => {
+  const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!startDate) return;
+    const timeZoneOffsetInMinutes = new Date().getTimezoneOffset();
+    const offset = -timeZoneOffsetInMinutes;
+    const sign = offset >= 0 ? '+' : '-';
+    const hours = Math.abs(Math.floor(offset / 60));
+    const minutes = Math.abs(offset % 60);
+    const timeZone = `${sign}${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+    const isoString = `${new Date(startDate).toISOString().substring(0, 10)}T${e.target.value}:00.000${timeZone}`;
+    const updated = {
+      ...e,
+      target: {
+        id: inputId,
+        value: isoString,
+      },
+    } as any;
+    changeInput(updated);
+  };
   return (
     <div
-      id={id}
       className="Input"
       style={{
         display: 'flex',
@@ -60,15 +78,27 @@ const ShadInput = ({
         )}
         <Input
           style={inputStyleOverride}
-          onChange={changeInput}
+          onChange={handleTimeChange}
           id={inputId}
           disabled={isDisabled}
-          value={value}
-          type={type}
+          // value={value}
+          value={
+            value
+              ? new Date(value as string).toLocaleTimeString('en-US', {
+                  hour12: false,
+                  hour: '2-digit',
+                  minute: '2-digit',
+                })
+              : new Date().toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' })
+          }
+          type="time"
+          min="00:01"
+          max="23:59"
+          pattern="^(0[8-9]|1[0-6]):[0-5][0-9]$"
           placeholder={placeHolder}
           onKeyDown={onKeyDown}
           onTimeUpdateCapture={type === 'time' ? changeInput : undefined}
-          step={type === 'time' && setStep ? setStep : undefined}
+          step={setStep ? setStep : 60}
         />
         {adornment === 'right' && (
           <i
@@ -83,4 +113,4 @@ const ShadInput = ({
   );
 };
 
-export default ShadInput;
+export default ShadTimeInput;

@@ -1,25 +1,42 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { CalendarIcon } from '@radix-ui/react-icons';
 import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
 import { SelectSingleEventHandler } from 'react-day-picker';
 import ShadButton from '../buttons/ShadButton';
 import Overlay from '../overlays/Overlay';
 
 type Props = {
-  OnSelectSingle?: SelectSingleEventHandler | undefined;
-  singleValue?: Date;
+  inputId: string;
+  value: Date;
+  selectedUpdate: (e: any) => any;
 };
 
-const ShadCalendar = ({ OnSelectSingle, singleValue }: Props) => {
+const ShadCalendar = ({ value, inputId, selectedUpdate }: Props) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const handleOpen = () => {
+    setIsOpen((prev) => !prev);
+  };
+
+  const OnSelected = (e: any) => {
+    const updated = {
+      ...e,
+      target: {
+        id: inputId,
+        value: new Date(e as Date)?.toISOString(),
+      },
+    } as any;
+    selectedUpdate(updated);
+  };
+
   return (
-    <Popover>
+    <Popover open={isOpen} onOpenChange={handleOpen}>
       <PopoverTrigger asChild>
         <ShadButton
           styled={{
@@ -29,7 +46,7 @@ const ShadCalendar = ({ OnSelectSingle, singleValue }: Props) => {
             flexDirection: 'row',
           }}
           variant="default">
-          {singleValue ? format(singleValue, 'PPP') : <span>Pick a date</span>}
+          {value instanceof Date && !isNaN(value.getTime()) ? format(value, 'PPP') : <span>Pick a date</span>}
           <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
         </ShadButton>
       </PopoverTrigger>
@@ -48,8 +65,10 @@ const ShadCalendar = ({ OnSelectSingle, singleValue }: Props) => {
             }}
             className="rounded-md border"
             mode="single"
-            onSelect={OnSelectSingle}
-            selected={singleValue}
+            id={inputId}
+            onSelect={OnSelected}
+            selected={value}
+            onDayClick={handleOpen}
           />
         </Overlay>
       </PopoverContent>

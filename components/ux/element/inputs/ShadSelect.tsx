@@ -8,11 +8,22 @@ type Props = {
     label: string;
   }[];
   onChange: (e: any) => void;
+  inputId: string;
 };
 
-const ShadSelect = ({ SelectItems = [], onChange }: Props) => {
+const ShadSelect = ({ SelectItems = [], onChange, inputId }: Props) => {
+  const handleUpdate = (value: string) => {
+    const updated = {
+      target: {
+        id: inputId,
+        value: value,
+      },
+    };
+    onChange(updated);
+  };
+
   return (
-    <Select onValueChange={onChange}>
+    <Select onValueChange={handleUpdate}>
       <SelectTrigger
         style={{
           width: '180px',
