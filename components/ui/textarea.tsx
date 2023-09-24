@@ -1,5 +1,5 @@
 import * as React from 'react';
-import styles from './Textarea.module.scss';
+import styles from './TextArea.module.scss';
 
 import { cn } from '@/lib/utils';
 
