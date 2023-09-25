@@ -8,6 +8,7 @@ import { useClickOutside } from '../../hooks/useClickOutside';
 import NeuButton from '../../element/buttons/NeuButton';
 import AddMemberToMissionModal from '../../modals/subModalComponents/AddMemberToMission';
 import ShadCard from '../../element/cards/ShadCard';
+import ShadButton from '../../element/buttons/ShadButton';
 
 type Props = {
   group: MissionCenterSupportShip;
@@ -54,13 +55,13 @@ const MissionGroupCard = ({ group }: Props) => {
               }}
             />
           )}
-          <NeuButton
+          <ShadButton
             onClick={() => setLocalActions(!localActions)}
             styled={{
               width: '30px',
             }}>
             <FaEllipsisVertical />
-          </NeuButton>
+          </ShadButton>
         </div>
         <h2>
           {group?.support_type?.customLabel !== '' ? group?.support_type?.customLabel : group?.support_type?.label}

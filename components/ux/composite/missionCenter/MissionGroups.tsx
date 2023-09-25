@@ -75,10 +75,10 @@ const MissionGroups = (props: Props) => {
                   alignItems: 'center',
                 }}>
                 <h6>Payout Split</h6>
-                <NeuPopover orientation="right">
+                {/* <NeuPopover orientation="right">
                   Disclaimer: Since we cannot transfer non-whole numbers, there will be a small percentage leftover. We
                   will use that as a contribution to the Org.
-                </NeuPopover>
+                </NeuPopover> */}
               </div>
               <h4>15min/Share</h4>
             </div>
@@ -112,9 +112,9 @@ const MissionGroups = (props: Props) => {
               display: 'flex',
               alignItems: 'center',
             }}>
-            <NeuPopover orientation="left">
+            {/* <NeuPopover orientation="left">
               The ’Command’ group and Event Leadership has permissions to manage the mission.
-            </NeuPopover>
+            </NeuPopover> */}
             <NeuButton
               onClick={() => {
                 setCreateSupportModal(true);

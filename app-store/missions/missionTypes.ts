@@ -161,8 +161,8 @@ export type SupaBaseTemplate = {
 export type missionCenterSupportShipsType = (typeof missionCenterSupportShips)[number];
 export const missionCenterSupportShips = [
   {
-    value: 'Command',
-    label: 'Command',
+    value: 'Command*',
+    label: 'Command*',
     customLabel: '',
   },
   {

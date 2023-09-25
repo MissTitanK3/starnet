@@ -1,6 +1,5 @@
 import React from 'react';
-import NeuButton from '../../element/buttons/NeuButton';
-import PlainButton from '../../element/buttons/PlainButton';
+import ShadButton from '../../element/buttons/ShadButton';
 
 type Props = {
   handleClose: () => void;
@@ -12,7 +11,6 @@ type Props = {
 };
 
 const ShipButtonsGroup = ({
-  handleClose,
   wizardStep,
   handleTransitionPreviousWizardStep,
   handleSubmit,
@@ -24,35 +22,24 @@ const ShipButtonsGroup = ({
       style={{
         display: 'flex',
         width: '100%',
-        justifyContent: 'space-evenly',
+        height: '100%',
+        margin: '50px auto',
       }}>
-      {wizardStep !== 'start' && (
-        <NeuButton
-          onClick={() => handleTransitionPreviousWizardStep()}
-          styled={{
-            width: '50%',
-          }}>
-          Previous
-        </NeuButton>
-      )}
-      <PlainButton
-        variant="warning"
-        onClick={() => handleClose()}
+      <ShadButton
+        onClick={() => handleTransitionPreviousWizardStep()}
         styled={{
-          width: '50%',
+          width: '100%',
         }}>
-        Cancel
-      </PlainButton>
-      <NeuButton
-        variant={wizardStep === 'start' ? 'disabled' : 'primary'}
+        Previous
+      </ShadButton>
+      <ShadButton
         isDisabled={isDisabled}
-        activeHover={wizardStep !== 'start'}
-        onClick={() => handleSubmit()}
+        onClick={handleSubmit}
         styled={{
-          width: '50%',
+          width: '100%',
         }}>
         {proceedButtonText || 'Proceed'}
-      </NeuButton>
+      </ShadButton>
     </div>
   );
 };

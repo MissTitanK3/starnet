@@ -38,7 +38,7 @@ const ShadSelect = ({
     <Select onValueChange={handleUpdate} defaultValue={value}>
       <SelectTrigger
         style={{
-          width: '100%',
+          width: '95%',
           height: '40px',
           display: 'flex',
           justifyContent: 'space-between',
@@ -70,7 +70,6 @@ const ShadSelect = ({
             alignItems: 'center',
             marginTop: '10px',
           }}>
-          {/* <SelectLabel>Select One</SelectLabel> */}
           {SelectItems.map((item, key) => (
             <SelectItem
               style={{
@@ -84,7 +83,7 @@ const ShadSelect = ({
               }}
               key={key}
               value={item.value}>
-              {item.label}
+              {item.label === 'Command*' ? <strong>{item.label}</strong> : <>{item.label}</>}
             </SelectItem>
           ))}
         </SelectGroup>

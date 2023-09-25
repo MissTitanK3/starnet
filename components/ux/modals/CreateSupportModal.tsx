@@ -8,6 +8,8 @@ import OneTimeShip from './subModalComponents/OneTimeShip';
 import TemplateShip from './subModalComponents/TemplateShip';
 import NewTempalate from './subModalComponents/NewTempalate';
 import ShadCard from '../element/cards/ShadCard';
+import Overlay from '../element/overlays/Overlay';
+import ShadButton from '../element/buttons/ShadButton';
 
 type Props = {};
 
@@ -32,98 +34,76 @@ const CreateSupportModal = (props: Props) => {
   };
 
   return (
-    <div
-      style={{
-        position: 'absolute',
-        width: '100dvw',
-        height: '100dvh',
-        top: 0,
-        left: 0,
-        backgroundColor: '#242424f4',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        overflowY: 'auto',
-        zIndex: 100,
-      }}>
+    <Overlay>
       <ShadCard
-        variant="noHover"
-        styleOverride={{
-          backgroundColor: '#242424',
-          maxHeight: '80dvh',
-          width: '600px',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          alignContent: 'center',
-          alignSelf: 'center',
-          justifyContent: 'space-evenly',
-          overflowY: 'auto',
-          padding: '100px auto',
-        }}>
-        <h2>Create Mission Support Group</h2>
-        {wizardStep === 'start' && (
-          <>
-            <NeuButton
-              onClick={() => setWizardStep('one-time')}
-              styled={{
-                width: '50%',
-                margin: '-45px 0',
-              }}>
-              Add Single Group
-            </NeuButton>
-            <NeuButton
-              onClick={() => setWizardStep('template')}
-              styled={{
-                width: '50%',
-                margin: '-45px 0',
-              }}>
-              Add Template Group
-            </NeuButton>
-            <NeuButton
-              onClick={() => setWizardStep('new')}
-              styled={{
-                width: '50%',
-                margin: '-45px 0',
-              }}>
-              Create Template Group
-            </NeuButton>
-          </>
-        )}
-        <h4>Choose from a template, create a template, or create a single group!</h4>
-        {wizardStep === 'one-time' && (
-          <OneTimeShip
-            handleClose={handleClose}
-            handleTransitionPreviousWizardStep={handleTransitionPreviousWizardStep}
-            wizardStep={wizardStep}
-          />
-        )}
-        {wizardStep === 'template' && (
-          <TemplateShip
-            handleClose={handleClose}
-            wizardStep={wizardStep}
-            handleTransitionPreviousWizardStep={handleTransitionPreviousWizardStep}
-          />
-        )}
-        {wizardStep === 'new' && (
-          <NewTempalate
-            handleClose={handleClose}
-            wizardStep={wizardStep}
-            handleTransitionPreviousWizardStep={handleTransitionPreviousWizardStep}
-          />
-        )}
-        {wizardStep === 'start' && (
-          <PlainButton
-            variant="warning"
-            onClick={() => handleClose()}
-            styled={{
-              width: '50%',
-            }}>
-            Cancel
+        variant="solidNoHover"
+        cardTitle="Create Mission Support Group"
+        cardDescription="Choose from a template, create a template, or create a single group!"
+        footerChildren={
+          <PlainButton onClick={() => handleClose()}>
+            <h6>Cancel</h6>
           </PlainButton>
+        }
+        styleOverride={{
+          height: '60dvh',
+          width: '60dvw',
+        }}>
+        {wizardStep === 'start' && (
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              textAlign: 'center',
+              width: '80%',
+              height: '20dvh',
+              margin: '0 auto',
+            }}>
+            <ShadButton styled={{ width: '100%' }} onClick={() => setWizardStep('one-time')}>
+              Add Single Group
+            </ShadButton>
+            <ShadButton styled={{ width: '100%' }} onClick={() => setWizardStep('template')}>
+              Add Template Group
+            </ShadButton>
+            <ShadButton styled={{ width: '100%' }} onClick={() => setWizardStep('new')}>
+              Create Template Group
+            </ShadButton>
+          </div>
         )}
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            textAlign: 'center',
+            margin: '0 auto',
+          }}>
+          {wizardStep === 'one-time' && (
+            <OneTimeShip
+              handleClose={handleClose}
+              handleTransitionPreviousWizardStep={handleTransitionPreviousWizardStep}
+              wizardStep={wizardStep}
+            />
+          )}
+          {wizardStep === 'template' && (
+            <TemplateShip
+              handleClose={handleClose}
+              wizardStep={wizardStep}
+              handleTransitionPreviousWizardStep={handleTransitionPreviousWizardStep}
+            />
+          )}
+          {wizardStep === 'new' && (
+            <NewTempalate
+              handleClose={handleClose}
+              wizardStep={wizardStep}
+              handleTransitionPreviousWizardStep={handleTransitionPreviousWizardStep}
+            />
+          )}
+        </div>
       </ShadCard>
-    </div>
+    </Overlay>
   );
 };
 

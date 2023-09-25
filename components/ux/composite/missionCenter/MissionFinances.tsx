@@ -8,6 +8,7 @@ import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import { FaPlus } from 'react-icons/fa';
 import NeuButton from '../../element/buttons/NeuButton';
+import ShadButton from '../../element/buttons/ShadButton';
 
 type Props = {};
 
@@ -54,12 +55,12 @@ const MissionFinances = (props: Props) => {
         }}
         className="deposits">
         <h2>Deposits</h2>
-        <NeuButton
+        <ShadButton
           styled={{
             width: '3rem',
           }}>
           <FaPlus />
-        </NeuButton>
+        </ShadButton>
       </div>
       <div
         style={{
@@ -78,12 +79,12 @@ const MissionFinances = (props: Props) => {
         }}
         className="expenses">
         <h2>Expenses</h2>
-        <NeuButton
+        <ShadButton
           styled={{
             width: '3rem',
           }}>
           <FaPlus />
-        </NeuButton>
+        </ShadButton>
       </div>
     </main>
   );

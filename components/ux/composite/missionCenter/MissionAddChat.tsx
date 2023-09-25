@@ -93,10 +93,13 @@ const MissionAddChat = (props: Props) => {
       </ShadCard>
       <div
         style={{
-          width: '100%',
+          width: '90%',
           display: 'flex',
-          justifyContent: 'center',
-          marginTop: '-0.7rem',
+          justifyContent: 'flex-end',
+          alignContent: 'flex-end',
+          alignItems: 'flex-end',
+          alignSelf: 'flex-end',
+          margin: '10px auto',
         }}>
         <ShadSelect
           selectDropdownTitle="Set Alert Status"

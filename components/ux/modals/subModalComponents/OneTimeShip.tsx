@@ -3,8 +3,9 @@ import { MissionCenterSupportShip, missionCenterSupportShips } from '@/app-store
 import { generateCode } from '@/app-store/utils/generateCode';
 import React, { useState } from 'react';
 import ShipButtonsGroup from './ShipButtonsGroup';
-import NeuInput from '../../element/inputs/NeuInput';
-import NeuDropdown from '../../element/inputs/NeuDropdown';
+import ShadInput from '../../element/inputs/ShadInput';
+import ShadCard from '../../element/cards/ShadCard';
+import ShadSelect from '../../element/inputs/ShadSelect';
 
 type Props = {
   handleClose: () => void;
@@ -61,68 +62,46 @@ const OneTimeShip = ({ handleClose, wizardStep, handleTransitionPreviousWizardSt
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-evenly',
-        width: '90%',
         height: '100%',
       }}>
-      <h4>Group Limit</h4>
-      <div>
-        <NeuInput
-          inputStyleOverride={{
-            width: '100%',
-            height: '2.8rem',
-            fontSize: '1.3rem',
-          }}
-          cardStyleOverride={{
-            width: '90%',
-            height: '1rem',
-            marginBottom: '-0.7rem',
-          }}
+      <ShadSelect
+        inputId="support_type"
+        selectDropdownTitle="Select Support Type"
+        SelectItems={missionCenterSupportShips}
+        value={newShip?.support_type?.value || undefined}
+        onChange={(e) => handleUpdate(e)}
+        dropdownLabel="Support Type"
+        dropdownWidth="200px"
+      />
+      <ShadCard
+        styleOverride={{
+          width: '80%',
+          margin: '20px auto',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}>
+        <ShadInput
+          label="Group Limit"
           id="group_limit"
-          placeholder="Group Limit"
-          type="text"
+          inputId="group_limit"
+          type="number"
           changeInput={(e) => handleUpdate(e)}
           value={newShip?.group_limit?.toString() || ''}
         />
-      </div>
-      <div>
-        <NeuDropdown
-          inputStyleOverride={{
-            width: '100%',
-            height: '2.8rem',
-            fontSize: '1.3rem',
-          }}
-          cardStyleOverride={{
-            width: '90%',
-            height: '1rem',
-            marginBottom: '-0.7rem',
-          }}
-          id="support_type"
-          placeholder="Select Mission"
-          selectOptions={missionCenterSupportShips}
-          value={newShip?.support_type?.value || ''}
-          changeInput={(e) => handleUpdate(e)}
-        />
-      </div>
-      <div>
-        {newShip.support_type?.label === 'Other' && (
-          <NeuInput
-            inputStyleOverride={{
-              width: '100%',
-              height: '1.5rem',
-            }}
-            cardStyleOverride={{
-              width: '90%',
-              height: '1.5rem',
-              marginBottom: '-0.7rem',
-            }}
+      </ShadCard>
+      {newShip.support_type?.label === 'Other' && (
+        <ShadCard>
+          <ShadInput
+            label="Other Support Type"
             type="text"
             id="other_support_type"
-            placeholder="Other Support Type"
+            inputId="other_support_type"
             changeInput={(e) => handleUpdate(e)}
             value={newShip?.support_type?.customLabel}
           />
-        )}
-      </div>
+        </ShadCard>
+      )}
       <ShipButtonsGroup
         handleClose={handleClose}
         wizardStep={wizardStep}
