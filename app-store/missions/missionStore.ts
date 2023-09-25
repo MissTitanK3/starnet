@@ -39,6 +39,10 @@ export type ExtendedMission = Mission & {
   addMemberToGroup: (groupId: string, memberId: SupportMemberType) => any;
   removeMemberFromGroup: (groupId: string, memberId: UUID) => any;
   addShare: (groupId: string, memberId: string) => any;
+  togglePaid: (groupId: string, memberId: string) => any;
+  addTimeCard: (groupId: string, memberId: string) => any;
+  removeTimeCard: (groupId: string, memberId: string, timeCardId: string | number) => any;
+  clockoutTimeCard: (groupId: string, memberId: string, timeCardId: string | number) => any;
 };
 
 export const useMissionStore = create<ExtendedMission>(
@@ -194,6 +198,73 @@ export const useMissionStore = create<ExtendedMission>(
                 memberMap.accumulatedMins = 0;
               }
               memberMap.accumulatedMins += 15;
+            }
+          });
+        }
+      });
+      await putMissionToSupa(mission);
+      get().setMission(mission.id);
+    },
+    togglePaid: async (groupId: string, memberId: string) => {
+      const mission = get().mission;
+      mission.groups?.map((group: any) => {
+        if (group?.support_id === groupId) {
+          group?.support_members?.map((memberMap: any) => {
+            if (memberMap.member === memberId) {
+              memberMap.hasBeenPaid = memberMap.hasBeenPaid ? false : true;
+            }
+          });
+        }
+      });
+      await putMissionToSupa(mission);
+      get().setMission(mission.id);
+    },
+    addTimeCard: async (groupId: string, memberId: string) => {
+      const mission = get().mission;
+      mission.groups?.map((group: any) => {
+        if (group?.support_id === groupId) {
+          group?.support_members?.map((memberMap: any) => {
+            if (memberMap.member === memberId) {
+              memberMap?.timeclock?.push({
+                id: generateCode(2, 8),
+                clock_in: new Date(),
+                clock_out: null,
+                total: 0,
+              });
+            }
+          });
+        }
+      });
+      await putMissionToSupa(mission);
+      get().setMission(mission.id);
+    },
+    removeTimeCard: async (groupId: string, memberId: string, timeCardId: string | number) => {
+      const mission = get().mission;
+      mission.groups?.map((group: any) => {
+        if (group?.support_id === groupId) {
+          group?.support_members?.map((memberMap: any) => {
+            if (memberMap.member === memberId) {
+              memberMap.timeclock = memberMap?.timeclock?.filter((timeCard: any) => timeCard.id !== timeCardId);
+              console.log(memberMap?.timeclock);
+            }
+          });
+        }
+      });
+      await putMissionToSupa(mission);
+      get().setMission(mission.id);
+    },
+    clockoutTimeCard: async (groupId: string, memberId: string, timeCardId: string | number) => {
+      const mission = get().mission;
+      mission.groups?.map((group: any) => {
+        if (group?.support_id === groupId) {
+          group?.support_members?.map((memberMap: any) => {
+            if (memberMap.member === memberId) {
+              memberMap?.timeclock?.map((timeCard: any) => {
+                if (timeCard.id === timeCardId) {
+                  timeCard.clock_out = new Date();
+                  timeCard.total = Math.abs(timeCard.clock_out - timeCard.clock_in);
+                }
+              });
             }
           });
         }

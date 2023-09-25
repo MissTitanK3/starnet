@@ -1,9 +1,7 @@
-import { useModalStore } from '@/app-store/modals/modalStore';
 import React, { useEffect, useRef, useState } from 'react';
 import { FaPlus } from 'react-icons/fa';
 import { FaEllipsisVertical } from 'react-icons/fa6';
 import { PiClockCountdownBold } from 'react-icons/pi';
-import MissionActions from '../../modals/MissionActions';
 import NeuButton from '../../element/buttons/NeuButton';
 import { useClickOutside } from '../../hooks/useClickOutside';
 import ShadCard from '../../element/cards/ShadCard';
@@ -14,6 +12,9 @@ import { RankImageDetailsSizeType } from '../../UiTypes';
 import { getVariableRankImageDetails } from '@/app-store/utils/getRankImageDetails';
 import Image from 'next/image';
 import MissionGroupMemberActions from '../../modals/MissionGroupMemberActions';
+import { getLoggedAndExpire } from '@/app-store/utils/getTimeFormat';
+import ShadButton from '../../element/buttons/ShadButton';
+import { TbClockX } from 'react-icons/tb';
 
 type Props = {
   member: SupportMemberType;
@@ -21,11 +22,12 @@ type Props = {
 };
 
 const MissionMemberCard = ({ member, groupId }: Props) => {
-  const { actionsOpen, setActionsOpen, editMissionModal } = useModalStore();
-  const { getMemberProfile } = useMissionStore();
+  const { getMemberProfile, togglePaid, addTimeCard, removeTimeCard, clockoutTimeCard } = useMissionStore();
   const [tracking, setTracking] = useState(false);
   const [memberData, setMemberData] = useState<AuthData | null>(null);
   const [rankImg, setSetRankImg] = useState<RankImageDetailsSizeType | null>(null);
+  const [startTime, setStartTime] = useState<string | null>(null);
+  const [endTime, setEndTime] = useState<string | null>(null);
   const [localActions, setLocalActions] = React.useState(false);
   const dropdown = useRef<HTMLDivElement>(null);
   useClickOutside(dropdown, () => setLocalActions(false));
@@ -37,11 +39,36 @@ const MissionMemberCard = ({ member, groupId }: Props) => {
       setMemberData(memberData?.[0]);
       if (rankImg) setSetRankImg(rankImg);
     };
+    const convertTime = () => {
+      const { timeOnly: start } = getLoggedAndExpire({
+        date: member?.timeRangeStart?.toString() || '',
+      });
+      const { timeOnly: end } = getLoggedAndExpire({
+        date: member?.timeRangeEnd?.toString() || '',
+      });
+      setStartTime(start);
+      setEndTime(end);
+    };
     if (member) {
       getMember();
+      convertTime();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [member]);
+
+  const handleMarkAsPaid = () => {
+    togglePaid(groupId, member?.member);
+  };
+
+  const handleAddTime = () => {
+    addTimeCard(groupId, member?.member);
+  };
+  const handleClockout = (cardId: string | number) => {
+    clockoutTimeCard(groupId, member?.member, cardId);
+  };
+  const handleRemoveTime = (cardId: string | number) => {
+    removeTimeCard(groupId, member?.member, cardId);
+  };
 
   return (
     <ShadCard
@@ -94,14 +121,14 @@ const MissionMemberCard = ({ member, groupId }: Props) => {
               currentRole={member.memberRole || ''}
             />
           )}
-          <NeuButton
+          <ShadButton
             onClick={() => setLocalActions(!localActions)}
             styled={{
               width: '30px',
               margin: '0',
             }}>
             <FaEllipsisVertical />
-          </NeuButton>
+          </ShadButton>
         </div>
       </div>
       <hr
@@ -136,7 +163,7 @@ const MissionMemberCard = ({ member, groupId }: Props) => {
             flexDirection: 'column',
           }}>
           <h6>Total Earnings</h6>
-          <span>$54,000</span>
+          <span>${member.accumulatedMins}</span>
         </div>
         <div
           style={{
@@ -148,27 +175,20 @@ const MissionMemberCard = ({ member, groupId }: Props) => {
           <span>${member.accumulatedMins}</span>
         </div>
       </div>
-      <div>
-        <NeuButton
-          onClick={() => {
-            console.log('clicked');
-          }}
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          width: '100%',
+          margin: '20px auto',
+        }}>
+        <ShadButton
+          onClick={() => handleMarkAsPaid()}
           styled={{
-            maxWidth: '120px',
-            height: '100%',
-            padding: '0.45rem',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginBottom: '20px',
+            width: '180px',
           }}>
-          <p
-            style={{
-              margin: '2px',
-            }}>
-            Mark As Paid
-          </p>
-        </NeuButton>
+          {member.hasBeenPaid ? 'Has Been Paid' : 'Needs To Be Paid'}
+        </ShadButton>
       </div>
       <div
         style={{
@@ -184,7 +204,7 @@ const MissionMemberCard = ({ member, groupId }: Props) => {
             flexDirection: 'column',
           }}>
           <h6>Scheduled Start</h6>
-          <span>12:00:00</span>
+          <span>{startTime}</span>
         </div>
         <div
           style={{
@@ -195,7 +215,7 @@ const MissionMemberCard = ({ member, groupId }: Props) => {
             textAlign: 'right',
           }}>
           <h6>Scheduled End</h6>
-          <span>18:00:00</span>
+          <span>{endTime}</span>
         </div>
       </div>
       <hr
@@ -212,14 +232,10 @@ const MissionMemberCard = ({ member, groupId }: Props) => {
           width: '100%',
         }}>
         <h3>Time Tracking</h3>
-        <NeuButton
-          onClick={() => {
-            console.log('clicked');
-          }}
-          variant="success"
+        <ShadButton
+          onClick={() => handleAddTime()}
           styled={{
-            maxWidth: '30px',
-            height: '100%',
+            width: '30px',
             padding: '0.45rem',
             display: 'flex',
             alignItems: 'center',
@@ -227,7 +243,7 @@ const MissionMemberCard = ({ member, groupId }: Props) => {
             margin: '0',
           }}>
           <FaPlus />
-        </NeuButton>
+        </ShadButton>
       </div>
       <div
         style={{
@@ -237,78 +253,60 @@ const MissionMemberCard = ({ member, groupId }: Props) => {
           alignItems: 'center',
           width: '100%',
         }}>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            width: '100%',
-            margin: '10px 0',
-          }}>
-          <span>
-            <PiClockCountdownBold /> 12:00:00
-          </span>
-          {tracking ? (
-            <NeuButton
-              onClick={() => {
-                console.log('clicked');
-              }}
-              variant="success"
-              styled={{
-                maxWidth: '170px',
-                height: '100%',
-                padding: '0.45rem',
+        {member?.timeclock?.map((card, key) => {
+          const { timeOnly: timeIn, timeDiffInSeconds: timeInCount } = getLoggedAndExpire({
+            date: new Date(card.clock_in?.toString() || ''),
+          });
+          const { timeOnly: timeOut, timeDiffInSeconds: timeOutCount } = getLoggedAndExpire({
+            date: new Date(card.clock_out?.toString() || ''),
+          });
+          const activeMinuteCount = (timeInCount - timeOutCount) / 60;
+          return (
+            <div
+              key={`${card.id}-${key}`}
+              style={{
                 display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                margin: '0',
+                justifyContent: 'space-between',
+                width: '100%',
+                margin: '10px 0',
               }}>
-              <p
+              <div
                 style={{
-                  margin: '2px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  alignItems: 'flex-start',
                 }}>
-                Tracking
-              </p>
-            </NeuButton>
-          ) : (
-            <span>For 20 Min</span>
-          )}
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            width: '100%',
-            margin: '10px 0',
-          }}>
-          <span>
-            <PiClockCountdownBold /> 12:00:00
-          </span>
-          {!tracking ? (
-            <NeuButton
-              onClick={() => {
-                console.log('clicked');
-              }}
-              variant="success"
-              styled={{
-                maxWidth: '100px',
-                height: '100%',
-                padding: '0.45rem',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                margin: '0',
-              }}>
-              <p
-                style={{
-                  margin: '2px',
-                }}>
-                Tracking
-              </p>
-            </NeuButton>
-          ) : (
-            <span>For 20 Min</span>
-          )}
-        </div>
+                <span>
+                  <PiClockCountdownBold /> {timeIn}
+                  {timeOut !== 'Invalid Date' && ` - ${timeOut}`}
+                </span>
+                {timeOut !== 'Invalid Date' && <span>For {activeMinuteCount.toFixed(2)} Min</span>}
+              </div>
+              {timeOut === 'Invalid Date' ? (
+                <ShadButton
+                  onClick={() => handleClockout(card.id || '')}
+                  styled={{
+                    width: '100px',
+                    padding: '0.45rem',
+                    margin: '0',
+                  }}>
+                  Tracking
+                </ShadButton>
+              ) : (
+                <ShadButton
+                  onClick={() => handleRemoveTime(card.id || '')}
+                  styled={{
+                    width: '30px',
+                    padding: '0.45rem',
+                    margin: '0',
+                  }}>
+                  <TbClockX />
+                </ShadButton>
+              )}
+            </div>
+          );
+        })}
       </div>
     </ShadCard>
   );

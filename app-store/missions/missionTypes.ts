@@ -138,7 +138,7 @@ export type SupportMemberType = {
 };
 
 export type TimeClockType = {
-  id?: number;
+  id?: number | string;
   clock_in?: Date;
   clock_out?: Date;
   total: number;

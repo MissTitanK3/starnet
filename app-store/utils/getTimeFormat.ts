@@ -133,5 +133,6 @@ export const getLoggedAndExpire = ({
     timeOnly,
     dateOnly,
     timeAndAMPM,
+    timeDiffInSeconds,
   };
 };
