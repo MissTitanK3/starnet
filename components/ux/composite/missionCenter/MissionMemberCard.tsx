@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import { FaPlus } from 'react-icons/fa';
 import { FaEllipsisVertical } from 'react-icons/fa6';
 import { PiClockCountdownBold } from 'react-icons/pi';
-import NeuButton from '../../element/buttons/NeuButton';
 import { useClickOutside } from '../../hooks/useClickOutside';
 import ShadCard from '../../element/cards/ShadCard';
 import { SupportMemberType } from '@/app-store/missions/missionTypes';
@@ -23,7 +22,6 @@ type Props = {
 
 const MissionMemberCard = ({ member, groupId }: Props) => {
   const { getMemberProfile, togglePaid, addTimeCard, removeTimeCard, clockoutTimeCard } = useMissionStore();
-  const [tracking, setTracking] = useState(false);
   const [memberData, setMemberData] = useState<AuthData | null>(null);
   const [rankImg, setSetRankImg] = useState<RankImageDetailsSizeType | null>(null);
   const [startTime, setStartTime] = useState<string | null>(null);

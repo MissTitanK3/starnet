@@ -30,6 +30,8 @@ export type ExtendedMission = {
     member?: AuthData;
     currentRole: string;
   }) => void;
+  addIncomeModal: boolean;
+  setAddIncomeModal: (addIncomeModal: boolean) => void;
 };
 
 export const useModalStore = create<ExtendedMission>(
@@ -76,6 +78,12 @@ export const useModalStore = create<ExtendedMission>(
     setUpdateRoleModal: async (updateRoleModal: boolean) => {
       set((state: any) => ({
         updateRoleModal,
+      }));
+    },
+    addIncomeModal: false,
+    setAddIncomeModal: async (addIncomeModal: boolean) => {
+      set((state: any) => ({
+        addIncomeModal,
       }));
     },
   })),

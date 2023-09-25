@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { log } from '../zustandLog';
-import type { ChatObject, Mission, SupportMemberType } from './missionTypes';
+import type { ChatObject, IncomeSet, Mission, SupportMemberType } from './missionTypes';
 import {
   getMissionFromSupa,
   getMissionsFromSupa,
@@ -39,10 +39,12 @@ export type ExtendedMission = Mission & {
   addMemberToGroup: (groupId: string, memberId: SupportMemberType) => any;
   removeMemberFromGroup: (groupId: string, memberId: UUID) => any;
   addShare: (groupId: string, memberId: string) => any;
+  removeShare: (groupId: string, memberId: string) => any;
   togglePaid: (groupId: string, memberId: string) => any;
   addTimeCard: (groupId: string, memberId: string) => any;
   removeTimeCard: (groupId: string, memberId: string, timeCardId: string | number) => any;
   clockoutTimeCard: (groupId: string, memberId: string, timeCardId: string | number) => any;
+  removeIncome: (incomeId: string) => any;
 };
 
 export const useMissionStore = create<ExtendedMission>(
@@ -205,6 +207,23 @@ export const useMissionStore = create<ExtendedMission>(
       await putMissionToSupa(mission);
       get().setMission(mission.id);
     },
+    removeShare: async (groupId: string, memberId: string) => {
+      const mission = get().mission;
+      mission.groups?.map((group: any) => {
+        if (group?.support_id === groupId) {
+          group?.support_members?.map((memberMap: any) => {
+            if (memberMap.member === memberId) {
+              if (!memberMap.accumulatedMins) {
+                memberMap.accumulatedMins = 0;
+              }
+              memberMap.accumulatedMins -= 15;
+            }
+          });
+        }
+      });
+      await putMissionToSupa(mission);
+      get().setMission(mission.id);
+    },
     togglePaid: async (groupId: string, memberId: string) => {
       const mission = get().mission;
       mission.groups?.map((group: any) => {
@@ -269,6 +288,18 @@ export const useMissionStore = create<ExtendedMission>(
           });
         }
       });
+      await putMissionToSupa(mission);
+      get().setMission(mission.id);
+    },
+    addIncome: async (income: IncomeSet) => {
+      const mission = get().mission;
+      mission.income_sets = [...mission.income_sets, income];
+      await putMissionToSupa(mission);
+      get().setMission(mission.id);
+    },
+    removeIncome: async (incomeId: string) => {
+      const mission = get().mission;
+      mission.income_sets = mission.income_sets.filter((income: IncomeSet) => income.id !== incomeId);
       await putMissionToSupa(mission);
       get().setMission(mission.id);
     },

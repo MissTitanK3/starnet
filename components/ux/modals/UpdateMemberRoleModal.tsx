@@ -1,16 +1,10 @@
 import React, { useState } from 'react';
-import { FaX } from 'react-icons/fa6';
-import { Mission, missionTypes } from '@/app-store/missions/missionTypes';
+import { Mission } from '@/app-store/missions/missionTypes';
 import { useModalStore } from '@/app-store/modals/modalStore';
 import { useMissionStore } from '@/app-store/missions/missionStore';
-import { generateCode } from '@/app-store/utils/generateCode';
 import ShadCard from '../element/cards/ShadCard';
-import ShadSelect from '../element/inputs/ShadSelect';
 import ShadButton from '../element/buttons/ShadButton';
-import ShadTimeInput from '../element/inputs/ShadTimeInput';
-import ShadCalendar from '../element/inputs/ShadCalendar';
 import ShadInput from '../element/inputs/ShadInput';
-import ShadTextArea from '../element/inputs/ShadTextArea';
 import Overlay from '../element/overlays/Overlay';
 
 type Props = {};

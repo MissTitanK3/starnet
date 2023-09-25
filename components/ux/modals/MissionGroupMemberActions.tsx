@@ -14,7 +14,7 @@ type Props = {
 };
 
 const MissionGroupMemberActions = ({ cardOverride, member, close, groupId, currentRole }: Props) => {
-  const { removeMemberFromGroup, mission, updateMission, addShare } = useMissionStore();
+  const { removeMemberFromGroup, mission, updateMission, addShare, removeShare } = useMissionStore();
   const { setUpdateRoleModal } = useModalStore();
   const handleRemoveMember = () => {
     if (member?.id) {
@@ -31,6 +31,10 @@ const MissionGroupMemberActions = ({ cardOverride, member, close, groupId, curre
         currentRole: currentRole ? currentRole : '',
       });
     }
+    close();
+  };
+  const handleRemoveShare = () => {
+    removeShare(groupId, member?.id as string);
     close();
   };
 
@@ -74,6 +78,14 @@ const MissionGroupMemberActions = ({ cardOverride, member, close, groupId, curre
         }}
         onClick={() => handleAddShare()}>
         Add One (1) Share
+      </ShadButton>
+      <ShadButton
+        styled={{
+          width: '100%',
+          margin: '15px auto 0 auto',
+        }}
+        onClick={() => handleRemoveShare()}>
+        Remove One (1) Share
       </ShadButton>
     </ShadCard>
   );

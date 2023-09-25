@@ -15,6 +15,7 @@ type Props = {
   onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   setStep?: number;
   id: string;
+  defaultValue?: string | number | readonly string[] | undefined;
 };
 
 const ShadInput = ({
@@ -31,6 +32,7 @@ const ShadInput = ({
   inputStyleOverride,
   setStep,
   id,
+  defaultValue,
 }: Props) => {
   return (
     <div
@@ -59,11 +61,16 @@ const ShadInput = ({
           </i>
         )}
         <Input
-          style={inputStyleOverride}
+          style={{
+            width: '95%',
+            margin: '0 auto',
+            ...inputStyleOverride,
+          }}
           onChange={changeInput}
           id={inputId}
           disabled={isDisabled}
           value={value}
+          defaultValue={defaultValue}
           type={type}
           placeholder={placeHolder}
           onKeyDown={onKeyDown}
