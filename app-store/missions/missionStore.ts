@@ -13,6 +13,7 @@ import { getMissionEventFromSupa, getProfileFromSupa } from '../auth/authActions
 import { AuthData } from '../auth/authTypes';
 import { generateCode } from '../utils/generateCode';
 import { getVariableRankImageDetails } from '../utils/getRankImageDetails';
+import { UUID } from 'crypto';
 
 export type ExtendedMission = Mission & {
   [key: string | number]: any;
@@ -36,6 +37,8 @@ export type ExtendedMission = Mission & {
   archiveChatMessage: (chatId: string) => any;
   removeGroup: (groupId: string) => any;
   addMemberToGroup: (groupId: string, memberId: SupportMemberType) => any;
+  removeMemberFromGroup: (groupId: string, memberId: UUID) => any;
+  addShare: (groupId: string, memberId: string) => any;
 };
 
 export const useMissionStore = create<ExtendedMission>(
@@ -166,6 +169,35 @@ export const useMissionStore = create<ExtendedMission>(
         return group;
       });
       mission.groups = groupUpdate;
+      await putMissionToSupa(mission);
+      get().setMission(mission.id);
+    },
+    removeMemberFromGroup: async (groupId: string, memberId: UUID) => {
+      const mission = get().mission;
+      const groupUpdate = mission?.groups?.map((group: any) => {
+        if (group.support_id === groupId) {
+          group.support_members = group.support_members.filter((member: any) => member.member !== memberId);
+        }
+        return group;
+      });
+      mission.groups = groupUpdate;
+      await putMissionToSupa(mission);
+      get().setMission(mission.id);
+    },
+    addShare: async (groupId: string, memberId: string) => {
+      const mission = get().mission;
+      mission.groups?.map((group: any) => {
+        if (group?.support_id === groupId) {
+          group?.support_members?.map((memberMap: any) => {
+            if (memberMap.member === memberId) {
+              if (!memberMap.accumulatedMins) {
+                memberMap.accumulatedMins = 0;
+              }
+              memberMap.accumulatedMins += 15;
+            }
+          });
+        }
+      });
       await putMissionToSupa(mission);
       get().setMission(mission.id);
     },

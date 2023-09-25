@@ -126,7 +126,7 @@ export type MissionCenterSupportShip = {
 
 export type SupportMemberType = {
   memberRole?: string;
-  member?: any;
+  member: UUID;
   selectedDate?: string;
   timeRangeStart?: string | Date | Date[] | null;
   timeRangeEnd?: string | Date | Date[] | null;

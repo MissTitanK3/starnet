@@ -10,13 +10,14 @@ import { useClickOutside } from '../../hooks/useClickOutside';
 import AddMemberToMissionModal from '../../modals/subModalComponents/AddMemberToMission';
 import ShadCard from '../../element/cards/ShadCard';
 import ShadButton from '../../element/buttons/ShadButton';
+import UpdateMemberRoleModal from '../../modals/UpdateMemberRoleModal';
 
 type Props = {
   group: MissionCenterSupportShip;
 };
 
 const MissionGroupCard = ({ group }: Props) => {
-  const { setActionsOpen, addMemberModal } = useModalStore();
+  const { setActionsOpen, addMemberModal, updateRoleModal } = useModalStore();
   const [localActions, setLocalActions] = React.useState(false);
   const dropdown = useRef<HTMLDivElement>(null);
   useClickOutside(dropdown, () => setActionsOpen(false));
@@ -64,14 +65,17 @@ const MissionGroupCard = ({ group }: Props) => {
       <div
         style={{
           display: 'flex',
-          justifyContent: 'space-between',
+          justifyContent: 'space-evenly',
           flexWrap: 'wrap',
           margin: '0 25px',
         }}>
-        {group?.support_members?.map((member, key) => (
-          <MissionMemberCard key={`${member.member}-${key}`} />
-        ))}
+        {group?.support_members?.map((member, key) => {
+          if (member) {
+            return <MissionMemberCard key={`${member.member}-${key}`} member={member} groupId={group.support_id} />;
+          }
+        })}
       </div>
+      {updateRoleModal.isVisibile && updateRoleModal.shipNumber === group?.support_id && <UpdateMemberRoleModal />}
       {addMemberModal.isVisibile && addMemberModal.shipNumber === group?.support_id && (
         <AddMemberToMissionModal groupId={group?.support_id} groupName={group?.support_type?.label || ''} />
       )}

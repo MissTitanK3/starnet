@@ -18,7 +18,7 @@ type Props = {
 
 const AddMemberToMissionModal = ({ groupId, groupName }: Props) => {
   const [newMember, setNewMember] = useState<SupportMemberType>({
-    member: undefined,
+    member: '' as any,
     timeRangeStart: undefined,
     timeRangeEnd: undefined,
     selectedDate: '',
@@ -51,7 +51,7 @@ const AddMemberToMissionModal = ({ groupId, groupName }: Props) => {
 
   const handleClose = () => {
     setNewMember({
-      member: '',
+      member: '' as any,
       timeRangeStart: '',
       timeRangeEnd: '',
       selectedDate: '',

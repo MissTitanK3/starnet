@@ -1,5 +1,7 @@
+import { UUID } from 'crypto';
 import { create } from 'zustand';
 import { log } from '../zustandLog';
+import { AuthData } from '../auth/authTypes';
 
 export type ExtendedMission = {
   [key: string | number]: any;
@@ -16,6 +18,18 @@ export type ExtendedMission = {
     shipNumber: string;
   };
   setAddMemberModal: (addMemberModal: { isVisibile: boolean; shipNumber: string }) => void;
+  updateRoleModal: {
+    isVisibile: boolean;
+    shipNumber?: string;
+    member?: AuthData;
+    currentRole?: string;
+  };
+  setUpdateRoleModal: (updateRoleModal: {
+    isVisibile: boolean;
+    shipNumber?: string;
+    member?: AuthData;
+    currentRole: string;
+  }) => void;
 };
 
 export const useModalStore = create<ExtendedMission>(
@@ -51,6 +65,17 @@ export const useModalStore = create<ExtendedMission>(
     setAddMemberModal: async (addMemberModal: boolean) => {
       set((state: any) => ({
         addMemberModal,
+      }));
+    },
+    updateRoleModal: {
+      isVisibile: false,
+      shipNumber: '',
+      member: undefined,
+      currentRole: '',
+    },
+    setUpdateRoleModal: async (updateRoleModal: boolean) => {
+      set((state: any) => ({
+        updateRoleModal,
       }));
     },
   })),
