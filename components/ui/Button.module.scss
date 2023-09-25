@@ -44,6 +44,7 @@
 .neumorphicDarkButtonActive {
   background: variable.$primary-color-alpha;
   border-radius: 0.5rem;
+  border: none;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -74,7 +75,7 @@
   margin-right: 25px;
   height: 2rem;
   width: 100%;
-  color: red;
+  // color: red;
   &:hover {
     background-color: variable.$linear-text-color;
     background: -webkit-linear-gradient(180deg,#1A5DF9 0%, #75DCFF 100%);
@@ -282,5 +283,40 @@
     -webkit-text-fill-color: transparent;
     cursor: pointer;
   }
+}
 
+.active {
+  background-color: variable.$linear-text-color;
+  background: -webkit-linear-gradient(180deg,variable.$active-color 0%, variable.$active-color 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  padding: 1rem;
+  margin: 1rem;
+  text-align: center;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.noStyled {
+  border: none;
+  color: silver;
+  background-color: transparent;
+  text-align: center;
+  font-size: large;
+  &:hover {
+    background-color: variable.$linear-text-color;
+    background: -webkit-linear-gradient(180deg,#1A5DF9 0%, #75DCFF 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    cursor: pointer;
+  }
 }

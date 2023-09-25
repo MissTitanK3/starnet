@@ -40,9 +40,15 @@ const CreateSupportModal = (props: Props) => {
         cardTitle="Create Mission Support Group"
         cardDescription="Choose from a template, create a template, or create a single group!"
         footerChildren={
-          <PlainButton onClick={() => handleClose()}>
+          <ShadButton
+            styled={{
+              width: '100%',
+              margin: '0 auto',
+            }}
+            variant="plain"
+            onClick={() => handleClose()}>
             <h6>Cancel</h6>
-          </PlainButton>
+          </ShadButton>
         }
         styleOverride={{
           height: '60dvh',

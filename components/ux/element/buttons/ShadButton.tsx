@@ -6,18 +6,42 @@ type Props = {
   onClick?: () => void;
   styled?: React.CSSProperties;
   isActive?: boolean;
-  variant?: 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link' | null | undefined;
+  variant?:
+    | 'default'
+    | 'destructive'
+    | 'outline'
+    | 'secondary'
+    | 'ghost'
+    | 'link'
+    | 'active'
+    | 'plain'
+    | null
+    | undefined;
   size?: 'default' | 'sm' | 'lg' | 'icon' | null | undefined;
   isDisabled?: boolean;
+  role?: React.AriaRole;
+  className?: string;
 };
 
-function ShadButton({ children, onClick, styled, variant = 'default', size = 'default', isDisabled = false }: Props) {
+function ShadButton({
+  children,
+  onClick,
+  styled,
+  variant = 'default',
+  size = 'default',
+  isDisabled = false,
+  isActive,
+  role = 'button',
+  className,
+}: Props) {
   return (
     <Button
       disabled={isDisabled}
       size={size}
+      className={className}
+      role={role}
       type="button"
-      variant={isDisabled ? 'ghost' : variant}
+      variant={isDisabled ? 'ghost' : isActive ? 'active' : variant}
       onClick={onClick}
       style={{
         ...styled,

@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { SelectGroup } from '@radix-ui/react-select';
+import ShadInput from './ShadInput';
 
 type Props = {
   SelectItems: {
@@ -10,7 +11,6 @@ type Props = {
   onChange: (e: any) => void;
   inputId: string;
   selectDropdownTitle?: string;
-  dropdownLabel?: string;
   dropdownWidth?: string;
   value?: string;
 };
@@ -20,10 +20,10 @@ const ShadSelect = ({
   onChange,
   inputId,
   selectDropdownTitle,
-  dropdownLabel,
   dropdownWidth = '180px',
   value,
 }: Props) => {
+  const [activeSearch, setActiveSearch] = useState('');
   const handleUpdate = (value: string) => {
     const updated = {
       target: {
@@ -62,15 +62,36 @@ const ShadSelect = ({
           width: dropdownWidth,
           height: SelectItems.length > 5 ? '200px' : 'auto',
         }}>
+        <ShadInput
+          id="searching"
+          inputId="searching"
+          placeHolder="Search..."
+          type="text"
+          inputStyleOverride={{
+            width: '90%',
+            margin: '15px auto -15px auto',
+            fontSize: '1rem',
+          }}
+          value={activeSearch}
+          changeInput={(e) => setActiveSearch(e.target.value)}
+        />
+        <hr />
         <SelectGroup
+          placeholder="Select One"
           style={{
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-evenly',
             alignItems: 'center',
-            marginTop: '10px',
+            marginTop: '5px',
           }}>
-          {SelectItems.map((item, key) => (
+          {SelectItems.filter((item) => {
+            if (activeSearch === '') {
+              return item;
+            } else if (item.label.toLowerCase().includes(activeSearch.toLowerCase())) {
+              return item;
+            }
+          }).map((item, key) => (
             <SelectItem
               style={{
                 height: '40px',

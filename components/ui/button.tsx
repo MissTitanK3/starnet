@@ -16,6 +16,8 @@ const buttonVariants = cva(
         outline: `${styles.neumorphicDarkButton} ${styles.info}`,
         ghost: `${styles.neumorphicDarkButtonNoHover} ${styles.disabled}`,
         link: `${styles.link}`,
+        active: `${styles.neumorphicDarkButtonActive}`,
+        plain: `${styles.noStyled}`,
       },
       size: {
         default: 'h-9 px-4 py-2',

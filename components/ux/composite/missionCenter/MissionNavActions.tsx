@@ -6,9 +6,9 @@ import { FaEllipsisVertical } from 'react-icons/fa6';
 import { useRouter } from 'next/navigation';
 import { useModalStore } from '@/app-store/modals/modalStore';
 import { useClickOutside } from '../../hooks/useClickOutside';
-import NeuButton from '../../element/buttons/NeuButton';
 import MissionActions from '../../modals/MissionActions';
 import EditMissionModal from '../../modals/EditMissionModal';
+import ShadButton from '../../element/buttons/ShadButton';
 
 type Props = {
   id: string;
@@ -39,21 +39,19 @@ const MissionNavActions = ({ id }: Props) => {
           width: '100%',
           margin: '30px 0',
         }}>
-        <NeuButton
+        <ShadButton
           onClick={() => router.push('/mission-center')}
           styled={{
             width: '150px',
           }}>
-          <span
+          <div
             style={{
               display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-evenly',
-              width: '100%',
+              alignItems: 'space-evenly',
             }}>
-            <FaAngleLeft /> Mission Center
-          </span>
-        </NeuButton>
+            <FaAngleLeft /> &nbsp; Mission Center
+          </div>
+        </ShadButton>
         <div
           ref={dropdown}
           style={{
@@ -67,17 +65,17 @@ const MissionNavActions = ({ id }: Props) => {
                 right: '30px',
                 zIndex: 1000,
                 backgroundColor: '#242424',
-                height: '200px',
+                height: '180px',
               }}
             />
           )}
-          <NeuButton
+          <ShadButton
             onClick={() => setActionsOpen(!actionsOpen)}
             styled={{
               width: '30px',
             }}>
             <FaEllipsisVertical />
-          </NeuButton>
+          </ShadButton>
         </div>
       </div>
       <div
@@ -87,15 +85,30 @@ const MissionNavActions = ({ id }: Props) => {
           width: '100%',
           margin: '30px 0',
         }}>
-        <NeuButton onClick={() => setActiveTab('mission-info')} isActive={activeTab === 'mission-info'}>
+        <ShadButton
+          styled={{
+            width: '100%',
+          }}
+          onClick={() => setActiveTab('mission-info')}
+          isActive={activeTab === 'mission-info'}>
           <span>Mission Info</span>
-        </NeuButton>
-        <NeuButton onClick={() => setActiveTab('finances')} isActive={activeTab === 'finances'}>
+        </ShadButton>
+        <ShadButton
+          styled={{
+            width: '100%',
+          }}
+          onClick={() => setActiveTab('finances')}
+          isActive={activeTab === 'finances'}>
           <span>Deposits & Expenses</span>
-        </NeuButton>
-        <NeuButton onClick={() => setActiveTab('groups')} isActive={activeTab === 'groups'}>
+        </ShadButton>
+        <ShadButton
+          styled={{
+            width: '100%',
+          }}
+          onClick={() => setActiveTab('groups')}
+          isActive={activeTab === 'groups'}>
           <span>Mission Groups</span>
-        </NeuButton>
+        </ShadButton>
       </div>
       {editMissionModal && <EditMissionModal />}
     </main>

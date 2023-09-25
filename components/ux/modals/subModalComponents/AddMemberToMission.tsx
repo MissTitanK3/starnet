@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import NeuButton from '../../element/buttons/NeuButton';
-import { FaX } from 'react-icons/fa6';
 import { SupportMemberType } from '@/app-store/missions/missionTypes';
 import { useModalStore } from '@/app-store/modals/modalStore';
-import NeuDateField from '../../element/inputs/NeuDateField';
 import { useMissionStore } from '@/app-store/missions/missionStore';
-import NeuDropdown from '../../element/inputs/NeuDropdown';
-import PlainButton from '../../element/buttons/PlainButton';
 import { getAllProfilesFromSupaForDropdown } from '@/app-store/auth/authActions';
 import { PostgrestError } from '@supabase/supabase-js';
 import ShadCard from '../../element/cards/ShadCard';
+import Overlay from '../../element/overlays/Overlay';
+import ShadSelect from '../../element/inputs/ShadSelect';
+import ShadCalendar from '../../element/inputs/ShadCalendar';
+import ShadTimeInput from '../../element/inputs/ShadTimeInput';
+import ShadButton from '../../element/buttons/ShadButton';
 
 type Props = {
   groupId: string;
@@ -19,8 +19,8 @@ type Props = {
 const AddMemberToMissionModal = ({ groupId, groupName }: Props) => {
   const [newMember, setNewMember] = useState<SupportMemberType>({
     member: undefined,
-    timeRangeStart: '',
-    timeRangeEnd: '',
+    timeRangeStart: undefined,
+    timeRangeEnd: undefined,
     selectedDate: '',
     memberRole: 'Crew Member',
     hasBeenPaid: false,
@@ -93,26 +93,35 @@ const AddMemberToMissionModal = ({ groupId, groupName }: Props) => {
   }, []);
 
   return (
-    <div
-      style={{
-        position: 'absolute',
-        width: '100dvw',
-        height: '100dvh',
-        top: 0,
-        left: 0,
-        backgroundColor: '#242424d4',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        overflowY: 'auto',
-        zIndex: 100,
-      }}>
+    <Overlay>
       <ShadCard
-        variant="noHover"
+        variant="solidNoHover"
+        footerChildren={
+          <div
+            style={{
+              display: 'flex',
+              width: '600px',
+              justifyContent: 'space-evenly',
+              margin: '20px 0',
+            }}>
+            <ShadButton
+              variant="plain"
+              onClick={() => handleClose()}
+              styled={{
+                width: '100%',
+              }}>
+              Cancel
+            </ShadButton>
+            <ShadButton
+              onClick={() => handleAddMember()}
+              styled={{
+                width: '100%',
+              }}>
+              Add Member
+            </ShadButton>
+          </div>
+        }
         styleOverride={{
-          backgroundColor: '#242424',
-          minHeight: '420px',
-          maxHeight: '40dvh',
           width: '600px',
           display: 'flex',
           flexDirection: 'column',
@@ -121,76 +130,86 @@ const AddMemberToMissionModal = ({ groupId, groupName }: Props) => {
           alignSelf: 'center',
           justifyContent: 'space-evenly',
           overflowY: 'auto',
-          padding: '100px auto',
         }}>
-        <div
-          style={{
-            marginTop: '20px',
-          }}
-        />
-        <h5>Assign Member to {groupName}</h5>
-        <NeuDropdown
-          cardStyleOverride={{
-            marginBottom: '0.05rem',
-            zIndex: 10,
-          }}
-          id="member"
-          selectOptions={[{ value: '', label: 'Select Member' }, ...memberList]}
+        <h2>Assign Member to {groupName}</h2>
+        <br />
+        <ShadSelect
+          inputId="member"
+          selectDropdownTitle="Select Member"
+          SelectItems={memberList}
           value={newMember.member || ''}
-          changeInput={(e) => {
+          onChange={(e) => {
             handleUpdate(e);
           }}
         />
-        <h5>Available From</h5>
-        <NeuDateField
-          changeInput={(e) => handleUpdate(e)}
-          value={newMember?.timeRangeStart?.toString() || ''}
-          id="timeRangeStart"
-        />
-        <h5>Available To</h5>
-        <NeuDateField
-          changeInput={(e) => handleUpdate(e)}
-          value={newMember?.timeRangeEnd?.toString() || ''}
-          id="timeRangeEnd"
-        />
-
         <div
           style={{
             display: 'flex',
-            width: '100%',
-            justifyContent: 'space-evenly',
-            margin: '20px 0',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            margin: '30px 0',
           }}>
-          <PlainButton
-            variant="warning"
-            onClick={() => handleClose()}
-            styled={{
-              width: '50%',
+          <h5>From: </h5>
+          <br />
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              width: '100%',
             }}>
-            Cancel
-          </PlainButton>
-          <NeuButton
-            variant="success"
-            onClick={() => handleAddMember()}
-            styled={{
-              width: '50%',
+            <ShadCalendar
+              selectedUpdate={(e) => handleUpdate(e)}
+              value={newMember?.timeRangeStart ? new Date(newMember.timeRangeStart as string) : new Date()}
+              inputId="timeRangeStart"
+            />
+            <ShadTimeInput
+              type="time"
+              inputId="timeRangeStart"
+              inputStyleOverride={{
+                fontSize: '1rem',
+              }}
+              startDate={newMember.timeRangeStart as Date}
+              changeInput={(e) => handleUpdate(e)}
+              value={newMember.timeRangeStart}
+            />
+          </div>
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            margin: '30px 0',
+          }}>
+          <h5>To: </h5>
+          <br />
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              width: '100%',
             }}>
-            Add Member
-          </NeuButton>
+            <ShadCalendar
+              selectedUpdate={(e) => handleUpdate(e)}
+              value={newMember?.timeRangeEnd ? new Date(newMember.timeRangeEnd as string) : new Date()}
+              inputId="timeRangeEnd"
+            />
+            <ShadTimeInput
+              type="time"
+              inputId="timeRangeEnd"
+              inputStyleOverride={{
+                fontSize: '1rem',
+              }}
+              startDate={newMember.timeRangeEnd as Date}
+              changeInput={(e) => handleUpdate(e)}
+              value={newMember.timeRangeEnd}
+            />
+          </div>
         </div>
       </ShadCard>
-      <NeuButton
-        onClick={() => handleClose()}
-        styled={{
-          width: '35px',
-          position: 'relative',
-          top: '-350px',
-          right: '10px',
-          borderRadius: '50%',
-        }}>
-        <FaX />
-      </NeuButton>
-    </div>
+    </Overlay>
   );
 };
 

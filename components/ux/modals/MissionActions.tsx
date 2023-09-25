@@ -28,13 +28,35 @@ const MissionActions = ({ cardOverride }: Props) => {
       variant="noHover"
       styleOverride={{
         ...cardOverride,
-        minHeight: '200px',
+        minHeight: '180px',
+        width: '250px',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
       }}>
-      <NeuButton onClick={() => handleEditMission()}>Edit Mission</NeuButton>
-      <NeuButton onClick={() => handleArchiveMission()}>
+      <NeuButton
+        styled={{
+          margin: '20px auto 20px auto',
+          width: '200px',
+        }}
+        onClick={() => handleEditMission()}>
+        Edit Mission
+      </NeuButton>
+      <NeuButton
+        styled={{
+          margin: '0 auto 20px auto',
+        }}
+        onClick={() => handleArchiveMission()}>
         {mission?.is_archived ? 'Unarchive Mission' : 'Archive Mission'}
       </NeuButton>
-      <NeuButton onClick={() => handleResetCode()}>Reset Code</NeuButton>
+      <NeuButton
+        styled={{
+          margin: '0 auto 20px auto',
+        }}
+        onClick={() => handleResetCode()}>
+        Reset Code
+      </NeuButton>
     </ShadCard>
   );
 };

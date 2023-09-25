@@ -1,3 +1,5 @@
+'use client';
+
 import { useModalStore } from '@/app-store/modals/modalStore';
 import React, { useRef } from 'react';
 import { FaEllipsisVertical } from 'react-icons/fa6';
@@ -5,7 +7,6 @@ import MissionMemberCard from './MissionMemberCard';
 import { MissionCenterSupportShip } from '@/app-store/missions/missionTypes';
 import MissionGroupActions from '../../modals/MissionGroupActions';
 import { useClickOutside } from '../../hooks/useClickOutside';
-import NeuButton from '../../element/buttons/NeuButton';
 import AddMemberToMissionModal from '../../modals/subModalComponents/AddMemberToMission';
 import ShadCard from '../../element/cards/ShadCard';
 import ShadButton from '../../element/buttons/ShadButton';
@@ -45,14 +46,6 @@ const MissionGroupCard = ({ group }: Props) => {
               groupName={
                 group.support_type?.customLabel !== '' ? group.support_type?.customLabel : group.support_type?.label
               }
-              cardOverride={{
-                position: 'absolute',
-                top: '20px',
-                left: '20px',
-                zIndex: 1000,
-                backgroundColor: '#242424',
-                height: '200px',
-              }}
             />
           )}
           <ShadButton
@@ -66,6 +59,7 @@ const MissionGroupCard = ({ group }: Props) => {
         <h2>
           {group?.support_type?.customLabel !== '' ? group?.support_type?.customLabel : group?.support_type?.label}
         </h2>
+        <h4>Group Limit: {group.group_limit}</h4>
       </div>
       <div
         style={{

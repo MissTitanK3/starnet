@@ -1,8 +1,8 @@
 import React from 'react';
-import NeuButton from '../element/buttons/NeuButton';
 import { useMissionStore } from '@/app-store/missions/missionStore';
 import { useModalStore } from '@/app-store/modals/modalStore';
 import ShadCard from '../element/cards/ShadCard';
+import ShadButton from '../element/buttons/ShadButton';
 
 type Props = {
   cardOverride?: React.CSSProperties;
@@ -24,16 +24,34 @@ const MissionGroupActions = ({ cardOverride, groupName, close, groupId }: Props)
   };
   return (
     <ShadCard
-      variant="noHover"
+      variant="solidNoHover"
       styleOverride={{
         ...cardOverride,
-        minHeight: groupName === 'Command' ? '60px' : '120px',
+        minHeight: groupName === 'Command' ? '30px' : '30px',
+        width: '200px',
+        position: 'absolute',
+        top: '20px',
+        left: '20px',
+        zIndex: 1000,
       }}>
-      <NeuButton onClick={() => handleAddMember()}>Add Member</NeuButton>
+      <ShadButton
+        styled={{
+          width: '100%',
+          margin: '0 auto',
+        }}
+        onClick={() => handleAddMember()}>
+        Add Member
+      </ShadButton>
       {groupName !== 'Command' && (
-        <NeuButton variant="error" onClick={() => handleRemoveGroup()}>
+        <ShadButton
+          styled={{
+            width: '100%',
+            margin: '15px auto 0 auto',
+          }}
+          variant="destructive"
+          onClick={() => handleRemoveGroup()}>
           Remove {groupName} Group
-        </NeuButton>
+        </ShadButton>
       )}
     </ShadCard>
   );
