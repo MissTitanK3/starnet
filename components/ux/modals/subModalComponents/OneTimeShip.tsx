@@ -70,7 +70,6 @@ const OneTimeShip = ({ handleClose, wizardStep, handleTransitionPreviousWizardSt
         SelectItems={missionCenterSupportShips}
         value={newShip?.support_type?.value || undefined}
         onChange={(e) => handleUpdate(e)}
-        dropdownLabel="Support Type"
         dropdownWidth="200px"
       />
       <ShadCard
