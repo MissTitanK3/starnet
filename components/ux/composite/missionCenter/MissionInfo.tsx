@@ -1,41 +1,17 @@
 'use client';
 
+import React from 'react';
 import { useMissionStore } from '@/app-store/missions/missionStore';
-import { getVariableRankImageDetails } from '@/app-store/utils/getRankImageDetails';
 import { getLoggedAndExpire } from '@/app-store/utils/getTimeFormat';
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
 import ShadCard from '../../element/cards/ShadCard';
 
 type Props = {};
 
 const MissionInfo = (props: Props) => {
-  const { mission, getMemberProfile, getAttachedEvents, activeTab } = useMissionStore();
-  const { formattedDate } = getLoggedAndExpire({ date: mission?.start_date || '' });
-  const [missionCreator, setMissionCreator] = useState<any>(null);
-  const [eventData, setEventData] = useState<any>(null);
-  const rankImageDetails = getVariableRankImageDetails(missionCreator?.network_rank?.grade);
-
-  useEffect(() => {
-    if (mission?.creator) {
-      const awaitCreator = async () => {
-        const data: any = await getMemberProfile(mission?.creator);
-        setMissionCreator(data?.[0]);
-      };
-      awaitCreator();
-    }
-    if (mission?.event_id) {
-      const awaitEvent = async () => {
-        const data: any = await getAttachedEvents(mission?.event_id);
-        setEventData(data?.[0]);
-      };
-      awaitEvent();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mission?.creator, mission?.event_id]);
-
+  const { mission, attachedEvent, activeTab, missionCreatorDetails, missionCreator } = useMissionStore();
+  const { shortFormattedDate } = getLoggedAndExpire({ date: mission?.start_date || '' });
   if (activeTab !== 'mission-info') return null;
-
   return (
     <main
       style={{
@@ -49,7 +25,8 @@ const MissionInfo = (props: Props) => {
             height: '100%',
           }}>
           <div>
-            <h6>Optimal Member Participation</h6>
+            <h6>Optimal Member</h6>
+            <h6>Participation</h6>
             <h3>{mission?.optimal_participation}</h3>
           </div>
           <div
@@ -65,38 +42,58 @@ const MissionInfo = (props: Props) => {
               <h6>Mission Name</h6>
               <h3>{mission?.mission_name}</h3>
             </div>
-            <div>
-              <h6>Mission Type</h6>
-              <h3>{mission?.mission_type?.label}</h3>
-            </div>
           </div>
           <div
             style={{
               textAlign: 'right',
             }}>
-            <h6>Mission Security Code</h6>
+            <h6>Mission</h6>
+            <h6>Security Code</h6>
             <h3>{mission?.op_sec_code}</h3>
           </div>
         </div>
-      </ShadCard>
-      {mission?.event_id && (
-        <ShadCard variant="noHover">
+        <br />
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+          }}>
+          <div>
+            <h6>Event Name</h6>
+            <hr />
+            {attachedEvent?.name ? (
+              <h3>{attachedEvent?.name}</h3>
+            ) : (
+              <>
+                <h6>Independent</h6>
+                <h6>Mission</h6>
+              </>
+            )}
+          </div>
           <div
             style={{
-              display: 'flex',
-              justifyContent: 'space-between',
+              textAlign: 'center',
             }}>
-            <div>
-              <h6>Event Name</h6>
-              <h3>{eventData?.name}</h3>
-            </div>
-            <div>
-              <h6>Event ID</h6>
-              <h3>{eventData?.id}</h3>
-            </div>
+            <h6>Mission Type</h6>
+            <h3>{mission?.mission_type}</h3>
           </div>
-        </ShadCard>
-      )}
+          <div
+            style={{
+              textAlign: 'right',
+            }}>
+            <h6>Event ID</h6>
+            <hr />
+            {attachedEvent?.id ? (
+              <h3>{attachedEvent?.id}</h3>
+            ) : (
+              <>
+                <h6>Independent</h6>
+                <h6>Mission</h6>
+              </>
+            )}
+          </div>
+        </div>
+      </ShadCard>
       <ShadCard variant="noHover">
         <div
           style={{
@@ -110,20 +107,20 @@ const MissionInfo = (props: Props) => {
                 display: 'flex',
                 alignItems: 'center',
               }}>
-              {rankImageDetails && (
+              {missionCreatorDetails && (
                 <Image
-                  src={rankImageDetails?.xSmall?.src}
+                  src={missionCreatorDetails?.xSmall?.src}
                   alt={`Image of ${missionCreator?.network_rank?.abbreviation}`}
                   width={0}
                   height={0}
                   style={{
-                    width: rankImageDetails?.xSmall?.width,
-                    height: rankImageDetails?.xSmall?.height,
+                    width: missionCreatorDetails?.xSmall?.width,
+                    height: missionCreatorDetails?.xSmall?.height,
                     marginRight: '0.5rem',
                   }}
                 />
               )}
-              <h3>{missionCreator?.in_game_name}</h3>
+              <h4>{missionCreator?.in_game_name}</h4>
             </div>
           </div>
           <div
@@ -131,7 +128,7 @@ const MissionInfo = (props: Props) => {
               textAlign: 'center',
             }}>
             <h6>Start Details</h6>
-            <h5>{formattedDate}</h5>
+            <h5>{shortFormattedDate}</h5>
           </div>
           <div
             style={{

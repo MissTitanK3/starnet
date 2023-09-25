@@ -27,7 +27,7 @@ export type Mission = {
   chats: ChatObject[] | null;
   groups: MissionCenterSupportShip[] | null;
   creator: UUID;
-  mission_type: MissionType;
+  mission_type: string;
 };
 
 // export type MissionType = 'Profit' | 'Race' | 'RolePlay' | 'Elimination' | 'Loot Share' | 'Training';

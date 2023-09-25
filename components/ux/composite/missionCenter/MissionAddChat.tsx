@@ -100,6 +100,7 @@ const MissionAddChat = (props: Props) => {
         }}>
         <ShadSelect
           selectDropdownTitle="Set Alert Status"
+          dropdownWidth="240px"
           inputId="alertStatus"
           SelectItems={alertTypes}
           onChange={(e) => {

@@ -219,6 +219,7 @@ const EditMissionModal = (props: Props) => {
               selectDropdownTitle="Set Mission Type"
               inputId="mission_type"
               SelectItems={missionTypes}
+              value={editMission.mission_type || undefined}
               onChange={(e) => handleUpdate(e)}
             />
           </div>
@@ -244,7 +245,7 @@ const EditMissionModal = (props: Props) => {
             styled={{
               width: '50%',
             }}>
-            Create Mission
+            Update Mission
           </ShadButton>
         </div>
       </ShadCard>

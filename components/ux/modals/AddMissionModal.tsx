@@ -12,6 +12,7 @@ import ShadCalendar from '../element/inputs/ShadCalendar';
 import ShadInput from '../element/inputs/ShadInput';
 import ShadTimeInput from '../element/inputs/ShadTimeInput';
 import ShadTextArea from '../element/inputs/ShadTextArea';
+import { useAuthStore } from '@/app-store/auth/authStore';
 
 type Props = {};
 
@@ -19,6 +20,7 @@ const AddMissionModal = (props: Props) => {
   const [newMission, setNewMission] = useState({} as Mission);
   const { setNewMissionModal } = useModalStore();
   const { addMission } = useMissionStore();
+  const { profile } = useAuthStore();
 
   const handleUpdate = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | undefined>,
@@ -39,6 +41,7 @@ const AddMissionModal = (props: Props) => {
         support_members: [],
       },
     ];
+    newMission.creator = profile.id;
     addMission(newMission);
     handleClose();
   };
@@ -52,7 +55,6 @@ const AddMissionModal = (props: Props) => {
     const code = generateCode(2, 8);
     setNewMission((prev) => ({ ...prev, op_sec_code: code }));
   };
-  console.log(newMission);
 
   return (
     <Overlay>

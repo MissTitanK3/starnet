@@ -11,9 +11,19 @@ type Props = {
   inputId: string;
   selectDropdownTitle?: string;
   dropdownLabel?: string;
+  dropdownWidth?: string;
+  value?: string;
 };
 
-const ShadSelect = ({ SelectItems = [], onChange, inputId, selectDropdownTitle, dropdownLabel }: Props) => {
+const ShadSelect = ({
+  SelectItems = [],
+  onChange,
+  inputId,
+  selectDropdownTitle,
+  dropdownLabel,
+  dropdownWidth = '180px',
+  value,
+}: Props) => {
   const handleUpdate = (value: string) => {
     const updated = {
       target: {
@@ -25,7 +35,7 @@ const ShadSelect = ({ SelectItems = [], onChange, inputId, selectDropdownTitle, 
   };
 
   return (
-    <Select onValueChange={handleUpdate}>
+    <Select onValueChange={handleUpdate} defaultValue={value}>
       <SelectTrigger
         style={{
           width: '100%',
@@ -49,7 +59,7 @@ const ShadSelect = ({ SelectItems = [], onChange, inputId, selectDropdownTitle, 
         side="top"
         style={{
           zIndex: 100,
-          width: '180px',
+          width: dropdownWidth,
           height: SelectItems.length > 5 ? '200px' : 'auto',
         }}>
         <SelectGroup

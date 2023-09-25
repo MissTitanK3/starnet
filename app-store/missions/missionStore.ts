@@ -12,13 +12,17 @@ import {
 import { getMissionEventFromSupa, getProfileFromSupa } from '../auth/authActions';
 import { AuthData } from '../auth/authTypes';
 import { generateCode } from '../utils/generateCode';
+import { getVariableRankImageDetails } from '../utils/getRankImageDetails';
 
 export type ExtendedMission = Mission & {
   [key: string | number]: any;
   mission: Mission;
+  attachedEvent: any;
+  missionCreator: AuthData;
   missionsFilter: string;
   allMissions: Mission[] | null;
   activeTab: string;
+  missionCreatorDetails: any;
   setMissionFilter: (filter: string) => void;
   setMission: (id: number) => void;
   addMission: (mission: Mission) => void;
@@ -58,6 +62,20 @@ export const useMissionStore = create<ExtendedMission>(
           return get().getMemberProfile(id);
         });
       });
+      if (data?.[0]?.creator !== undefined && data?.[0]?.creator !== null) {
+        const creatorDetails = await get().getMemberProfile(data?.[0]?.creator);
+        const creatorRankDetails = getVariableRankImageDetails(creatorDetails?.[0]?.network_rank?.grade);
+        set((state: any) => ({
+          missionCreatorDetails: creatorRankDetails,
+          missionCreator: creatorDetails?.[0],
+        }));
+      }
+      if (data?.[0]?.event_id !== null && data?.[0]?.event_id !== undefined) {
+        const eventDetails = await get().getAttachedEvents(data?.[0]?.event_id);
+        set((state: any) => ({
+          attachedEvent: eventDetails?.[0],
+        }));
+      }
       set((state: any) => ({
         mission: data[0],
       }));
