@@ -131,15 +131,9 @@ export const calculateMissionExpensesIncomeUndist = async ({ id }: { id: string 
       });
     }
     const profits = accumulatedIncome - accumulatedExpenses;
-    console.log('calc', {
-      gross: accumulatedIncome,
-      profit: profits,
-      undistributed: undistributed,
-    });
-
     return {
       gross: accumulatedIncome,
-      profit: accumulatedIncome - accumulatedExpenses,
+      profit: profits,
       undistributed: undistributed,
     };
   }
