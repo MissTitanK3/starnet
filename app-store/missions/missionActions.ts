@@ -130,7 +130,6 @@ export const calculateMissionExpensesIncomeUndist = async ({ id }: { id: string 
         accumulatedExpenses += Number(expense.expense_amount);
       });
     }
-    //TODO remove later
     const profits = accumulatedIncome - accumulatedExpenses;
     return {
       gross: accumulatedIncome,
