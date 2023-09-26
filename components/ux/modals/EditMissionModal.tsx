@@ -249,19 +249,6 @@ const EditMissionModal = (props: Props) => {
           </ShadButton>
         </div>
       </ShadCard>
-      <ShadButton
-        variant="destructive"
-        onClick={() => handleClose()}
-        styled={{
-          width: '35px',
-          position: 'relative',
-          top: '-350px',
-          right: '10px',
-          borderRadius: '50%',
-          color: 'rgb(150, 2, 2)',
-        }}>
-        <FaX />
-      </ShadButton>
     </Overlay>
   );
 };

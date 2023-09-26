@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IncomeSet, Mission } from '@/app-store/missions/missionTypes';
+import { ExpenseSet, Mission } from '@/app-store/missions/missionTypes';
 import { useModalStore } from '@/app-store/modals/modalStore';
 import { useMissionStore } from '@/app-store/missions/missionStore';
 import ShadCard from '../element/cards/ShadCard';
@@ -11,33 +11,33 @@ import { generateCode } from '@/app-store/utils/generateCode';
 
 type Props = {};
 
-const MissionAddIncomeModal = (props: Props) => {
-  const { mission, updateMission, addIncome } = useMissionStore();
+const MissionAddExpenseModal = (props: Props) => {
+  const { mission, updateMission, addExpense } = useMissionStore();
   const { profile } = useAuthStore();
-  const [income, setIncome] = useState<IncomeSet>({} as IncomeSet);
-  const { setAddIncomeModal } = useModalStore();
+  const [expense, setExpense] = useState<ExpenseSet>({} as ExpenseSet);
+  const { setAddExpenseModal } = useModalStore();
 
   const handleUpdate = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | undefined>,
   ) => {
-    setIncome((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+    setExpense((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
   const handleClose = () => {
-    setAddIncomeModal(false);
+    setAddExpenseModal(false);
   };
 
-  const handleAddIcome = () => {
-    const newExpense: IncomeSet = {
+  const handleAddExpense = () => {
+    const newExpense: ExpenseSet = {
       id: generateCode(2, 8),
-      type: 'income',
+      type: 'expense',
       created_at: new Date(),
       contributer: profile?.id,
-      income_amount: income.income_amount,
-      income_label: income.income_label,
+      expense_amount: expense.expense_amount,
+      expense_label: expense.expense_label,
       has_been_paid: false,
     };
-    addIncome(newExpense);
+    addExpense(newExpense);
     handleClose();
   };
 
@@ -62,7 +62,7 @@ const MissionAddIncomeModal = (props: Props) => {
               Cancel
             </ShadButton>
             <ShadButton
-              onClick={() => handleAddIcome()}
+              onClick={() => handleAddExpense()}
               styled={{
                 width: '100px',
               }}>
@@ -75,13 +75,13 @@ const MissionAddIncomeModal = (props: Props) => {
           width: '30dvw',
           overflowY: 'auto',
         }}>
-        <h2>Add Income</h2>
+        <h2>Add Expense</h2>
         <ShadCard cardTitle="Add Label">
           <ShadInput
             id="memberRole"
-            inputId="income_label"
+            inputId="expense_label"
             type="text"
-            value={income?.income_label}
+            value={expense?.expense_label}
             changeInput={(e) => handleUpdate(e)}
           />
         </ShadCard>
@@ -89,9 +89,9 @@ const MissionAddIncomeModal = (props: Props) => {
           <ShadInput
             defaultValue={0}
             id="memberRole"
-            inputId="income_amount"
+            inputId="expense_amount"
             type="number"
-            value={income?.income_amount}
+            value={expense?.expense_amount}
             changeInput={(e) => handleUpdate(e)}
           />
         </ShadCard>
@@ -100,4 +100,4 @@ const MissionAddIncomeModal = (props: Props) => {
   );
 };
 
-export default MissionAddIncomeModal;
+export default MissionAddExpenseModal;

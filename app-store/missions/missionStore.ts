@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { log } from '../zustandLog';
-import type { ChatObject, IncomeSet, Mission, SupportMemberType } from './missionTypes';
+import type { ChatObject, ExpenseSet, IncomeSet, Mission, SupportMemberType } from './missionTypes';
 import {
   getMissionFromSupa,
   getMissionsFromSupa,
@@ -45,6 +45,9 @@ export type ExtendedMission = Mission & {
   removeTimeCard: (groupId: string, memberId: string, timeCardId: string | number) => any;
   clockoutTimeCard: (groupId: string, memberId: string, timeCardId: string | number) => any;
   removeIncome: (incomeId: string) => any;
+  addIncome: (income: IncomeSet) => any;
+  removeExpense: (expenseId: string) => any;
+  addExpense: (expense: ExpenseSet) => any;
 };
 
 export const useMissionStore = create<ExtendedMission>(
@@ -300,6 +303,18 @@ export const useMissionStore = create<ExtendedMission>(
     removeIncome: async (incomeId: string) => {
       const mission = get().mission;
       mission.income_sets = mission.income_sets.filter((income: IncomeSet) => income.id !== incomeId);
+      await putMissionToSupa(mission);
+      get().setMission(mission.id);
+    },
+    addExpense: async (expense: ExpenseSet) => {
+      const mission = get().mission;
+      mission.expense_sets = [...mission.expense_sets, expense];
+      await putMissionToSupa(mission);
+      get().setMission(mission.id);
+    },
+    removeExpense: async (expenseId: string) => {
+      const mission = get().mission;
+      mission.expense_sets = mission.expense_sets.filter((expense: ExpenseSet) => expense.id !== expenseId);
       await putMissionToSupa(mission);
       get().setMission(mission.id);
     },

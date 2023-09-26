@@ -84,6 +84,7 @@ export const alertTypes = [
 
 export type IncomeSet = {
   id?: string;
+  type: 'income';
   created_at?: Date;
   contributer?: UUID;
   income_amount: number;
@@ -93,6 +94,7 @@ export type IncomeSet = {
 
 export type ExpenseSet = {
   id?: string;
+  type: 'expense';
   created_at?: Date;
   contributer?: UUID;
   expense_amount: number;

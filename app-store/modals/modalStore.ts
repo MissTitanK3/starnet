@@ -32,6 +32,8 @@ export type ExtendedMission = {
   }) => void;
   addIncomeModal: boolean;
   setAddIncomeModal: (addIncomeModal: boolean) => void;
+  addExpenseModal: boolean;
+  setAddExpenseModal: (addExpenseModal: boolean) => void;
 };
 
 export const useModalStore = create<ExtendedMission>(
@@ -84,6 +86,12 @@ export const useModalStore = create<ExtendedMission>(
     setAddIncomeModal: async (addIncomeModal: boolean) => {
       set((state: any) => ({
         addIncomeModal,
+      }));
+    },
+    addExpenseModal: false,
+    setAddExpenseModal: async (addExpenseModal: boolean) => {
+      set((state: any) => ({
+        addExpenseModal,
       }));
     },
   })),

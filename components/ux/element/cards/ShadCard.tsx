@@ -6,7 +6,7 @@ import React from 'react';
 import NeuPopover from '../custom/NeuPopover';
 
 type Props = {
-  cardTitle?: string;
+  cardTitle?: string | React.ReactNode;
   cardDescription?: string;
   children?: React.ReactNode;
   footerChildren?: React.ReactNode;

@@ -1,24 +1,19 @@
 'use client';
 
-import { useAuthStore } from '@/app-store/auth/authStore';
+import React from 'react';
 import { useMissionStore } from '@/app-store/missions/missionStore';
-import { getVariableRankImageDetails } from '@/app-store/utils/getRankImageDetails';
-import { getLoggedAndExpire } from '@/app-store/utils/getTimeFormat';
-import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
 import { FaPlus } from 'react-icons/fa';
-import NeuButton from '../../element/buttons/NeuButton';
 import ShadButton from '../../element/buttons/ShadButton';
 import { useModalStore } from '@/app-store/modals/modalStore';
 import MissionAddIncomeModal from '../../modals/MissionAddIncome';
-import ShadCard from '../../element/cards/ShadCard';
 import MissionFinanceItem from './MissionFinanceItem';
+import MissionAddExpenseModal from '../../modals/MissionAddExpense';
 
 type Props = {};
 
 const MissionFinances = (props: Props) => {
   const { activeTab, mission } = useMissionStore();
-  const { setAddIncomeModal, addIncomeModal } = useModalStore();
+  const { setAddIncomeModal, addIncomeModal, setAddExpenseModal, addExpenseModal } = useModalStore();
 
   if (activeTab !== 'finances') return null;
 
@@ -68,20 +63,34 @@ const MissionFinances = (props: Props) => {
       <div
         style={{
           display: 'flex',
-          justifyContent: 'space-between',
+          flexDirection: 'column',
           width: '48%',
           margin: '50px 0',
         }}
         className="expenses">
-        <h2>Expenses</h2>
-        <ShadButton
-          styled={{
-            width: '3rem',
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            width: '100%',
           }}>
-          <FaPlus />
-        </ShadButton>
+          <h2>Expenses</h2>
+          <ShadButton
+            onClick={() => setAddExpenseModal(true)}
+            styled={{
+              width: '3rem',
+            }}>
+            <FaPlus />
+          </ShadButton>
+        </div>
+        <div>
+          {mission?.expense_sets?.map((income, key) => {
+            return <MissionFinanceItem item={income} key={key} />;
+          })}
+        </div>
       </div>
       {addIncomeModal && <MissionAddIncomeModal />}
+      {addExpenseModal && <MissionAddExpenseModal />}
     </main>
   );
 };
