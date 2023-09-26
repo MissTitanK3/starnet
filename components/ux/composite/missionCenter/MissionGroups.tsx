@@ -11,7 +11,8 @@ import ShadCard from '../../element/cards/ShadCard';
 type Props = {};
 
 const MissionGroups = (props: Props) => {
-  const { mission, activeTab } = useMissionStore();
+  const { mission, activeTab, missionGrossIncome, missionAccumulatedProfit, missionUndistributedProfit } =
+    useMissionStore();
   const { createSupportModal, setCreateSupportModal } = useModalStore();
   if (activeTab !== 'groups') return null;
   return (
@@ -44,15 +45,33 @@ const MissionGroups = (props: Props) => {
             }}>
             <div style={{ textAlign: 'left' }}>
               <h6>Gross Income</h6>
-              <h4>$1,000,000</h4>
+              <h4>
+                {missionGrossIncome?.toLocaleString('en-US', {
+                  style: 'currency',
+                  currency: 'USD',
+                  minimumFractionDigits: 0,
+                })}
+              </h4>
             </div>
             <div>
               <h6>Accumulated Profit</h6>
-              <h4>$1,000,000</h4>
+              <h4>
+                {missionAccumulatedProfit?.toLocaleString('en-US', {
+                  style: 'currency',
+                  currency: 'USD',
+                  minimumFractionDigits: 0,
+                })}
+              </h4>
             </div>
             <div style={{ textAlign: 'right' }}>
               <h6>Undistributed Profit</h6>
-              <h4>$1,000,000</h4>
+              <h4>
+                {missionUndistributedProfit?.toLocaleString('en-US', {
+                  style: 'currency',
+                  currency: 'USD',
+                  minimumFractionDigits: 0,
+                })}
+              </h4>
             </div>
           </div>
           <br />

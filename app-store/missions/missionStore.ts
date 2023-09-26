@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { log } from '../zustandLog';
 import type { ChatObject, ExpenseSet, IncomeSet, Mission, SupportMemberType } from './missionTypes';
 import {
+  calculateMissionExpensesIncomeUndist,
   getMissionFromSupa,
   getMissionsFromSupa,
   postArchiveMissionToSupa,
@@ -18,6 +19,11 @@ import { UUID } from 'crypto';
 export type ExtendedMission = Mission & {
   [key: string | number]: any;
   mission: Mission;
+  missionGrossIncome: number;
+  missionAccumulatedProfit: number;
+  missionUndistributedProfit: number;
+  missionTotalShares: number;
+  missionValuePerShare: number;
   attachedEvent: any;
   missionCreator: AuthData;
   missionsFilter: string;
@@ -48,11 +54,20 @@ export type ExtendedMission = Mission & {
   addIncome: (income: IncomeSet) => any;
   removeExpense: (expenseId: string) => any;
   addExpense: (expense: ExpenseSet) => any;
+  toggleIncomePaid: (incomeId: string) => any;
+  toggleExpensePaid: (expenseId: string) => any;
 };
 
 export const useMissionStore = create<ExtendedMission>(
   log((set: any, get: any) => ({
     mission: {} as ExtendedMission,
+    missionGrossIncome: 0,
+    missionAccumulatedProfit: 0,
+    missionUndistributedProfit: 0,
+    missionTotalShares: 0,
+    missionValuePerShare: 0,
+    attachedEvent: null,
+    missionCreator: null,
     missionsFilter: '',
     allMissions: null,
     activeTab: 'mission-info',
@@ -88,8 +103,12 @@ export const useMissionStore = create<ExtendedMission>(
           attachedEvent: eventDetails?.[0],
         }));
       }
+      const { undistributed, gross, profit } = await calculateMissionExpensesIncomeUndist({ id: data?.[0]?.id });
       set((state: any) => ({
         mission: data[0],
+        missionGrossIncome: gross,
+        missionAccumulatedProfit: profit,
+        missionUndistributedProfit: undistributed,
       }));
     },
     addMission: async (mission: Mission) => {
@@ -315,6 +334,28 @@ export const useMissionStore = create<ExtendedMission>(
     removeExpense: async (expenseId: string) => {
       const mission = get().mission;
       mission.expense_sets = mission.expense_sets.filter((expense: ExpenseSet) => expense.id !== expenseId);
+      await putMissionToSupa(mission);
+      get().setMission(mission.id);
+    },
+    toggleExpensePaid: async (expenseId: string) => {
+      const mission = get().mission;
+      mission.expense_sets = mission.expense_sets.map((expense: ExpenseSet) => {
+        if (expense.id === expenseId) {
+          expense.has_been_paid = expense.has_been_paid ? false : true;
+        }
+        return expense;
+      });
+      await putMissionToSupa(mission);
+      get().setMission(mission.id);
+    },
+    toggleIncomePaid: async (incomeId: string) => {
+      const mission = get().mission;
+      mission.income_sets = mission.income_sets.map((income: IncomeSet) => {
+        if (income.id === incomeId) {
+          income.has_been_paid = income.has_been_paid ? false : true;
+        }
+        return income;
+      });
       await putMissionToSupa(mission);
       get().setMission(mission.id);
     },

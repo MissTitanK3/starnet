@@ -100,3 +100,47 @@ export const postArchiveMissionToSupa = async ({ id, is_archived }: { id: string
     return missionUpdate;
   }
 };
+
+export const calculateMissionExpensesIncomeUndist = async ({ id }: { id: string }) => {
+  let { data: mission, error } = await supabaseClient.from('missions').select('*').match({ id });
+
+  if (error) {
+    console.error('error', error);
+    return {
+      error: error,
+      message: 'Profile Failed to Load',
+    };
+  } else {
+    let accumulatedIncome: number = 0;
+    let accumulatedExpenses: number = 0;
+    let undistributed: number = 0;
+    if (mission?.[0].income_sets) {
+      mission[0].income_sets?.forEach((income: any) => {
+        if (!income.has_been_paid) {
+          undistributed += Number(income.income_amount);
+        }
+        accumulatedIncome += Number(income.income_amount);
+      });
+    }
+    if (mission?.[0].expense_sets) {
+      mission[0].expense_sets?.forEach((expense: any) => {
+        if (!expense.has_been_paid) {
+          undistributed -= Number(expense.expense_amount);
+        }
+        accumulatedExpenses += Number(expense.expense_amount);
+      });
+    }
+    const profits = accumulatedIncome - accumulatedExpenses;
+    console.log('calc', {
+      gross: accumulatedIncome,
+      profit: profits,
+      undistributed: undistributed,
+    });
+
+    return {
+      gross: accumulatedIncome,
+      profit: accumulatedIncome - accumulatedExpenses,
+      undistributed: undistributed,
+    };
+  }
+};

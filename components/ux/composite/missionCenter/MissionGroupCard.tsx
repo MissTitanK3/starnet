@@ -17,10 +17,10 @@ type Props = {
 };
 
 const MissionGroupCard = ({ group }: Props) => {
-  const { setActionsOpen, addMemberModal, updateRoleModal } = useModalStore();
+  const { addMemberModal, updateRoleModal } = useModalStore();
   const [localActions, setLocalActions] = React.useState(false);
   const dropdown = useRef<HTMLDivElement>(null);
-  useClickOutside(dropdown, () => setActionsOpen(false));
+  useClickOutside(dropdown, () => setLocalActions(false));
 
   return (
     <ShadCard

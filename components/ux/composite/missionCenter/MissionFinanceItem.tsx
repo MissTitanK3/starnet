@@ -1,12 +1,17 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import ShadCard from '../../element/cards/ShadCard';
 import type { ExpenseSet, IncomeSet } from '@/app-store/missions/missionTypes';
 import { getLoggedAndExpire } from '@/app-store/utils/getTimeFormat';
 import { useMissionStore } from '@/app-store/missions/missionStore';
 import { AuthData } from '@/app-store/auth/authTypes';
 import ShadButton from '../../element/buttons/ShadButton';
+import { FaEllipsisVertical } from 'react-icons/fa6';
+import { useClickOutside } from '../../hooks/useClickOutside';
+import MissionGroupActions from '../../modals/MissionGroupActions';
+import MissionFinanceActions from '../../modals/MissionFinanceActions';
+import { TbCurrencyDollarOff, TbCurrencyDollar } from 'react-icons/tb';
 
 type Props = {
   item: IncomeSet | ExpenseSet;
@@ -19,6 +24,9 @@ const MissionFinanceItem = ({ item }: Props) => {
     date: item?.created_at?.toString() || '',
   });
   const [senderData, setSenderData] = React.useState<AuthData | null>(null);
+  const [localActions, setLocalActions] = React.useState(false);
+  const dropdown = useRef<HTMLDivElement>(null);
+  useClickOutside(dropdown, () => setLocalActions(false));
 
   useEffect(() => {
     const awaitSender = async () => {
@@ -37,23 +45,19 @@ const MissionFinanceItem = ({ item }: Props) => {
       cardDescription={timeFormattedDate}
       cardTitle={
         <div
+          ref={dropdown}
           style={{
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
+            position: 'relative',
           }}>
           <span>
             {senderData?.network_rank?.abbreviation} {senderData?.in_game_name}
           </span>
+          {localActions && <MissionFinanceActions type={item?.type} item={item} close={() => setLocalActions(false)} />}
           <ShadButton
-            variant="destructive"
-            onClick={() => {
-              if (item.type === 'income') {
-                removeIncome(item.id as string);
-              } else {
-                removeExpense(item.id as string);
-              }
-            }}
+            onClick={() => setLocalActions(!localActions)}
             styled={{
               width: '30px',
               margin: '0',
@@ -61,7 +65,7 @@ const MissionFinanceItem = ({ item }: Props) => {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-            X
+            <FaEllipsisVertical />
           </ShadButton>
         </div>
       }>
@@ -83,6 +87,12 @@ const MissionFinanceItem = ({ item }: Props) => {
                 maximumFractionDigits: 0,
               })}
             </h3>
+            <span
+              style={{
+                color: item.has_been_paid ? '#02560f' : '#660202',
+              }}>
+              {item.has_been_paid ? <TbCurrencyDollar /> : <TbCurrencyDollarOff />}
+            </span>
           </>
         )}
         {item.type === 'expense' && (
@@ -96,6 +106,12 @@ const MissionFinanceItem = ({ item }: Props) => {
                 maximumFractionDigits: 0,
               })}
             </h3>
+            <span
+              style={{
+                color: item.has_been_paid ? '#02560f' : '#660202',
+              }}>
+              {item.has_been_paid ? <TbCurrencyDollar /> : <TbCurrencyDollarOff />}
+            </span>
           </>
         )}
       </div>
