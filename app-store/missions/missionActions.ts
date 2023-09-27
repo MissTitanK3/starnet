@@ -20,6 +20,18 @@ export const getMissionsFromSupa = async () => {
     return missions;
   }
 };
+
+export const getMissionChatFromSupa = async ({ id }: { id: number }) => {
+  let { data: missionChat, error } = await supabaseClient.from('missions').select('chats').match({ mission_id: id });
+
+  if (error) {
+    console.error('error', error);
+    return [];
+  } else {
+    return missionChat;
+  }
+};
+
 export const getMissionFromSupa = async ({ id }: { id: number }) => {
   let { data: mission, error } = await supabaseClient.from('missions').select('*').match({ id });
 
@@ -108,7 +120,7 @@ export const calculateMissionExpensesIncomeUndist = async ({ id }: { id: string 
     console.error('error', error);
     return {
       error: error,
-      message: 'Profile Failed to Load',
+      message: 'Mission Calculations Failed to Load',
     };
   } else {
     let accumulatedIncome: number = 0;
@@ -131,6 +143,7 @@ export const calculateMissionExpensesIncomeUndist = async ({ id }: { id: string 
       });
     }
     const profits = accumulatedIncome - accumulatedExpenses;
+
     return {
       gross: accumulatedIncome,
       profit: profits,

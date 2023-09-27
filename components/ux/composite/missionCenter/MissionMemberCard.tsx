@@ -21,7 +21,15 @@ type Props = {
 };
 
 const MissionMemberCard = ({ member, groupId }: Props) => {
-  const { getMemberProfile, togglePaid, addTimeCard, removeTimeCard, clockoutTimeCard } = useMissionStore();
+  const {
+    getMemberProfile,
+    togglePaid,
+    addTimeCard,
+    removeTimeCard,
+    clockoutTimeCard,
+    missionValuePerShare,
+    missionAccumulatedProfit,
+  } = useMissionStore();
   const [memberData, setMemberData] = useState<AuthData | null>(null);
   const [rankImg, setSetRankImg] = useState<RankImageDetailsSizeType | null>(null);
   const [startTime, setStartTime] = useState<string | null>(null);
@@ -161,7 +169,17 @@ const MissionMemberCard = ({ member, groupId }: Props) => {
             flexDirection: 'column',
           }}>
           <h6>Total Earnings</h6>
-          <span>${member.accumulatedMins}</span>
+          {member?.accumulatedMins ? (
+            <span>
+              {(0).toLocaleString('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                minimumFractionDigits: 0,
+              })}
+            </span>
+          ) : (
+            <span>$0</span>
+          )}
         </div>
         <div
           style={{
@@ -170,7 +188,20 @@ const MissionMemberCard = ({ member, groupId }: Props) => {
             flexDirection: 'column',
           }}>
           <h6>Unpaid Earnings</h6>
-          <span>${member.accumulatedMins}</span>
+          {member?.accumulatedMins ? (
+            <span
+              style={{
+                textAlign: 'right',
+              }}>
+              {(member.accumulatedMins / 15 / missionValuePerShare).toLocaleString('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                minimumFractionDigits: 0,
+              })}
+            </span>
+          ) : (
+            <span style={{ textAlign: 'right' }}>$0</span>
+          )}
         </div>
       </div>
       <div

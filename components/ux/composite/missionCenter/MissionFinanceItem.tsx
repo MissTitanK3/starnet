@@ -70,6 +70,7 @@ const MissionFinanceItem = ({ item }: Props) => {
         </div>
       }>
       <br />
+      {item.type === 'income' ? <span>{item.income_label}</span> : <span>{item.expense_label}</span>}
       <div
         style={{
           display: 'flex',
@@ -78,7 +79,6 @@ const MissionFinanceItem = ({ item }: Props) => {
         }}>
         {item.type === 'income' && (
           <>
-            <span>{item.income_label}</span>
             <h3>
               +
               {Number(item.income_amount).toLocaleString('en-US', {
@@ -97,7 +97,6 @@ const MissionFinanceItem = ({ item }: Props) => {
         )}
         {item.type === 'expense' && (
           <>
-            <span>{item.expense_label}</span>
             <h3>
               -
               {Number(item.expense_amount).toLocaleString('en-US', {

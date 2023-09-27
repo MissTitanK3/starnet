@@ -10,18 +10,17 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 type Props = {};
 
 const MissionChat = (props: Props) => {
-  const { mission, setMission } = useMissionStore();
+  const { mission, updateChat, missionChats } = useMissionStore();
   const supabase = createClientComponentClient();
 
-  // TODO: Isolate chats in store
+  // TODO: Isolate chats in store Sooner than later
   supabase
-    .channel('custom-filter-channel')
+    .channel('custom-filter-chat-channel')
     .on(
       'postgres_changes',
       { event: '*', schema: 'public', table: 'missions', filter: 'column_name=eq.chats' },
       (payload) => {
-        console.log('Change received!', payload);
-        setMission(mission.id);
+        updateChat(mission.id);
       },
     )
     .subscribe();
@@ -42,7 +41,7 @@ const MissionChat = (props: Props) => {
           overflowY: 'auto',
           height: '100%',
         }}>
-        {mission?.chats
+        {missionChats
           ?.filter((c) => c.hidden !== true)
           ?.map(async (chat: ChatObject, key) => {
             return <MissionChatItem key={`chat-item-${key}`} chat={chat} chatKey={key} />;

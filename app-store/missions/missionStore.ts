@@ -3,6 +3,7 @@ import { log } from '../zustandLog';
 import type { ChatObject, ExpenseSet, IncomeSet, Mission, SupportMemberType } from './missionTypes';
 import {
   calculateMissionExpensesIncomeUndist,
+  getMissionChatFromSupa,
   getMissionFromSupa,
   getMissionsFromSupa,
   postArchiveMissionToSupa,
@@ -19,6 +20,7 @@ import { UUID } from 'crypto';
 export type ExtendedMission = Mission & {
   [key: string | number]: any;
   mission: Mission;
+  missionChats: ChatObject[];
   missionGrossIncome: number;
   missionAccumulatedProfit: number;
   missionUndistributedProfit: number;
@@ -32,6 +34,7 @@ export type ExtendedMission = Mission & {
   missionCreatorDetails: any;
   setMissionFilter: (filter: string) => void;
   setMission: (id: number) => void;
+  updateChat: (missionId: number) => void;
   addMission: (mission: Mission) => void;
   getAllMissions: () => void;
   setActiveTab: (tab: string) => void;
@@ -61,6 +64,7 @@ export type ExtendedMission = Mission & {
 export const useMissionStore = create<ExtendedMission>(
   log((set: any, get: any) => ({
     mission: {} as ExtendedMission,
+    missionChats: [],
     missionGrossIncome: 0,
     missionAccumulatedProfit: 0,
     missionUndistributedProfit: 0,
@@ -103,12 +107,27 @@ export const useMissionStore = create<ExtendedMission>(
           attachedEvent: eventDetails?.[0],
         }));
       }
+      if (data?.[0]?.groups?.length > 0) {
+        let totalShares = 0;
+        data?.[0]?.groups?.map((group: any) => {
+          group?.support_members?.map((member: any) => {
+            totalShares += member?.accumulatedMins / 15;
+          });
+        });
+        set((state: any) => ({
+          missionTotalShares: totalShares,
+        }));
+      }
       const { undistributed, gross, profit } = await calculateMissionExpensesIncomeUndist({ id: data?.[0]?.id });
       set((state: any) => ({
         mission: data[0],
         missionGrossIncome: gross,
         missionAccumulatedProfit: profit,
         missionUndistributedProfit: undistributed,
+        missionValuePerShare: undistributed && undistributed / state?.missionTotalShares,
+        missionChats: data[0]?.chats?.sort((a: ChatObject, b: ChatObject) => {
+          return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+        }),
       }));
     },
     addMission: async (mission: Mission) => {
@@ -118,6 +137,12 @@ export const useMissionStore = create<ExtendedMission>(
     updateMission: async (mission: Mission) => {
       await putMissionToSupa(mission);
       await get().setMission(mission.id);
+    },
+    updateChat: async (missionId: number) => {
+      const chat = getMissionChatFromSupa({ id: missionId });
+      set((state: any) => ({
+        missionChats: chat,
+      }));
     },
     getAllMissions: async () => {
       const data: any | null = await getMissionsFromSupa();

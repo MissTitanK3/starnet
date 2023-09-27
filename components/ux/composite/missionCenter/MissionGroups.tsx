@@ -11,8 +11,15 @@ import ShadCard from '../../element/cards/ShadCard';
 type Props = {};
 
 const MissionGroups = (props: Props) => {
-  const { mission, activeTab, missionGrossIncome, missionAccumulatedProfit, missionUndistributedProfit } =
-    useMissionStore();
+  const {
+    mission,
+    activeTab,
+    missionGrossIncome,
+    missionAccumulatedProfit,
+    missionUndistributedProfit,
+    missionTotalShares,
+    missionValuePerShare,
+  } = useMissionStore();
   const { createSupportModal, setCreateSupportModal } = useModalStore();
   if (activeTab !== 'groups') return null;
   return (
@@ -93,20 +100,22 @@ const MissionGroups = (props: Props) => {
                   alignItems: 'center',
                 }}>
                 <h6>Payout Split</h6>
-                {/* <NeuPopover orientation="right">
-                  Disclaimer: Since we cannot transfer non-whole numbers, there will be a small percentage leftover. We
-                  will use that as a contribution to the Org.
-                </NeuPopover> */}
               </div>
               <h4>15min/Share</h4>
             </div>
             <div>
               <h6>Total Shares</h6>
-              <h4>4.0</h4>
+              <h4>{missionTotalShares}</h4>
             </div>
             <div style={{ textAlign: 'right' }}>
               <h6>Value Per Share</h6>
-              <h4>$100,000</h4>
+              <h4>
+                {missionValuePerShare.toLocaleString('en-US', {
+                  style: 'currency',
+                  currency: 'USD',
+                  minimumFractionDigits: 0,
+                })}
+              </h4>
             </div>
           </div>
         </div>
