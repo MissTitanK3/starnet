@@ -3,7 +3,6 @@ import { SupportMemberType } from '@/app-store/missions/missionTypes';
 import { useModalStore } from '@/app-store/modals/modalStore';
 import { useMissionStore } from '@/app-store/missions/missionStore';
 import { getAllProfilesFromSupaForDropdown } from '@/app-store/auth/authActions';
-import { PostgrestError } from '@supabase/supabase-js';
 import ShadCard from '../../element/cards/ShadCard';
 import Overlay from '../../element/overlays/Overlay';
 import ShadSelect from '../../element/inputs/ShadSelect';
@@ -41,8 +40,6 @@ const AddMemberToMissionModal = ({ groupId, groupName }: Props) => {
   const handleUpdate = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setNewMember((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
-  console.log('newMember', newMember);
-  console.log('groupId', groupId);
 
   const handleAddMember = () => {
     addMemberToGroup(groupId, newMember);
@@ -68,10 +65,8 @@ const AddMemberToMissionModal = ({ groupId, groupName }: Props) => {
   useEffect(() => {
     const getMembers = async () => {
       try {
-        const data:
-          | { in_game_name: string; id: any; network_rank: any }[]
-          | { error: PostgrestError; message: string }
-          | null = await getAllProfilesFromSupaForDropdown();
+        const data: { in_game_name: string; id: any; network_rank: any }[] | { error: any; message: string } | null =
+          await getAllProfilesFromSupaForDropdown();
         const formattedData: {
           value: string;
           label: string;

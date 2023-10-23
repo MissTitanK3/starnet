@@ -20,7 +20,7 @@ const BottomNavigation = (props: Props) => {
       await logout();
       await supabase.auth.signOut();
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       router.push('/');
     }

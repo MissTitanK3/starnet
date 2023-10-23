@@ -1,7 +1,7 @@
 import { log } from './../zustandLog';
 import { create } from 'zustand';
 import type { AuthData } from './authTypes';
-import { getActiveProfileFromSupa, getProfileFromSupa } from './authActions';
+import { getActiveProfileFromSupa, getProfileFromSupa, updateProfileAvatarInSupara } from './authActions';
 import { UUID } from 'crypto';
 
 export type ExtendedProfile = AuthData & {
@@ -18,6 +18,9 @@ export const useAuthStore = create<ExtendedProfile>(
     profile: {} as ExtendedProfile,
     isAuthenticated: false,
     setProfile: async (id: string) => {
+      await updateProfileAvatarInSupara({
+        activeId: id,
+      });
       const data: any | null = await getActiveProfileFromSupa({
         activeId: id,
       });

@@ -51,7 +51,6 @@ const OneTimeShip = ({ handleClose, wizardStep, handleTransitionPreviousWizardSt
       ...mission,
       groups: mission?.groups ? [...mission?.groups, ship] : [ship],
     };
-    console.log('newShip', updatedMission);
     updateMission(updatedMission);
     handleClose();
   };

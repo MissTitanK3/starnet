@@ -311,7 +311,6 @@ export const useMissionStore = create<ExtendedMission>(
           group?.support_members?.map((memberMap: any) => {
             if (memberMap.member === memberId) {
               memberMap.timeclock = memberMap?.timeclock?.filter((timeCard: any) => timeCard.id !== timeCardId);
-              console.log(memberMap?.timeclock);
             }
           });
         }

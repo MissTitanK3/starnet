@@ -3,6 +3,7 @@ import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import ShadCard from '@/components/ux/element/cards/ShadCard';
+import { updateProfileAvatarInSupara } from '@/app-store/auth/authActions';
 
 // export const dynamicParams = true;
 export const dynamic = 'force-dynamic';
@@ -15,6 +16,11 @@ async function Page() {
 
   if (!session?.access_token) {
     return redirect('/');
+  } else {
+    updateProfileAvatarInSupara({
+      avatar: session.user.user_metadata.avatar_url,
+      activeId: session.user.id,
+    });
   }
 
   return (

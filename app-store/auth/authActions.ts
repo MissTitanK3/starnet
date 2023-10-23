@@ -1,14 +1,12 @@
-'use client';
-
 import type { AuthData } from '@/app-store/auth/authTypes';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import { UUID } from 'crypto';
 
 export const supabaseClient = createClientComponentClient();
 
 export type Props = {
   profile?: AuthData;
   activeId?: string;
+  avatar?: string;
 };
 
 export const getProfilesFromSupa = async () => {
@@ -19,8 +17,25 @@ export const getProfilesFromSupa = async () => {
   //   return profile;
   // }
 };
+
 export const getActiveProfileFromSupa = async ({ activeId }: Props) => {
   let { data: profile, error } = await supabaseClient.from('profile_data').select('*').match({ id: activeId });
+  if (error) {
+    console.error('error', error);
+    return {
+      error: error,
+      message: 'Profile Failed to Load',
+    };
+  } else {
+    return profile?.[0];
+  }
+};
+
+export const updateProfileAvatarInSupara = async ({ activeId, avatar }: Props) => {
+  let { data: profile, error } = await supabaseClient
+    .from('profile_data')
+    .update({ profile_avatar: avatar })
+    .match({ id: activeId });
   if (error) {
     console.error('error', error);
     return {

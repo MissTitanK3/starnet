@@ -32,7 +32,6 @@ const UpdateMemberRoleModal = (props: Props) => {
           group?.support_members?.map((member) => {
             if (member?.member) {
               member.memberRole = role;
-              console.log('member', member);
             }
           });
         }
