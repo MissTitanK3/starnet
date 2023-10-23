@@ -15,7 +15,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const { profile, setProfile } = useAuthStore();
 
   useEffect(() => {
-    supabase.auth.onAuthStateChange(async (event, session) => {
+    supabase.auth.onAuthStateChange(async (event: any, session: any) => {
       if (event !== 'SIGNED_OUT') {
         if (!session?.user) {
           await supabase.auth.getSession();
