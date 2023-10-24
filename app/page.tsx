@@ -21,10 +21,12 @@ export default async function Home() {
     <main
       style={{
         maxWidth: '70dvw',
+        height: '100vh',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         margin: 'auto',
+        overflowY: 'auto',
       }}>
       <h1>Welcome to Starnet!</h1>
       <br />

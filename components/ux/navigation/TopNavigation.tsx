@@ -189,6 +189,14 @@ const TopNavigation = ({}: Props) => {
               About
             </ShadButton>
           </Link>
+          <Link href="/tos">
+            <ShadButton
+              styled={{
+                maxWidth: '10rem',
+              }}>
+              TOS
+            </ShadButton>
+          </Link>
           <ShadButton
             onClick={() => handleSignIn()}
             styled={{

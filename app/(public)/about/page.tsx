@@ -8,6 +8,8 @@ const Page = (props: Props) => {
       style={{
         margin: '1.5rem auto',
         maxWidth: '80dvw',
+        height: '85vh',
+        overflowY: 'scroll',
       }}>
       <section>
         <h1>Mission Center</h1>
