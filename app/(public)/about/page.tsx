@@ -41,7 +41,7 @@ const Page = (props: Props) => {
         </p>
         <h3>Financial Tracking</h3>
         <p>
-          Keep tabs on the income generated from missions. FCFN lets you log all earnings and expenses related to a
+          Keep tabs on the income generated from missions. StarNet lets you log all earnings and expenses related to a
           mission, so you have a clear picture of the profitability.
         </p>
         <h3>Payout Management</h3>
@@ -58,8 +58,8 @@ const Page = (props: Props) => {
         <p>Your data is protected with high-end encryption and privacy measures.</p>
         <h3>User-Friendly Interface</h3>
         <p>
-          FCFN features an intuitive and sleek design, making it easy for players of all levels to navigate and use the
-          tool efficiently.
+          StarNet features an intuitive and sleek design, making it easy for players of all levels to navigate and use
+          the tool efficiently.
         </p>
       </section>
       <br />
@@ -73,13 +73,14 @@ const Page = (props: Props) => {
         />
         <h3>Events Creation</h3>
         <p>
-          The addition of Events Management turns FCFN into an even more versatile tool, catering not only to mission
+          The addition of Events Management turns StarNet into an even more versatile tool, catering not only to mission
           planning but also enabling players to create, manage, and analyze in-game events effectively and efficiently.
-          With this feature, FCFN empowers players to cultivate community, camaraderie, and engagement within Universe.
+          With this feature, StarNet empowers players to cultivate community, camaraderie, and engagement within
+          Universe.
         </p>
         <h3>Event Creation</h3>
         <p>
-          Beyond missions, FCFN allows you to organize in-game events such as tournaments, races, scavenger hunts, or
+          Beyond missions, StarNet allows you to organize in-game events such as tournaments, races, scavenger hunts, or
           social gatherings. Set event dates, times, locations, and objectives.
         </p>
         <h3>Event Leadership Assignment</h3>
@@ -109,14 +110,14 @@ const Page = (props: Props) => {
           }}
         />
         <p>
-          With the Organization Management feature, FCFN evolves into a comprehensive tool that caters to all aspects of
-          gameplay, from individual missions and events to managing complex player organizations. This feature empowers
-          players to build, grow, and manage their organizations effectively, fostering a sense of community and
-          achievement within the game.
+          With the Organization Management feature, StarNet evolves into a comprehensive tool that caters to all aspects
+          of gameplay, from individual missions and events to managing complex player organizations. This feature
+          empowers players to build, grow, and manage their organizations effectively, fostering a sense of community
+          and achievement within the game.
         </p>
         <h3>Organization Creation</h3>
         <p>
-          Set up an in-game organization within FCFN. Define the organization’s name, objectives, and other relevant
+          Set up an in-game organization within StarNet. Define the organization’s name, objectives, and other relevant
           details to establish its identity in Star Citizen.
         </p>
         <h3>Membership Applications & Management</h3>
