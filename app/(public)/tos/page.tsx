@@ -34,10 +34,7 @@ const Page = (props: Props) => {
         </p>
 
         <h2>4. Privacy Policy</h2>
-        <p>
-          Your use of StarNet is also governed by our Privacy Policy, which can be found at{' '}
-          <a href="[Link to Privacy Policy]">[Link to Privacy Policy]</a>.
-        </p>
+        <p>Your use of StarNet is also governed by our Privacy Policy, which can be found below</p>
 
         <h2>5. Restrictions on Use</h2>
         <p>You agree not to:</p>
@@ -49,9 +46,13 @@ const Page = (props: Props) => {
 
         <h2>6. CLASS ACTION WAIVER</h2>
         <p>
-          {
-            " YOU AND StarNet AGREE THAT EACH MAY BRING CLAIMS AGAINST THE OTHER ONLY IN YOUR OR ITS INDIVIDUAL CAPACITY AND NOT AS A PLAINTIFF OR CLASS MEMBER IN ANY PURPORTED CLASS OR REPRESENTATIVE ACTION OR PROCEEDING. UNLESS BOTH YOU AND StarNet AGREE OTHERWISE, THE ARBITRATOR MAY NOT CONSOLIDATE OR JOIN MORE THAN ONE PERSON'S OR PARTY'S CLAIMS, AND MAY NOT OTHERWISE PRESIDE OVER ANY FORM OF A CONSOLIDATED, REPRESENTATIVE, OR CLASS PROCEEDING. ALSO, THE ARBITRATOR MAY AWARD RELIEF (INCLUDING MONETARY, INJUNCTIVE, AND DECLARATORY RELIEF) ONLY IN FAVOR OF THE INDIVIDUAL PARTY SEEKING RELIEF AND ONLY TO THE EXTENT NECESSARY TO PROVIDE RELIEF NECESSITATED BY THAT PARTY'S INDIVIDUAL CLAIM(S). ANY RELIEF AWARDED CANNOT AFFECT OTHER StarNet USERS."
-          }
+          YOU AND StarNet AGREE THAT EACH MAY BRING CLAIMS AGAINST THE OTHER ONLY IN YOUR OR ITS INDIVIDUAL CAPACITY AND
+          NOT AS A PLAINTIFF OR CLASS MEMBER IN ANY PURPORTED CLASS OR REPRESENTATIVE ACTION OR PROCEEDING. UNLESS BOTH
+          YOU AND StarNet AGREE OTHERWISE, THE ARBITRATOR MAY NOT CONSOLIDATE OR JOIN MORE THAN ONE PERSON&apos;S OR
+          PARTY&apos;S CLAIMS, AND MAY NOT OTHERWISE PRESIDE OVER ANY FORM OF A CONSOLIDATED, REPRESENTATIVE, OR CLASS
+          PROCEEDING. ALSO, THE ARBITRATOR MAY AWARD RELIEF (INCLUDING MONETARY, INJUNCTIVE, AND DECLARATORY RELIEF)
+          ONLY IN FAVOR OF THE INDIVIDUAL PARTY SEEKING RELIEF AND ONLY TO THE EXTENT NECESSARY TO PROVIDE RELIEF
+          NECESSITATED BY THAT PARTY&apos;S INDIVIDUAL CLAIM(S). ANY RELIEF AWARDED CANNOT AFFECT OTHER StarNet USERS.
         </p>
 
         <h2>7. Termination</h2>
@@ -77,7 +78,7 @@ const Page = (props: Props) => {
         <h2>10. Governing Law</h2>
         <p>
           These Terms of Service and any dispute arising out of your use of StarNet will be governed by and construed in
-          accordance with the laws of [Your Jurisdiction], without regard to its conflict of law provisions.
+          accordance with the laws of the State of Arkansas, without regard to its conflict of law provisions.
         </p>
 
         <h2>11. Contact</h2>
